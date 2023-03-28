@@ -5,7 +5,6 @@ import MainPage from './pages/MainPage';
 import ProductsPage from './pages/ProductsPage';
 
 const App: React.FC = () => {
-
   return (
     <Layout>
       <Routes>

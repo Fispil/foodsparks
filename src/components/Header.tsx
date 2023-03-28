@@ -8,6 +8,8 @@ import {
 } from '@mui/material';
 import { theme } from '../theme';
 import { Link } from 'react-router-dom';
+import SignInDialog from './SignInDialog';
+import SignUpDialog from './SignUpDialog';
 
 const Header: React.FC = () => {
   return (
@@ -72,9 +74,7 @@ const Header: React.FC = () => {
                     color: 'black'
                   }}
                 >
-                  <Button component="a" href="#/signin" color="inherit">
-                    Sign In
-                  </Button>
+                  <SignInDialog />
                 </Box>
 
                 <Box
@@ -85,9 +85,7 @@ const Header: React.FC = () => {
                     color: 'black'
                   }}
                 >
-                  <Button component="a" href="#/signup" color="inherit">
-                    Sign Up
-                  </Button>
+                  <SignUpDialog />
                 </Box>
               </Box>
           </Box>
