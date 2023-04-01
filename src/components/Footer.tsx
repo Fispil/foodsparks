@@ -15,7 +15,7 @@ const Footer = () => {
     }}
   >
     <Box>
-      <Typography>Footer Content</Typography>
+      <Typography sx={{ textAlign: 'center', color: theme.palette.common.white }}>Footer Content</Typography>
     </Box>
   </Container>
   )

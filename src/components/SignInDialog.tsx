@@ -32,6 +32,7 @@ const SignInDialog = () => {
             type="email"
             fullWidth
             variant="standard"
+            required
           />
           <TextField
             autoFocus
@@ -41,6 +42,7 @@ const SignInDialog = () => {
             type="password"
             fullWidth
             variant="standard"
+            required
           /> 
         </DialogContent>
         <DialogActions>
