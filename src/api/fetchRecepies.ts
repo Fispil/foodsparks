@@ -16,3 +16,14 @@ export const getRecipes = async (): Promise<Recipe[]> => {
   }
 };
 
+export const getByPageRecipes = async (page: number): Promise<Recipe[]> => {
+  try {
+    const response = await axios.get(`http://foodsparks.eu-central-1.elasticbeanstalk.com/recipes?page=${page - 1}&count=20 `);
+    const recipe = response.data;
+
+    return recipe;
+  } catch (error) {
+    console.log(error);
+    throw new Error(`Failed to fetch recipe:${error}`);
+  }
+};

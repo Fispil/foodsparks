@@ -1,7 +1,7 @@
 import { Container, Typography, Box, Button, Card, CardActions, CardContent, CardMedia, Pagination } from '@mui/material';
 import Breadcrumb from '../components/BreadCrums';
 import { useEffect, useState } from 'react';
-import { getRecipes } from '../api/fetchRecepies';
+import { getByPageRecipes, getRecipes } from '../api/fetchRecepies';
 import Recipe from '../types/recipe';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ForwardIcon from '@mui/icons-material/Forward';
@@ -22,7 +22,7 @@ const ProductsPage: React.FC = () => {
   const loadRecepiesFromServer = async () => {
     try {
       setIsLoading(true);
-      const recipesFromServer = await getRecipes();
+      const recipesFromServer = await getByPageRecipes(page);
 
       setRecipes(recipesFromServer);
     } catch (err) {
@@ -34,7 +34,7 @@ const ProductsPage: React.FC = () => {
 
   useEffect(() => {
     loadRecepiesFromServer();
-  }, []);
+  }, [page]);
 
   return (
     <Container maxWidth="xl">
