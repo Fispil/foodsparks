@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const MainPage: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const topCatergories = ['Основна страва', 'Перші страви', 'Закуска' , 'Десерт', 'Випічка'];
+  const topCatergories = ['Основна страва', 'Перші страви', 'Закуска', 'Десерт', 'Випічка'];
 
   const loadRecepiesFromServer = async () => {
     try {
@@ -45,6 +45,7 @@ const MainPage: React.FC = () => {
       <Box className={classes.carouselConainer} sx={{ maxWidth: '100%', boxSizing: 'border-box' }}>
         <Container maxWidth="xl">
           <Typography variant='h4'>Підбірки української кухні</Typography>
+
           <CustomCarousel items={recipes.slice(0, 4)} />
         </Container>
       </Box>
@@ -52,6 +53,7 @@ const MainPage: React.FC = () => {
         <Container maxWidth="xl">
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center' }}>
             <Typography variant='h4'>Рецепти української кухні</Typography>
+
             <Button
               variant="contained"
               endIcon={<KeyboardArrowRightIcon />}
@@ -64,17 +66,20 @@ const MainPage: React.FC = () => {
               <Link to="/products" style={{ textDecoration: 'none' }}>Всі рецепти</Link>
             </Button>
           </Box>
-          <Divider sx={{ backgroundColor: 'grey' }}/>
+          <Divider sx={{ backgroundColor: 'grey' }} />
           {topCatergories.map(category => (
             <Box key={category}>
               <Box>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center' }}>
                   <Typography variant='h4'>{category}</Typography>
+
                   <Link to="/products" style={{ textDecoration: 'none' }}>Показати всі</Link>
                 </Box>
+                
                 <CustomCardList items={recipes.filter(item => item.dishType === category)} />
               </Box>
-              <Divider sx={{ backgroundColor: 'black' }}/>
+
+              <Divider sx={{ backgroundColor: 'black' }} />
             </Box>
           ))}
         </Container>

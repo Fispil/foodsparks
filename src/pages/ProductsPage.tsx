@@ -12,12 +12,32 @@ const ProductsPage: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
+  const maxPages = 4;
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     event.preventDefault();
     setPage(value);
   };
 
+  const handleAddRecipes = () => {
+    if (page !== maxPages) {
+      setPage(currentPage => currentPage + 1);
+      addRecepiesFromServer();
+    }
+  }
+
+  const addRecepiesFromServer = async () => {
+    try {
+      setIsLoading(true);
+      const recipesFromServer = await getByPageRecipes(page);
+
+      setRecipes(currentRecipes => [...currentRecipes, recipesFromServer].flat());
+    } catch (err) {
+      throw new Error(`Cant get recipes from server: ${err}`)
+    } finally {
+      setIsLoading(false);
+    };
+  }
 
   const loadRecepiesFromServer = async () => {
     try {
@@ -43,7 +63,7 @@ const ProductsPage: React.FC = () => {
 
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Button variant='text' startIcon={<FilterAltIcon />}>Фільтри</Button>
-        <Button variant='text' startIcon={<SyncAltIcon sx={{ rotate: '90deg'}} />}>Сортувати</Button>
+        <Button variant='text' startIcon={<SyncAltIcon sx={{ rotate: '90deg' }} />}>Сортувати</Button>
       </Box>
 
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '32px', justifyContent: 'center' }}>
@@ -79,6 +99,7 @@ const ProductsPage: React.FC = () => {
         <Button
           variant="text"
           startIcon={<ForwardIcon sx={{ rotate: '90deg' }} />}
+          onClick={handleAddRecipes}
         >
           Показати ще
         </Button>
@@ -87,7 +108,7 @@ const ProductsPage: React.FC = () => {
         sx={{ display: 'flex', justifyContent: 'center' }}
         variant="outlined"
         shape="rounded"
-        count={3}
+        count={4}
         page={page}
         onChange={handlePageChange}
       />
