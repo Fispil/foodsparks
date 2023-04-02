@@ -15,3 +15,4 @@ export const getRecipes = async (): Promise<Recipe[]> => {
     throw new Error(`Failed to fetch recipe:${error}`);
   }
 };
+

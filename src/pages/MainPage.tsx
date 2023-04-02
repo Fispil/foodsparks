@@ -36,20 +36,20 @@ const MainPage: React.FC = () => {
 
   useEffect(() => {
     loadRecepiesFromServer();
-  }, [open]);
+  }, []);
 
   const classes = useStyles();
 
   return (
     <>
       <Box className={classes.carouselConainer} sx={{ maxWidth: '100%', boxSizing: 'border-box' }}>
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Typography variant='h4'>Підбірки української кухні</Typography>
           <CustomCarousel items={recipes.slice(0, 4)} />
         </Container>
       </Box>
       <Box>
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center' }}>
             <Typography variant='h4'>Рецепти української кухні</Typography>
             <Button

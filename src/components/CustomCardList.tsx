@@ -13,7 +13,7 @@ const CustomCardList: React.FC<Props> = ({ items }) => {
   return (
     <ScrollContainer style={{ display: 'flex', flexWrap: 'nowrap', overflowX: 'auto', WebkitOverflowScrolling: 'touch', msOverflowStyle: '-ms-autohiding-scrollbar' }}>
       {items.map((item) => (
-        <Card key={item.id} sx={{ maxWidth: 345, flex: '0 0 auto', margin: '0 8px' }}>
+        <Card key={item.id} sx={{ width: 305, height: 320, flex: '0 0 auto', margin: '0 8px' }}>
           <CardMedia
             sx={{ height: 140 }}
             image={item.imageUrl}
