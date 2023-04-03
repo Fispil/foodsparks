@@ -6,10 +6,10 @@ import SignUpDialog from "./SignUpDialog";
 
 const NavigationHeaderBar = () => {
   return (
-    <Toolbar sx={{ maxWidth: '100%', backgroundColor: 'black' }}>
+    <Toolbar sx={{ maxWidth: '100%', backgroundColor: 'grey' }}>
         <Container maxWidth={false} sx={{ display: 'flex', justifyContent: 'space-between', flexShrink: 1 }} >
           <Box>
-            <img src="" alt='Logo' />
+            <img src="src/pictures/Logo.svg" alt='Logo' style={{ height: '50px'}} />
           </Box>
           <Box sx={{
             display: 'flex',
@@ -27,14 +27,14 @@ const NavigationHeaderBar = () => {
                 gap: '32px'
               }}
             >
-              <Tooltip title={ <Typography><Link style={{ textDecoration: 'none', color: theme.palette.common.white }} to="tel:555-1234-5678">555-1234-5678</Link></Typography>}>
-                <Button sx={{ m: 1, color: theme.palette.primary.light }}>Contancts</Button>
+              <Tooltip title={ <Typography><Link style={{ textDecoration: 'none', color: 'black' }} to="tel:555-1234-5678">555-1234-5678</Link></Typography>}>
+                <Button sx={{ m: 1, color: 'black' }}>Contancts</Button>
               </Tooltip>
               <Link
                 to="/"
                 style={{
                   textDecoration: 'none',
-                  color: 'inherit',
+                  color: 'black',
                   fontSize: '20px'
                 }}
               >
@@ -44,7 +44,7 @@ const NavigationHeaderBar = () => {
                 to="/about"
                 style={{
                   textDecoration: 'none',
-                  color: 'inherit',
+                  color: 'black',
                   fontSize: '20px'
                 }}
               >
@@ -54,7 +54,7 @@ const NavigationHeaderBar = () => {
                 to="/products"
                 style={{
                   textDecoration: 'none',
-                  color: 'inherit',
+                  color: 'black',
                   fontSize: '20px'
                 }}
               >

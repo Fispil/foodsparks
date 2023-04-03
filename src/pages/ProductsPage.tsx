@@ -7,6 +7,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ForwardIcon from '@mui/icons-material/Forward';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SyncAltIcon from '@mui/icons-material/SyncAlt';
+import { Link } from 'react-router-dom';
 
 const ProductsPage: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -89,7 +90,9 @@ const ProductsPage: React.FC = () => {
             </CardContent>
             <CardActions>
               <Button size="small">Add to cart</Button>
-              <Button size="small">Learn More</Button>
+              <Button size="small">
+                <Link to={`/products/${item.id}`} style={{ textDecoration: 'none', color: 'black' }}>Learn More</Link>
+              </Button>
             </CardActions>
           </Card>
         ))}
