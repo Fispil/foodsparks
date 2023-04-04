@@ -1,23 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { getRecipes } from '../api/fetchRecepies';
 import Recipe from '../types/recipe';
 import { theme } from '../theme';
 import { Link } from 'react-router-dom';
-import { Box, Typography } from '@mui/material';
+import { Box, InputAdornment, Theme, Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import SearchIcon from '@mui/icons-material/Search';
+
+const useStyles = makeStyles((theme: Theme) => ({
+  searchIcon: {
+    position: "absolute",
+    borderLeftColor: "3%"
+  }
+}));
 
 const RecipeAutocompleteSearch: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState<Recipe[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [hasClicked, setHasClicked] = useState(false);
+  const autocompleteRef = useRef<HTMLInputElement>(null);
+  const classes = useStyles();
 
   const loadRecipesFromServer = async () => {
     try {
       setIsLoading(true);
-      
+
       const recipes = await getRecipes();
+      console.log(recipes.length);
 
       setOptions(recipes);
     } catch (err) {
@@ -27,20 +40,44 @@ const RecipeAutocompleteSearch: React.FC = () => {
     };
   }
 
+  const filterOptions = (options: Recipe[], { inputValue }: { inputValue: string }) => {
+    if(inputValue) {
+      return options.filter((option) => option.dishName.toLowerCase().startsWith(inputValue.toLowerCase()));
+    }
+    return {};
+  };
+
   useEffect(() => {
     loadRecipesFromServer();
+  }, []);
+  
+  useEffect(() => {
+    if (autocompleteRef.current) { 
+      autocompleteRef.current.blur();
+    }
   }, [open]);
 
   useEffect(() => {
-    if (!open) {
-      setOptions([]);
+    const handleBlur = () => {
+      setOpen(false);
     }
-  }, [open]);
+    
+    if (autocompleteRef.current) { 
+      autocompleteRef.current.addEventListener('blur', handleBlur);
+    }
+
+    return () => {
+      if (autocompleteRef.current) {
+        autocompleteRef.current.removeEventListener('blur', handleBlur);
+      }
+    }
+  }, []);
 
   return (
     <Autocomplete
       id="recipeSearch"
       sx={{ minWidth: '500px', color: theme.palette.common.white, backgroundColor: theme.palette.common.white }}
+      ref={autocompleteRef}
       open={open}
       onOpen={() => {
         setOpen(true);
@@ -48,6 +85,8 @@ const RecipeAutocompleteSearch: React.FC = () => {
       onClose={() => {
         setOpen(false);
       }}
+      //@ts-ignore
+      filterOptions={filterOptions}
       isOptionEqualToValue={(option, value) => option.dishName === value.dishName}
       getOptionLabel={(option) => option.dishName}
       options={options}
@@ -77,11 +116,17 @@ const RecipeAutocompleteSearch: React.FC = () => {
         </li>
       )}
       renderInput={(params) => (
-        // @ts-ignore
+        //@ts-ignore
         <TextField
           {...params}
-          label={ open ? null : "Search Recipe" }
+          label={open && hasClicked ? null : 'Search Recipe'}
           sx={{ backgroundColor: theme.palette.common.white }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+              </InputAdornment>
+            )
+          }}
         />
       )}
     />

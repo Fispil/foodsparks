@@ -119,7 +119,7 @@ const AppBarSearch = () => {
 
   return (
     <AppBar position="static">
-      <Toolbar sx={{ backgroundColor: theme.palette.primary.dark }}>
+      <Toolbar sx={{ backgroundColor: 'grey' }}>
           <IconButton
             size="large"
             edge="start"
