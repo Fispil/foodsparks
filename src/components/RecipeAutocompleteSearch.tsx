@@ -21,7 +21,6 @@ const RecipeAutocompleteSearch: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState<Recipe[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [hasClicked, setHasClicked] = useState(false);
   const autocompleteRef = useRef<HTMLInputElement>(null);
   const classes = useStyles();
 
@@ -30,7 +29,6 @@ const RecipeAutocompleteSearch: React.FC = () => {
       setIsLoading(true);
 
       const recipes = await getRecipes();
-      console.log(recipes.length);
 
       setOptions(recipes);
     } catch (err) {
@@ -56,22 +54,6 @@ const RecipeAutocompleteSearch: React.FC = () => {
       autocompleteRef.current.blur();
     }
   }, [open]);
-
-  useEffect(() => {
-    const handleBlur = () => {
-      setOpen(false);
-    }
-    
-    if (autocompleteRef.current) { 
-      autocompleteRef.current.addEventListener('blur', handleBlur);
-    }
-
-    return () => {
-      if (autocompleteRef.current) {
-        autocompleteRef.current.removeEventListener('blur', handleBlur);
-      }
-    }
-  }, []);
 
   return (
     <Autocomplete
@@ -119,14 +101,8 @@ const RecipeAutocompleteSearch: React.FC = () => {
         //@ts-ignore
         <TextField
           {...params}
-          label={open && hasClicked ? null : 'Search Recipe'}
+          label={open ? null : <Typography sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><SearchIcon />Search Recipe</Typography>}
           sx={{ backgroundColor: theme.palette.common.white }}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-              </InputAdornment>
-            )
-          }}
         />
       )}
     />

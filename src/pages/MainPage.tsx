@@ -46,7 +46,7 @@ const MainPage: React.FC = () => {
         <Container maxWidth="xl">
           <Typography variant='h4'>Підбірки української кухні</Typography>
 
-          <CustomCarousel items={recipes.slice(0, 4)} />
+          <CustomCarousel items={recipes.slice(0, 8)} />
         </Container>
       </Box>
       <Box>
