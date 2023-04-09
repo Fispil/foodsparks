@@ -39,7 +39,7 @@ const RecipeAutocompleteSearch: React.FC = () => {
   }
 
   const filterOptions = (options: Recipe[], { inputValue }: { inputValue: string }) => {
-    if(inputValue) {
+    if (inputValue) {
       return options.filter((option) => option.dishName.toLowerCase().startsWith(inputValue.toLowerCase()));
     }
     return {};
@@ -48,9 +48,9 @@ const RecipeAutocompleteSearch: React.FC = () => {
   useEffect(() => {
     loadRecipesFromServer();
   }, []);
-  
+
   useEffect(() => {
-    if (autocompleteRef.current) { 
+    if (autocompleteRef.current) {
       autocompleteRef.current.blur();
     }
   }, [open]);
@@ -58,7 +58,7 @@ const RecipeAutocompleteSearch: React.FC = () => {
   return (
     <Autocomplete
       id="recipeSearch"
-      sx={{ minWidth: '500px', color: theme.palette.common.white, backgroundColor: theme.palette.common.white }}
+      sx={{ minWidth: '500px', height: '55px' ,color: theme.palette.common.white, backgroundColor: theme.palette.common.white, borderRadius: 50 }}
       ref={autocompleteRef}
       open={open}
       onOpen={() => {
@@ -101,9 +101,14 @@ const RecipeAutocompleteSearch: React.FC = () => {
         //@ts-ignore
         <TextField
           {...params}
-          label={open ? null : <Typography sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><SearchIcon />Search Recipe</Typography>}
-          sx={{ backgroundColor: theme.palette.common.white }}
-        />
+          label={open
+            ? null
+            : <Typography sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: 3}}>
+                <SearchIcon sx={{ position: 'absolute', left: 0 }}/>Search Recipe
+              </Typography>}
+          sx={{ backgroundColor: theme.palette.common.white, position: 'relative', borderRadius: '60px', height: '50px'}}
+        >
+        </TextField>
       )}
     />
   );

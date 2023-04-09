@@ -60,40 +60,117 @@ const ProductsPage: React.FC = () => {
   return (
     <Container maxWidth="xl">
       <Breadcrumb />
-      <Typography variant="h3">Рецепти української кухні</Typography>
+      <Typography
+        variant="h3"
+        sx={{
+          marginBottom: '32px',
+          fontFamily: 'Open Sans',
+          fontStyle: 'normal',
+          fontWeight: 700,
+          fontSize: '38px',
+          lineHeight: '57px'
+        }}
+      >
+        Рецепти української кухні
+      </Typography>
 
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Button variant='text' startIcon={<FilterAltIcon />}>Фільтри</Button>
-        <Button variant='text' startIcon={<SyncAltIcon sx={{ rotate: '90deg' }} />}>Сортувати</Button>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: '40px' }}>
+        <Button
+          variant='outlined'
+          sx={{
+            border: '1px solid #CB3C2E',
+            textTransform: 'none', color: '#CB3C2E',
+            fontFamily: 'Open Sans',
+            fontStyle: 'normal',
+            fontWeight: 400,
+            fontSize: '24px',
+            lineHeight: '16px',
+            padding: '12px 24px'
+          }}
+          endIcon={<FilterAltIcon />}
+        >
+          Фільтри
+        </Button>
+        <Button
+          variant='text'
+          sx={{
+            textTransform: 'none',
+            color: '#CB3C2E',
+            fontFamily: 'Open Sans',
+            fontStyle: 'normal',
+            fontWeight: 400,
+            fontSize: '24px',
+            lineHeight: '16px',
+            padding: '12px 24px'
+          }}
+          startIcon={<SyncAltIcon sx={{ rotate: '90deg' }} />}
+        >
+          Сортувати
+        </Button>
       </Box>
 
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '32px', justifyContent: 'center' }}>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '32px', justifyContent: 'center', marginBottom: '40px' }}>
         {recipes.map((item) => (
-          <Card key={item.id} sx={{ width: 304, height: 320, flex: '0 0 auto', margin: '0 8px' }}>
+          <Card key={item.id} sx={{ width: 300, height: 440, flex: '0 0 auto', margin: '0 8px' }}>
             <CardMedia
-              sx={{ height: 140 }}
+              sx={{ height: 305, position: 'relative' }}
               image={item.imageUrl}
-              title="green iguana"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {item.dishName}
-              </Typography>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography variant="body2" color="text.secondary">
-                  {item.portions} Порцій
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <AccessTimeIcon /> {item.cookingTime}
+              title={item.dishName}
+            >
+              <Box sx={{ backgroundColor: '#CB3C2E', width: 'fit-content', position: 'absolute', top: '30px' }}>
+                <Typography gutterBottom variant="h5" sx={{ margin: '8px 16px' }}>
+                  Легкий
                 </Typography>
               </Box>
+            </CardMedia>
+            <CardContent sx={{ marginTop: '24px' }}>
+              <Link to={`/products/${item.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+                <Typography
+                  gutterBottom
+                  variant="h6"
+                  sx={{
+                    fontFamily: 'Open Sans',
+                    fontStyle: 'normal',
+                    fontWweight: 400,
+                    fontSize: '30px',
+                    lineHeight: '25px',
+                    marginBottom: '16px'
+                  }}
+                >
+                  {item.dishName}
+                </Typography>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{
+                      fontFamily: 'Open Sans',
+                      fontStyle: 'normal',
+                      fontWweight: 400,
+                      fontSize: '20px',
+                      lineHeight: '16px'
+                    }}
+                  >
+                    {item.portions} Порцій
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      fontFamily: 'Open Sans',
+                      fontStyle: 'normal',
+                      fontWweight: 400,
+                      fontSize: '20px',
+                      lineHeight: '16px'
+                    }}>
+                    <AccessTimeIcon /> {item.cookingTime}
+                  </Typography>
+                </Box>
+              </Link>
             </CardContent>
-            <CardActions>
-              <Button size="small">Add to cart</Button>
-              <Button size="small">
-                <Link to={`/products/${item.id}`} style={{ textDecoration: 'none', color: 'black' }}>Learn More</Link>
-              </Button>
-            </CardActions>
           </Card>
         ))}
       </Box>
@@ -101,14 +178,24 @@ const ProductsPage: React.FC = () => {
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center ' }}>
         <Button
           variant="text"
-          startIcon={<ForwardIcon sx={{ rotate: '90deg' }} />}
+          endIcon={<ForwardIcon sx={{ rotate: '90deg', color: '#CB3C2E' }} />}
           onClick={handleAddRecipes}
+          sx={{
+            fontFamily: 'Open Sans',
+            fontStyle: 'normal',
+            fontWweight: 400,
+            fontSize: '20px',
+            lineHeight: '16px',
+            textTransform: 'none',
+            color: '#CB3C2E',
+            marginBottom: '24px'
+          }}
         >
           Показати ще
         </Button>
       </Box>
       <Pagination
-        sx={{ display: 'flex', justifyContent: 'center' }}
+        sx={{ display: 'flex', justifyContent: 'center', marginBottom: '80px' }}
         variant="outlined"
         shape="rounded"
         count={4}

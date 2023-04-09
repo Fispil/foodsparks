@@ -8,7 +8,7 @@ import App from './App';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import { theme } from './theme';
 import { Provider } from 'react-redux';
-import { store } from './utilities/store';
+import { store } from './util/store';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

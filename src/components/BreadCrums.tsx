@@ -10,13 +10,13 @@ const Breadcrumb: React.FC<Props> = ({ nameRecipe }) => {
   const pathnames = location.pathname.split('/').filter((x) => x);
 
   return (
-    <Breadcrumbs aria-label="breadcrumb">
+    <Breadcrumbs aria-label="breadcrumb" sx={{ margin: '50px 0'}}>
       {pathnames.length > 0 ? (
         <Link style={{ textDecoration: 'none', color: 'black'}} to="/">
           Головна
         </Link>
       ) : (
-        <Typography>Головна</Typography>
+        <Typography sx={{}}>Головна</Typography>
       )}
       {pathnames.map((name, index) => {
         nameRecipe ? name = nameRecipe : name;

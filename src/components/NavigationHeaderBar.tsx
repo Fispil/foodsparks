@@ -6,97 +6,113 @@ import SignUpDialog from "./SignUpDialog";
 
 const NavigationHeaderBar = () => {
   return (
-    <Toolbar sx={{ maxWidth: '100%', backgroundColor: 'grey' }}>
-        <Container maxWidth={false} sx={{ display: 'flex', justifyContent: 'space-between', flexShrink: 1 }} >
-          <Box>
-            <img src="src/pictures/Logo.svg" alt='Logo' style={{ height: '50px'}} />
+    <Toolbar sx={{ maxWidth: '100%', backgroundColor: '#fff' }}>
+      <Container maxWidth={false} sx={{ display: 'flex', justifyContent: 'space-between', flexShrink: 1 }} >
+        <Box sx={{
+          display: 'flex',
+          alignItems: 'center',
+          flexShrink: 2,
+          justifyContent: 'space-between',
+          gap: '32px'
+        }}>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              flexShrink: 2,
+              justifyContent: 'space-between',
+              gap: '32px'
+            }}
+          >
+            <Link
+              to="/products"
+              style={{
+                textDecoration: 'none',
+                color: 'black',
+                fontSize: '24px',
+                fontFamily: 'Open-Sans',
+                fontStyle: 'regular',
+                lineHeight: '16px'
+                }}
+            >
+              Рецепти
+            </Link>
+            <Link
+              to="/"
+              style={{
+                textDecoration: 'none',
+                color: 'black',
+                fontSize: '24px',
+                fontFamily: 'Open-Sans',
+                fontStyle: 'regular',
+                lineHeight: '16px'
+                }}
+            >
+              Магазин
+            </Link>
+            <Link
+              to="/products"
+              style={{
+                textDecoration: 'none',
+                color: 'black',
+                fontSize: '24px',
+                fontFamily: 'Open-Sans',
+                fontStyle: 'regular',
+                lineHeight: '16px'
+                }}
+            >
+              Доставка
+            </Link>
+            <Link
+              to="/about"
+              style={{
+                textDecoration: 'none',
+                color: 'black',
+                fontSize: '24px',
+                fontFamily: 'Open-Sans',
+                fontStyle: 'regular',
+                lineHeight: '16px',
+                }}
+            >
+              Контакти
+            </Link>
           </Box>
-          <Box sx={{
-            display: 'flex',
-            alignItems: 'center',
-            flexShrink: 2,
-            justifyContent: 'space-between',
-            gap: '32px'
-          }}>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                flexShrink: 2,
-                justifyContent: 'space-between',
-                gap: '32px'
-              }}
-            >
-              <Tooltip title={ <Typography><Link style={{ textDecoration: 'none', color: 'black' }} to="tel:555-1234-5678">555-1234-5678</Link></Typography>}>
-                <Button sx={{ m: 1, color: 'black' }}>Contancts</Button>
-              </Tooltip>
-              <Link
-                to="/"
-                style={{
-                  textDecoration: 'none',
-                  color: 'black',
-                  fontSize: '20px'
+          <Box
+            mr={3}
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexShrink: 2
+            }}
+          >
+            <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+              <Box
+                sx={{
+                  border: `1px solid ${theme.palette.primary.dark}`,
+                  borderRadius: '5px',
+                  backgroundColor: 'rgb(176,224,230)',
+                  color: 'black'
                 }}
               >
-                Home
-              </Link>
-              <Link
-                to="/about"
-                style={{
-                  textDecoration: 'none',
-                  color: 'black',
-                  fontSize: '20px'
-                }}
-              >
-                About
-              </Link>
-              <Link
-                to="/products"
-                style={{
-                  textDecoration: 'none',
-                  color: 'black',
-                  fontSize: '20px'
-                }}
-              >
-                Products
-              </Link>
-            </Box>
-            <Box
-              mr={3}
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                flexShrink: 2
-              }}
-            >
-              <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-                <Box
-                  sx={{
-                    border: `1px solid ${theme.palette.primary.dark}`,
-                    borderRadius: '5px',
-                    backgroundColor: 'rgb(176,224,230)',
-                    color: 'black'
-                  }}
-                >
-                  <SignInDialog />
-                </Box>
+                <SignInDialog />
+              </Box>
 
-                <Box
-                  sx={{
-                    border: `1px solid ${theme.palette.primary.dark}`,
-                    borderRadius: '5px',
-                    backgroundColor: 'rgb(220,20,60)',
-                    color: 'black'
-                  }}
-                >
-                  <SignUpDialog />
-                </Box>
+              <Box
+                sx={{
+                  border: `1px solid ${theme.palette.primary.dark}`,
+                  borderRadius: '5px',
+                  backgroundColor: 'rgb(220,20,60)',
+                  color: 'black'
+                }}
+              >
+                <SignUpDialog />
               </Box>
             </Box>
           </Box>
-        </Container>
-      </Toolbar>
+        </Box>
+      </Container>
+    </Toolbar>
   )
 }
 

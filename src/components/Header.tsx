@@ -7,8 +7,8 @@ import NavigationHeaderBar from './NavigationHeaderBar';
 const Header: React.FC = () => {
   return (
     <AppBar position="sticky" sx={{ backgroundColor: 'inherit' }}>
-      <NavigationHeaderBar />
       <AppBarSearch />
+      <NavigationHeaderBar />
     </AppBar>
   );
 };

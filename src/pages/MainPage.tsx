@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Box, Button, Container, Divider, Grid, Skeleton, Theme } from '@mui/material';
+import { Box, Button, Container, Divider, Grid, Stack, TextField, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import { getRecipes } from '../api/fetchRecepies';
@@ -11,14 +11,41 @@ import { theme } from '../theme';
 import CustomCardList from '../components/CustomCardList';
 
 const useStyles = makeStyles((theme: Theme) => ({
-  carouselConainer: {
-    backgroundColor: "grey"
-  }
+  flexContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignContent: 'center'
+  },
+
+  carouselContainer: {
+    backgroundColor: "#0F0F10",
+    maxWidth: '100%',
+    boxSizing: 'border-box',
+    padding: '40px 0',
+    position: 'relative'
+  },
+  carouselTitle: {
+    fontFamily: 'Open Sans',
+    fontStyle: 'normal',
+    fontWeight: 700,
+    fontSize: '38px',
+    lineHeight: '57px',
+    color: '#fff',
+  },
+  dividerDashed: {
+    borderBottom: '5px dashed #cb3c2e',
+    borderColor: '#cb3c2e',
+  },
+  divider: {
+    borderBottom: '5px solid #cb3c2e',
+    borderColor: '#cb3c2e',
+  },
 }));
 
 const MainPage: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [promocodeInput, setPromocodeInput] = useState('');
   const topCatergories = ['Основна страва', 'Перші страви', 'Закуска', 'Десерт', 'Випічка'];
 
   const loadRecepiesFromServer = async () => {
@@ -34,6 +61,14 @@ const MainPage: React.FC = () => {
     };
   }
 
+  const handlePromocodeInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPromocodeInput(event.target.value);
+  }
+
+  const handlePromoSumbit = (event: React.FormEvent<HTMLFormElement>) => {
+    console.log('promo sent')
+  };
+
   useEffect(() => {
     loadRecepiesFromServer();
   }, []);
@@ -42,48 +77,156 @@ const MainPage: React.FC = () => {
 
   return (
     <>
-      <Box className={classes.carouselConainer} sx={{ maxWidth: '100%', boxSizing: 'border-box' }}>
+      <Box className={classes.carouselContainer}>
+        <Box sx={{ position: 'absolute' }}>
+          <img src='src/pictures/ornamenthalf.svg' alt="ornament" />
+        </Box>
         <Container maxWidth="xl">
-          <Typography variant='h4'>Підбірки української кухні</Typography>
-
+          <Typography variant='h2' className={classes.carouselTitle}>Підбірки української кухні</Typography>
           <CustomCarousel items={recipes.slice(0, 8)} />
         </Container>
+        <Stack spacing={1}>
+          <Divider className={classes.dividerDashed} />
+          <Divider className={classes.divider} />
+          <Divider className={classes.dividerDashed} />
+          <Divider className={classes.divider} />
+        </Stack>
       </Box>
       <Box>
         <Container maxWidth="xl">
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center' }}>
+          <Box className={classes.flexContainer} sx={{ margin: '45px 0' }}>
             <Typography variant='h4'>Рецепти української кухні</Typography>
-
             <Button
               variant="contained"
-              endIcon={<KeyboardArrowRightIcon />}
+              endIcon={<KeyboardArrowRightIcon fontSize="large" sx={{ color: '#fff' }} />}
               sx={{
-                border: `1px solid ${theme.palette.primary.dark}`,
-                borderRadius: '5px',
+                borderRadius: '12px',
                 backgroundColor: 'rgb(176,224,230)',
-                color: 'black'
+                color: 'black',
+                padding: '16px 24px',
+                fontWeight: 400,
+                width: '240px',
+                height: '64px',
+                background: '#CB3C2E',
               }}>
-              <Link to="/products" style={{ textDecoration: 'none' }}>Всі рецепти</Link>
+              <Link
+                to="/products"
+                style={{
+                  textDecoration: 'none',
+                  fontFamily: 'Open Sans',
+                  fontSize: '20px',
+                  lineHeight: '16px',
+                  color: '#fff',
+                  fontStyle: 'normal',
+                  textTransform: 'none'
+                }}>
+                Всі рецепти
+              </Link>
             </Button>
           </Box>
-          <Divider sx={{ backgroundColor: 'grey' }} />
+          <Divider sx={{ backgroundColor: 'grey', marginBottom: '40px' }} />
           {topCatergories.map(category => (
-            <Box key={category}>
-              <Box>
+            <Box key={category} sx={{ marginBottom: '40px' }}>
+              <Box sx={{ marginBottom: '40px' }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center' }}>
-                  <Typography variant='h4'>{category}</Typography>
-
-                  <Link to="/products" style={{ textDecoration: 'none' }}>Показати всі</Link>
+                  <Typography variant='h4' sx={{ display: 'flex', alignItems: 'center', marginBottom: '25px' }}>
+                    <img src="src/pictures/catergoriesicon.svg" alt="categoryimage" />
+                    {category}
+                  </Typography>
+                  <Link
+                    to="/products"
+                    style={{
+                      textDecoration: 'none',
+                      color: '#CB3C2E',
+                      fontFamily: 'Open Sans',
+                      fontStyle: 'normal',
+                      fontWeight: 400,
+                      fontSize: '16px',
+                      lineHeight: '24px'
+                    }}
+                  >
+                    Показати всі
+                  </Link>
                 </Box>
-                
+
                 <CustomCardList items={recipes.filter(item => item.dishType === category)} />
               </Box>
-
               <Divider sx={{ backgroundColor: 'black' }} />
             </Box>
           ))}
-        </Container>
-      </Box>
+          <Box sx={{ backgroundColor: 'black', marginBottom: '40px', height: '370px', padding: '40px' }}>
+            <Typography
+              variant='h2'
+              sx={{
+                color: '#fff',
+                marginBottom: '24px',
+                fontFamily: 'Open Sans',
+                fontStyle: 'normal',
+                fontWeight: 700,
+                fontSize: '38px',
+                lineHeight: '57px'
+              }}>
+              Отримайте знижку 20%<br />
+              на перше замовлення
+            </Typography>
+            <Typography
+              variant='h6'
+              sx={{
+                color: '#fff',
+                marginBottom: '24px',
+                fontFamily: 'Open Sans',
+                fontStyle: 'normal',
+                fontWeight: 400,
+                fontSize: '16px',
+                lineHeight: '24px'
+              }}
+            >
+              Введіть електронну адресу та отримайте промокод
+            </Typography>
+            <Divider sx={{ backgroundColor: '#fff' }} />
+            <form onSubmit={handlePromoSumbit}>
+              <Grid
+                container
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '40px'
+                }}
+              >
+                <Grid item sm={9}>
+                  <TextField
+                    fullWidth
+                    value={promocodeInput}
+                    onChange={handlePromocodeInputChange}
+                    placeholder="Введіть свою почту"
+                    id="email"
+                    type="email"
+                    sx={{ backgroundColor: '#fff', borderRadius: '12px' }}
+                  />
+                </Grid>
+                <Grid item sm={1} />
+                <Grid item sm={2}>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      borderRadius: '12px',
+                      backgroundColor: 'rgb(176,224,230)',
+                      color: '#fff',
+                      padding: '16px 24px',
+                      fontWeight: 400,
+                      width: '240px',
+                      height: '64px',
+                      background: '#CB3C2E',
+                    }}>
+                    Надіслати
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
+          </Box>
+        </Container >
+      </Box >
     </>
   );
 }

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -8,15 +7,16 @@ import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { theme } from '../theme';
 import RecipeAutocompleteSearch from './RecipeAutocompleteSearch';
-import { Container } from '@mui/material';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { Tooltip, Typography, Button, Stack } from '@mui/material';
+import { Link } from 'react-router-dom';
+
 
 const AppBarSearch = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -119,55 +119,93 @@ const AppBarSearch = () => {
 
   return (
     <AppBar position="static">
-      <Toolbar sx={{ backgroundColor: 'grey' }}>
+      <Toolbar sx={{ backgroundColor: '#000', height: '90px'}}>
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="open drawer"
+          sx={{ mr: 2 }}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Box
+          sx={{
+            height: 50,
+            width: 305,
+            marginRight: '32px',
+            backgroundImage: `url(src/pictures/Logo.png)`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'contain',
+            backgroundSize: 'cover'
+          }}>
+
+        </Box>
+        <RecipeAutocompleteSearch />
+        <Box sx={{ flexGrow: 1 }} />
+        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Tooltip
+            title={
+              <Typography>
+                <Stack spacing={1}>
+                  <Link style={{ textDecoration: 'none', color: 'black' }} to="tel:555-1234-5678">
+                    555-1234-5678
+                  </Link>
+                  <Link style={{ textDecoration: 'none', color: 'black' }} to="tel:555-1234-5678">
+                    555-1234-5678
+                  </Link>
+                  <Link style={{ textDecoration: 'none', color: 'black' }} to="tel:555-1234-5678">
+                    555-1234-5678
+                  </Link>
+                  <Link style={{ textDecoration: 'none', color: 'black' }} to="https://goo.gl/maps/D3vaAfVpaz6GaKJL7">
+                    Kiev
+                  </Link>
+                </Stack>
+              </Typography>
+            }
+          >
+            <IconButton
+              sx={{ m: 1, color: 'white' }}
+            >
+              <LocationOnIcon />
+            </IconButton>
+          </Tooltip>
           <IconButton
             size="large"
-            edge="start"
+            aria-label="show 17 new notifications"
             color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            <Badge badgeContent={17} color="error">
+              <ShoppingCartIcon />
+            </Badge>
           </IconButton>
-          <RecipeAutocompleteSearch />
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <ShoppingCartIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
-          {renderMobileMenu}
-          {renderMenu}
-        </Toolbar>
+          <IconButton
+            size="large"
+            edge="end"
+            aria-label="account of current user"
+            aria-controls={menuId}
+            aria-haspopup="true"
+            onClick={handleProfileMenuOpen}
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+        </Box>
+        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+          <IconButton
+            size="large"
+            aria-label="show more"
+            aria-controls={mobileMenuId}
+            aria-haspopup="true"
+            onClick={handleMobileMenuOpen}
+            color="inherit"
+          >
+            <MoreIcon />
+          </IconButton>
+        </Box>
+        {renderMobileMenu}
+        {renderMenu}
+      </Toolbar>
     </AppBar>
   );
 }

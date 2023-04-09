@@ -8,16 +8,16 @@ export default interface Recipe {
 }
 
 
-export type IngredientList = { [key: string]: number };
+export type IngredientListItem = { name: 'string', amount: number};
 
 export default interface RecipeExtended {
   id: number;
   dishName: string;
   cuisineRegion: string;
   dishType: string;
-  ingredientList?: IngredientList;
+  productsList: IngredientListItem[];
   spiced: boolean;
-  instructions: string;
+  instructions: string[];
   cookingTime: string;
   portions: string;
   imageUrl: string;
