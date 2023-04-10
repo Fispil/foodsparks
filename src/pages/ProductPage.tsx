@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getRecipeById } from '../api/fetchRecepies';
-import RecipeExtended from '../types/recipe';
+import RecipeExtended from '../types/fullrecipe';
 import Breadcrumb from '../components/BreadCrums';
 import { Box, Button, Container, Divider, Grid, Typography } from '@mui/material';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -32,7 +32,7 @@ const ProductPage = () => {
   return (
     <>
       <Container maxWidth="lg">
-        <Breadcrumb nameRecipe={recipe?.dishName} />
+        <Breadcrumb nameRecipe={recipe?.title} />
         <Grid container>
           <Grid item
             sx={{
@@ -46,11 +46,11 @@ const ProductPage = () => {
             }}>
           </Grid>
           <Grid item>
-            <Typography variant='h3'>{recipe?.dishName}</Typography>
-            <Typography variant='subtitle1'>{recipe?.dishName}</Typography>
+            <Typography variant='h3'>{recipe?.title}</Typography>
+            <Typography variant='subtitle1'>{recipe?.title}</Typography>
             <Divider sx={{ backgroundColor: '#8E8F96' }} />
             <Box sx={{ backgroundColor: '#F5F5F5'}}>
-              <Typography variant='body1'>{recipe?.dishName}</Typography>
+              <Typography variant='body1'>{recipe?.subtitle}</Typography>
             </Box>
             <Box>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '30px' }}>
@@ -85,7 +85,7 @@ const ProductPage = () => {
           <Divider />
         </Box>
         <Box>
-          <Typography variant='h3'> Рецепт приготовування: {recipe?.dishName}</Typography>
+          <Typography variant='h3'> Рецепт приготовування: {recipe?.title}</Typography>
           <Divider sx={{ backgroundColor: '#8E8F96' }} />
           {recipe?.instructions.map((item, index) => (
             <Grid container>

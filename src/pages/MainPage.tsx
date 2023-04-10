@@ -2,13 +2,15 @@ import { useEffect, useState } from 'react';
 import { Box, Button, Container, Divider, Grid, Stack, TextField, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
-import { getRecipes } from '../api/fetchRecepies';
+import { getDishTypes, getRecipes } from '../api/fetchRecepies';
 import Recipe from '../types/recipe';
 import CustomCarousel from '../components/CustomCarousel';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { Link } from 'react-router-dom';
-import { theme } from '../theme';
 import CustomCardList from '../components/CustomCardList';
+import CuisineRegion from '../types/cuisineRegions';
+import { getCuisineRegion } from '../api/fetchCuisineRegion';
+import DishType from '../types/dishTypes';
 
 const useStyles = makeStyles((theme: Theme) => ({
   flexContainer: {
@@ -44,15 +46,23 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const MainPage: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [cuisineRegions, setCuisineRegions] = useState<CuisineRegion[]>([])
+  const [dishTypes, setDishtypes] = useState<DishType[]>([])
   const [isLoading, setIsLoading] = useState(false);
   const [promocodeInput, setPromocodeInput] = useState('');
-  const topCatergories = ['Основна страва', 'Перші страви', 'Закуска', 'Десерт', 'Випічка'];
+  const topCatergories = ['Основні страви', 'Перші страви', 'Закуски', 'Десерти', 'Випічка'];
 
   const loadRecepiesFromServer = async () => {
     try {
       setIsLoading(true);
-      const recipesFromServer = await getRecipes();
+      const [dishTypesFromServer, cuisineRegionFromServer, recipesFromServer] = await Promise.all([
+        getDishTypes(),
+        getCuisineRegion(),
+        getRecipes(),
+      ]);
 
+      setDishtypes(dishTypesFromServer);
+      setCuisineRegions(cuisineRegionFromServer);
       setRecipes(recipesFromServer);
     } catch (err) {
       throw new Error(`Cant get recipes from server: ${err}`)
@@ -78,19 +88,10 @@ const MainPage: React.FC = () => {
   return (
     <>
       <Box className={classes.carouselContainer}>
-        <Box sx={{ position: 'absolute' }}>
-          <img src='src/pictures/ornamenthalf.svg' alt="ornament" />
-        </Box>
         <Container maxWidth="xl">
           <Typography variant='h2' className={classes.carouselTitle}>Підбірки української кухні</Typography>
-          <CustomCarousel items={recipes.slice(0, 8)} />
+          <CustomCarousel items={cuisineRegions} />
         </Container>
-        <Stack spacing={1}>
-          <Divider className={classes.dividerDashed} />
-          <Divider className={classes.divider} />
-          <Divider className={classes.dividerDashed} />
-          <Divider className={classes.divider} />
-        </Stack>
       </Box>
       <Box>
         <Container maxWidth="xl">
@@ -125,13 +126,13 @@ const MainPage: React.FC = () => {
             </Button>
           </Box>
           <Divider sx={{ backgroundColor: 'grey', marginBottom: '40px' }} />
-          {topCatergories.map(category => (
-            <Box key={category} sx={{ marginBottom: '40px' }}>
+          {dishTypes.map(category => (
+            <Box key={category.id} sx={{ marginBottom: '40px' }}>
               <Box sx={{ marginBottom: '40px' }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center' }}>
                   <Typography variant='h4' sx={{ display: 'flex', alignItems: 'center', marginBottom: '25px' }}>
-                    <img src="src/pictures/catergoriesicon.svg" alt="categoryimage" />
-                    {category}
+                    <img src="src/pictures/catergoriesicon.svg" alt="categoryimage" style={{ marginRight: '16px' }} />
+                    {category.dishTypeName}
                   </Typography>
                   <Link
                     to="/products"
@@ -149,7 +150,7 @@ const MainPage: React.FC = () => {
                   </Link>
                 </Box>
 
-                <CustomCardList items={recipes.filter(item => item.dishType === category)} />
+                <CustomCardList items={recipes.filter(item => item.dishType === category.dishTypeName)} />
               </Box>
               <Divider sx={{ backgroundColor: 'black' }} />
             </Box>

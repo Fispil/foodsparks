@@ -1,4 +1,4 @@
-import { Toolbar, Container, Box, Tooltip, Typography, Button } from "@mui/material";
+import { Toolbar, Container, Box, Tooltip, Typography, Button, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 import { theme } from "../theme";
 import SignInDialog from "./SignInDialog";
@@ -6,14 +6,13 @@ import SignUpDialog from "./SignUpDialog";
 
 const NavigationHeaderBar = () => {
   return (
-    <Toolbar sx={{ maxWidth: '100%', backgroundColor: '#fff' }}>
-      <Container maxWidth={false} sx={{ display: 'flex', justifyContent: 'space-between', flexShrink: 1 }} >
+    <><Toolbar sx={{ maxWidth: '100%', backgroundColor: '#fff', position: 'relative', display: 'flex'}}>
+      <Container maxWidth={false} >
         <Box sx={{
           display: 'flex',
           alignItems: 'center',
           flexShrink: 2,
           justifyContent: 'space-between',
-          gap: '32px'
         }}>
           <Box
             sx={{
@@ -21,7 +20,8 @@ const NavigationHeaderBar = () => {
               alignItems: 'center',
               flexShrink: 2,
               justifyContent: 'space-between',
-              gap: '32px'
+              gap: '88px',
+              padding: '24px 0'
             }}
           >
             <Link
@@ -33,7 +33,7 @@ const NavigationHeaderBar = () => {
                 fontFamily: 'Open-Sans',
                 fontStyle: 'regular',
                 lineHeight: '16px'
-                }}
+              }}
             >
               Рецепти
             </Link>
@@ -46,7 +46,7 @@ const NavigationHeaderBar = () => {
                 fontFamily: 'Open-Sans',
                 fontStyle: 'regular',
                 lineHeight: '16px'
-                }}
+              }}
             >
               Магазин
             </Link>
@@ -59,7 +59,7 @@ const NavigationHeaderBar = () => {
                 fontFamily: 'Open-Sans',
                 fontStyle: 'regular',
                 lineHeight: '16px'
-                }}
+              }}
             >
               Доставка
             </Link>
@@ -72,7 +72,7 @@ const NavigationHeaderBar = () => {
                 fontFamily: 'Open-Sans',
                 fontStyle: 'regular',
                 lineHeight: '16px',
-                }}
+              }}
             >
               Контакти
             </Link>
@@ -112,7 +112,7 @@ const NavigationHeaderBar = () => {
           </Box>
         </Box>
       </Container>
-    </Toolbar>
+    </Toolbar></>
   )
 }
 

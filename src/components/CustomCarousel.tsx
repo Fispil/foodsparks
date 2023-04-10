@@ -3,16 +3,14 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useState } from "react";
 import Slider, { Settings } from "react-slick";
-import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
-
-
 import Recipe from "../types/recipe";
 import { Theme } from "@emotion/react";
 import { makeStyles } from "@mui/styles";
 import { Box, Typography } from "@mui/material";
+import CuisineRegion from "../types/cuisineRegions";
 
 interface CarouselProps {
-  items: Recipe[];
+  items: CuisineRegion[];
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -107,9 +105,8 @@ const CustomCarousel: React.FC<CarouselProps> = ({ items }) => {
               backgroundPosition: 'contain',
               backgroundSize: 'cover'
             }}>
-
           </Box>
-          <Typography variant="h5" className={classes.itemTitle}>{item.dishName}</Typography>
+          <Typography variant="h5" className={classes.itemTitle}>{item.cuisineRegionName}</Typography>
         </Box>
       ))}
     </Slider>

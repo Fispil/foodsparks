@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Recipe from '../types/recipe';
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
+import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { ScrollContainer } from 'react-indiana-drag-scroll';
 import 'react-indiana-drag-scroll/dist/style.css'
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -18,7 +18,7 @@ const CustomCardList: React.FC<Props> = ({ items }) => {
           <CardMedia
             sx={{ height: 305, position: 'relative' }}
             image={item.imageUrl}
-            title={item.dishName}
+            title={item.title}
           >
             <Box sx={{ backgroundColor: '#CB3C2E', width: 'fit-content', position: 'absolute', top: '30px' }}>
               <Typography gutterBottom variant="h5" sx={{ margin: '8px 16px' }}>
@@ -40,7 +40,7 @@ const CustomCardList: React.FC<Props> = ({ items }) => {
                   marginBottom: '16px'
                 }}
               >
-                {item.dishName}
+                {item.title}
               </Typography>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography

@@ -5,7 +5,7 @@ import { getRecipes } from '../api/fetchRecepies';
 import Recipe from '../types/recipe';
 import { theme } from '../theme';
 import { Link } from 'react-router-dom';
-import { Box, InputAdornment, Theme, Typography } from '@mui/material';
+import { Box , Theme, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import SearchIcon from '@mui/icons-material/Search';
@@ -40,7 +40,7 @@ const RecipeAutocompleteSearch: React.FC = () => {
 
   const filterOptions = (options: Recipe[], { inputValue }: { inputValue: string }) => {
     if (inputValue) {
-      return options.filter((option) => option.dishName.toLowerCase().startsWith(inputValue.toLowerCase()));
+      return options.filter((option) => option.title.toLowerCase().startsWith(inputValue.toLowerCase()));
     }
     return {};
   };
@@ -69,8 +69,8 @@ const RecipeAutocompleteSearch: React.FC = () => {
       }}
       //@ts-ignore
       filterOptions={filterOptions}
-      isOptionEqualToValue={(option, value) => option.dishName === value.dishName}
-      getOptionLabel={(option) => option.dishName}
+      isOptionEqualToValue={(option, value) => option.title === value.title}
+      getOptionLabel={(option) => option.title}
       options={options}
       loading={isLoading}
       renderOption={(props, option) => (
@@ -81,9 +81,9 @@ const RecipeAutocompleteSearch: React.FC = () => {
             rel="noopener noreferrer"
           >
             <Box sx={{ minWidth: '500px', display: 'flex', gap: '32px', alignItems: 'center' }}>
-              <img src={option.imageUrl} alt={option.dishName} style={{ height: 50, width: 50 }} />
+              <img src={option.imageUrl} alt={option.title} style={{ height: 50, width: 50 }} />
               <Box>
-                <Typography variant="body1">{option.dishName}</Typography>
+                <Typography variant="body1">{option.title}</Typography>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '16px' }}>
                   <Typography variant="body2" color="text.secondary">
                     {option.portions} Порцій

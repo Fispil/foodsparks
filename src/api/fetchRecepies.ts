@@ -1,12 +1,25 @@
 import axios from 'axios';
 import Recipe from '../types/recipe';
+import RecipeExtended from '../types/fullrecipe';
+import DishType from '../types/dishTypes';
+
+
 
 export const getRecipes = async (): Promise<Recipe[]> => {
   try {
     const response = await axios.get('http://foodsparks.eu-central-1.elasticbeanstalk.com/recipes');
     const recipe = response.data;
 
-    console.log(response.data);
+    return recipe;
+  } catch (error) {
+    throw new Error(`Failed to fetch recipe:${error}`);
+  }
+};
+
+export const getDishTypes = async (): Promise<DishType[]> => {
+  try {
+    const response = await axios.get('http://foodsparks.eu-central-1.elasticbeanstalk.com/dish-types');
+    const recipe = response.data;
 
     return recipe;
   } catch (error) {
@@ -25,11 +38,72 @@ export const getByPageRecipes = async (page: number): Promise<Recipe[]> => {
   }
 };
 
-export const getRecipeById = async (id: number): Promise<Recipe> => {
+export const getByPageAndFilterRecipes = async (
+  page: number,
+  cuisineRegionInId: number[] | null = null,
+  dishTypeInId: number[] | null = null,
+  complexityInId: number[] | null = null,
+  spicedIn: boolean = false,
+  productListInId: number[] | null = null,
+  fieldname: string | null = null,
+  order: string | null = null
+): Promise<Recipe[]> => {
+  const arr = [cuisineRegionInId, dishTypeInId, complexityInId, spicedIn, productListInId, fieldname, order];
+  const definedArr = arr.filter(item => item);
+  const str = definedArr.map(item => {
+    switch (item) {
+      case cuisineRegionInId:
+        if (item) {
+          return `dishTypeIn=${item.join(',')}`
+        }
+        break;
+
+      case dishTypeInId:
+        if (item) {
+          return `dishTypeIn=${item.join(',')}`
+        }
+        break;
+
+      case complexityInId:
+        if (item) {
+          return `dishTypeIn=${item.join(',')}`
+        }
+        break;
+
+      case spicedIn:
+        return `spicedIn=${item}`
+
+      case productListInId:
+        if (item) {
+          return `dishTypeIn=${item.join(',')}`
+        }
+        break;
+
+      case fieldname:
+        return `fieldname=${item}`
+
+      case order:
+        return `order=${item}`
+    }
+  })
+
+  const result = str.join('&');
+
+  try {
+    const response = await axios
+      .get(`http://foodsparks.eu-central-1.elasticbeanstalk.com/recipes?page=${page - 1}&count=20&${result}`);
+    const recipe = response.data;
+
+    return recipe;
+  } catch (error) {
+    throw new Error(`Failed to fetch recipe:${error}`);
+  }
+};
+
+export const getRecipeById = async (id: number): Promise<RecipeExtended> => {
   try {
     const response = await axios.get(`http://foodsparks.eu-central-1.elasticbeanstalk.com/recipes/${id}`);
     const recipe = response.data;
-    console.log(recipe);
 
     return recipe;
   } catch (error) {

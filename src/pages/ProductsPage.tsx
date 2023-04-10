@@ -1,7 +1,7 @@
 import { Container, Typography, Box, Button, Card, CardActions, CardContent, CardMedia, Pagination } from '@mui/material';
 import Breadcrumb from '../components/BreadCrums';
 import { useEffect, useState } from 'react';
-import { getByPageRecipes, getRecipes } from '../api/fetchRecepies';
+import { getByPageAndFilterRecipes, getByPageRecipes, getRecipes } from '../api/fetchRecepies';
 import Recipe from '../types/recipe';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ForwardIcon from '@mui/icons-material/Forward';
@@ -12,6 +12,13 @@ import { Link } from 'react-router-dom';
 const ProductsPage: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [cuisineRegionInId, setCuisineRegionInId] = useState<number[] | null>(null);
+  const [dishTypeInId, setDishTypeInId] = useState<number[] | null>(null);
+  const [complexityInId, setComplexityInId] = useState<number[] | null>(null);
+  const [spicedIn, setSpicedIn] = useState(true)
+  const [productListInId, setProductListInId] = useState<number[] | null>(null);
+  const [fieldname, setFieldname] = useState('')
+  const [order, setOrder] = useState('')
   const [page, setPage] = useState(1);
   const maxPages = 4;
 
@@ -43,7 +50,8 @@ const ProductsPage: React.FC = () => {
   const loadRecepiesFromServer = async () => {
     try {
       setIsLoading(true);
-      const recipesFromServer = await getByPageRecipes(page);
+      const recipesFromServer = await 
+        getByPageAndFilterRecipes(page,cuisineRegionInId,dishTypeInId,complexityInId,spicedIn,productListInId,fieldname,order)
 
       setRecipes(recipesFromServer);
     } catch (err) {
@@ -115,7 +123,7 @@ const ProductsPage: React.FC = () => {
             <CardMedia
               sx={{ height: 305, position: 'relative' }}
               image={item.imageUrl}
-              title={item.dishName}
+              title={item.title}
             >
               <Box sx={{ backgroundColor: '#CB3C2E', width: 'fit-content', position: 'absolute', top: '30px' }}>
                 <Typography gutterBottom variant="h5" sx={{ margin: '8px 16px' }}>
@@ -137,7 +145,7 @@ const ProductsPage: React.FC = () => {
                     marginBottom: '16px'
                   }}
                 >
-                  {item.dishName}
+                  {item.title}
                 </Typography>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <Typography
