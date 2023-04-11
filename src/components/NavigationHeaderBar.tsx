@@ -7,7 +7,7 @@ import SignUpDialog from "./SignUpDialog";
 const NavigationHeaderBar = () => {
   return (
     <><Toolbar sx={{ maxWidth: '100%', backgroundColor: '#fff', position: 'relative', display: 'flex'}}>
-      <Container maxWidth={false} >
+      <Container maxWidth="xl" sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 64px'}}>
         <Box sx={{
           display: 'flex',
           alignItems: 'center',
@@ -83,7 +83,9 @@ const NavigationHeaderBar = () => {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              flexShrink: 2
+              gap: '24px',
+              flexShrink: 2,
+              marginLeft: '24px'
             }}
           >
             <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>

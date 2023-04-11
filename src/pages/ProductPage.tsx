@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getRecipeById } from '../api/fetchRecepies';
-import RecipeExtended from '../types/fullrecipe';
+import RecipeExtended from '../types/recipeExtended';
 import Breadcrumb from '../components/BreadCrums';
 import { Box, Button, Container, Divider, Grid, Typography } from '@mui/material';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';

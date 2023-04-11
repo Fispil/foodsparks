@@ -81,7 +81,7 @@ const SignInDialog = () => {
               autoFocus
               margin="dense"
               name="login"
-              id="email"
+              id="emailSignIn"
               label="Email Address"
               type="email"
               fullWidth
@@ -96,7 +96,7 @@ const SignInDialog = () => {
               autoFocus
               margin="dense"
               name="password"
-              id="password"
+              id="passwordSignIn"
               label="Password"
               type="password"
               fullWidth

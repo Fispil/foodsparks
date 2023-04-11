@@ -10,7 +10,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import RecipeAutocompleteSearch from './RecipeAutocompleteSearch';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { Tooltip, Typography, Stack } from '@mui/material';
+import { Tooltip, Typography, Stack, Button, Container } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 
@@ -49,75 +49,68 @@ const AppBarSearch = () => {
     </Menu>
   );
 
+  const viewPort = '90vh';
+
   return (
-    <AppBar position="static">
-      <Toolbar sx={{ backgroundColor: '#000', height: '90px' }}>
-        <Link to={'/'}>
-          <Box
-            sx={{
-              height: 50,
-              width: 305,
-              marginRight: '32px',
-              backgroundImage: `url(src/pictures/Logo.png)`,
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'contain',
-              backgroundSize: 'cover'
-            }}
-          />
-        </Link>
-        <RecipeAutocompleteSearch />
-        <Box sx={{ flexGrow: 1 }} />
-        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <Tooltip
-            title={
-              <Typography>
-                <Stack spacing={1}>
-                  <Link style={{ textDecoration: 'none', color: 'black' }} to="tel:555-1234-5678">
-                    555-1234-5678
-                  </Link>
-                  <Link style={{ textDecoration: 'none', color: 'black' }} to="tel:555-1234-5678">
-                    555-1234-5678
-                  </Link>
-                  <Link style={{ textDecoration: 'none', color: 'black' }} to="tel:555-1234-5678">
-                    555-1234-5678
-                  </Link>
-                  <Link style={{ textDecoration: 'none', color: 'black' }} to="https://goo.gl/maps/D3vaAfVpaz6GaKJL7">
-                    Kiev
-                  </Link>
-                </Stack>
-              </Typography>
-            }
-          >
-            <IconButton
-              sx={{ m: 1, color: 'white' }}
-            >
-              <LocationOnIcon />
-            </IconButton>
-          </Tooltip>
-          <IconButton
-            size="large"
-            aria-label="show 17 new notifications"
-            color="inherit"
-          >
-            <Badge badgeContent={17} color="error">
-              <ShoppingCartIcon />
-            </Badge>
-          </IconButton>
-          <IconButton
-            size="large"
-            edge="end"
-            aria-label="account of current user"
-            aria-controls={menuId}
-            aria-haspopup="true"
-            onClick={handleProfileMenuOpen}
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
-        </Box>
-        {renderMenu}
+    <AppBar position="static" sx={{ backgroundColor: '#000' }}>
+      <Toolbar>
+        <Container maxWidth="xl" sx={{ height: '90px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 64px'}}>
+          <Box sx={{ display: 'flex' }}>
+            <Link to={'/'}>
+              <Box
+                sx={{
+                  height: 50,
+                  width: 305,
+                  marginRight: '32px',
+                  backgroundImage: `url(src/pictures/Logo.png)`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'contain',
+                  backgroundSize: 'cover'
+                }}
+              />
+            </Link>
+            <RecipeAutocompleteSearch />
+          </Box>
+          <Box sx={{ display: 'flex' }}>
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: '24px' }}>
+              <Button
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '80', height: '48px'}}
+              >
+                <img src='src/pictures/icons_person.svg' alt='ProfileIcon'/>
+              </Button>
+              <Tooltip
+                title={
+                  <Typography>
+                    Address
+                  </Typography>
+                }
+              >
+                <Button
+                  sx={{ color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '80', height: '48px' }}
+                >
+                  <img src='src/pictures/icons_location.svg' alt='locationicon'/>
+                </Button>
+              </Tooltip>
+              <Button
+                size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
+                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '80', height: '48px', backgroundColor: '#CB3C2E' }}
+              >
+                <Badge badgeContent={17} color="success">
+                  <img src='src/pictures/basket.svg' alt='cartIcon' />
+                </Badge>
+              </Button>
+            </Box>
+            {renderMenu}
+          </Box>
+        </Container>
       </Toolbar>
-    </AppBar>
+    </AppBar >
   );
 }
 

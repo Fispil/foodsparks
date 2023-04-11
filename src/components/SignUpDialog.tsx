@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Dialog, DialogTitle, DialogContentText, Button, DialogActions, DialogContent, TextField, Grid } from '@mui/material';
 import { registerNewUser } from '../api/fetchUser';
-import NewUser from '../types/newuser';
+import NewUser from '../types/userRegistration';
 
 const SignUpDialog = () => {
   const [open, setOpen] = useState(false);

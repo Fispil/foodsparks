@@ -1,7 +1,7 @@
 import { Container, Typography, Box, Button, Card, CardActions, CardContent, CardMedia, Pagination } from '@mui/material';
 import Breadcrumb from '../components/BreadCrums';
 import { useEffect, useState } from 'react';
-import { getByPageAndFilterRecipes, getByPageRecipes, getRecipes } from '../api/fetchRecepies';
+import { getByPageAndFilterRecipes, getByPageRecipes } from '../api/fetchRecepies';
 import Recipe from '../types/recipe';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ForwardIcon from '@mui/icons-material/Forward';
@@ -15,7 +15,7 @@ const ProductsPage: React.FC = () => {
   const [cuisineRegionInId, setCuisineRegionInId] = useState<number[] | null>(null);
   const [dishTypeInId, setDishTypeInId] = useState<number[] | null>(null);
   const [complexityInId, setComplexityInId] = useState<number[] | null>(null);
-  const [spicedIn, setSpicedIn] = useState(true)
+  const [spicedIn, setSpicedIn] = useState(false)
   const [productListInId, setProductListInId] = useState<number[] | null>(null);
   const [fieldname, setFieldname] = useState('')
   const [order, setOrder] = useState('')

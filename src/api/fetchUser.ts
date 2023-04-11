@@ -1,6 +1,8 @@
 import axios from 'axios';
 import User from '../types/user';
-import NewUser from '../types/newuser'
+import NewUser from '../types/userRegistration'
+
+// localStorage.getItem('token'); to get bearer token
 
 const userOptions = {
   headers: {
@@ -8,12 +10,12 @@ const userOptions = {
   }
 };
 
-export const loginUser = async (user: User): Promise<User> => {
+export const loginUser = async (user: User): Promise<string> => {
   try {
-    console.log(JSON.stringify(user));
     const response = await axios.post('http://foodsparks.eu-central-1.elasticbeanstalk.com/login', JSON.stringify(user), userOptions);
     const isLogin = response.data;
-    console.log(isLogin);
+
+    localStorage.setItem('token', `Bearer ${isLogin.token}`);
 
     return isLogin;
   } catch (error) {

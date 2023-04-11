@@ -1,9 +1,7 @@
 import axios from 'axios';
 import Recipe from '../types/recipe';
-import RecipeExtended from '../types/fullrecipe';
+import RecipeExtended from '../types/recipeExtended';
 import DishType from '../types/dishTypes';
-
-
 
 export const getRecipes = async (): Promise<Recipe[]> => {
   try {
