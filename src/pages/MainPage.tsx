@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Box, Button, Container, Divider, Grid, Stack, TextField, Theme } from '@mui/material';
+import { Box, Button, Container, Divider, Grid, TextField, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import { getDishTypes, getRecipes } from '../api/fetchRecepies';
@@ -11,6 +11,7 @@ import CustomCardList from '../components/CustomCardList';
 import CuisineRegion from '../types/cuisineRegions';
 import { getCuisineRegion } from '../api/fetchCuisineRegion';
 import DishType from '../types/dishTypes';
+import Promo from '../components/Promo';
 
 const useStyles = makeStyles((theme: Theme) => ({
   flexContainer: {
@@ -49,8 +50,6 @@ const MainPage: React.FC = () => {
   const [cuisineRegions, setCuisineRegions] = useState<CuisineRegion[]>([])
   const [dishTypes, setDishtypes] = useState<DishType[]>([])
   const [isLoading, setIsLoading] = useState(false);
-  const [promocodeInput, setPromocodeInput] = useState('');
-  const topCatergories = ['Основні страви', 'Перші страви', 'Закуски', 'Десерти', 'Випічка'];
 
   const loadRecepiesFromServer = async () => {
     try {
@@ -70,14 +69,6 @@ const MainPage: React.FC = () => {
       setIsLoading(false);
     };
   }
-
-  const handlePromocodeInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPromocodeInput(event.target.value);
-  }
-
-  const handlePromoSumbit = (event: React.FormEvent<HTMLFormElement>) => {
-    console.log('promo sent')
-  };
 
   useEffect(() => {
     loadRecepiesFromServer();
@@ -138,94 +129,31 @@ const MainPage: React.FC = () => {
                     to="/products"
                     style={{
                       textDecoration: 'none',
-                      color: '#CB3C2E',
-                      fontFamily: 'Open Sans',
-                      fontStyle: 'normal',
-                      fontWeight: 400,
-                      fontSize: '16px',
-                      lineHeight: '24px'
                     }}
                   >
-                    Показати всі
+                    <Typography
+                      sx={{
+                        color: '#CB3C2E',
+                        fontFamily: 'Open Sans',
+                        fontStyle: 'normal',
+                        fontWeight: 400,
+                        fontSize: '16px',
+                        lineHeight: '24px',
+                        '&:hover': {
+                          color: 'black',
+                        },
+                      }}
+                    >
+                      Показати всі
+                    </Typography>
                   </Link>
                 </Box>
-
                 <CustomCardList items={recipes.filter(item => item.dishType === category.dishTypeName)} />
               </Box>
-              <Divider sx={{ backgroundColor: 'black' }} />
             </Box>
           ))}
-          <Box sx={{ backgroundColor: 'black', marginBottom: '40px', height: '370px', padding: '40px' }}>
-            <Typography
-              variant='h2'
-              sx={{
-                color: '#fff',
-                marginBottom: '24px',
-                fontFamily: 'Open Sans',
-                fontStyle: 'normal',
-                fontWeight: 700,
-                fontSize: '38px',
-                lineHeight: '57px'
-              }}>
-              Отримайте знижку 20%<br />
-              на перше замовлення
-            </Typography>
-            <Typography
-              variant='h6'
-              sx={{
-                color: '#fff',
-                marginBottom: '24px',
-                fontFamily: 'Open Sans',
-                fontStyle: 'normal',
-                fontWeight: 400,
-                fontSize: '16px',
-                lineHeight: '24px'
-              }}
-            >
-              Введіть електронну адресу та отримайте промокод
-            </Typography>
-            <Divider sx={{ backgroundColor: '#fff' }} />
-            <form onSubmit={handlePromoSumbit}>
-              <Grid
-                container
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  padding: '40px'
-                }}
-              >
-                <Grid item sm={9}>
-                  <TextField
-                    fullWidth
-                    value={promocodeInput}
-                    onChange={handlePromocodeInputChange}
-                    placeholder="Введіть свою почту"
-                    id="email"
-                    type="email"
-                    sx={{ backgroundColor: '#fff', borderRadius: '12px' }}
-                  />
-                </Grid>
-                <Grid item sm={1} />
-                <Grid item sm={2}>
-                  <Button
-                    variant="contained"
-                    sx={{
-                      borderRadius: '12px',
-                      backgroundColor: 'rgb(176,224,230)',
-                      color: '#fff',
-                      padding: '16px 24px',
-                      fontWeight: 400,
-                      width: '240px',
-                      height: '64px',
-                      background: '#CB3C2E',
-                    }}>
-                    Надіслати
-                  </Button>
-                </Grid>
-              </Grid>
-            </form>
-          </Box>
+          <Divider sx={{ backgroundColor: 'black', marginBottom: '64px' }} />
+          <Promo />
         </Container >
       </Box >
     </>

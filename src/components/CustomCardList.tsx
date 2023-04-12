@@ -20,7 +20,15 @@ const CustomCardList: React.FC<Props> = ({ items }) => {
             image={item.imageUrl}
             title={item.title}
           >
-            <Box sx={{ backgroundColor: '#CB3C2E', width: 'fit-content', position: 'absolute', top: '30px' }}>
+            <Box sx={{
+              backgroundColor: '#fff',
+              width: 'fit-content',
+              position: 'absolute',
+              top: '30px',
+              '&:hover': {
+                backgroundColor: '#CB3C2E',
+              },
+            }}>
               <Typography gutterBottom variant="h5" sx={{ margin: '8px 16px' }}>
                 Легкий
               </Typography>

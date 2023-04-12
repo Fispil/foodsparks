@@ -9,6 +9,7 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SyncAltIcon from '@mui/icons-material/SyncAlt';
 import { Link } from 'react-router-dom';
 
+
 const ProductsPage: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -50,8 +51,8 @@ const ProductsPage: React.FC = () => {
   const loadRecepiesFromServer = async () => {
     try {
       setIsLoading(true);
-      const recipesFromServer = await 
-        getByPageAndFilterRecipes(page,cuisineRegionInId,dishTypeInId,complexityInId,spicedIn,productListInId,fieldname,order)
+      const recipesFromServer = await
+        getByPageAndFilterRecipes(page, cuisineRegionInId, dishTypeInId, complexityInId, spicedIn, productListInId, fieldname, order)
 
       setRecipes(recipesFromServer);
     } catch (err) {
@@ -111,7 +112,7 @@ const ProductsPage: React.FC = () => {
             lineHeight: '16px',
             padding: '12px 24px'
           }}
-          startIcon={<SyncAltIcon sx={{ rotate: '90deg' }} />}
+          endIcon={<SyncAltIcon sx={{ rotate: '90deg' }} />}
         >
           Сортувати
         </Button>
@@ -125,7 +126,17 @@ const ProductsPage: React.FC = () => {
               image={item.imageUrl}
               title={item.title}
             >
-              <Box sx={{ backgroundColor: '#CB3C2E', width: 'fit-content', position: 'absolute', top: '30px' }}>
+              <Box
+                sx={{
+                  backgroundColor: '#fff',
+                  width: 'fit-content',
+                  position: 'absolute',
+                  top: '30px',
+                  '&:hover': {
+                    backgroundColor: '#CB3C2E',
+                  },
+                }} 
+              >
                 <Typography gutterBottom variant="h5" sx={{ margin: '8px 16px' }}>
                   Легкий
                 </Typography>
@@ -186,13 +197,13 @@ const ProductsPage: React.FC = () => {
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center ' }}>
         <Button
           variant="text"
-          endIcon={<ForwardIcon sx={{ rotate: '90deg', color: '#CB3C2E' }} />}
+          endIcon={<img src='src/pictures/arrowdown.svg' alt="arrowdown" />}
           onClick={handleAddRecipes}
           sx={{
             fontFamily: 'Open Sans',
             fontStyle: 'normal',
             fontWweight: 400,
-            fontSize: '20px',
+            fontSize: '24px',
             lineHeight: '16px',
             textTransform: 'none',
             color: '#CB3C2E',
@@ -204,11 +215,15 @@ const ProductsPage: React.FC = () => {
       </Box>
       <Pagination
         sx={{ display: 'flex', justifyContent: 'center', marginBottom: '80px' }}
+        color='primary'
+        size='large'
         variant="outlined"
         shape="rounded"
         count={4}
         page={page}
         onChange={handlePageChange}
+        hidePrevButton
+        hideNextButton
       />
     </Container>
   );

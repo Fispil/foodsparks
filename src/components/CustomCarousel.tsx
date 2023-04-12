@@ -3,7 +3,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useState } from "react";
 import Slider, { Settings } from "react-slick";
-import Recipe from "../types/recipe";
+
 import { Theme } from "@emotion/react";
 import { makeStyles } from "@mui/styles";
 import { Box, Typography } from "@mui/material";
@@ -42,6 +42,13 @@ const useStyles = makeStyles((theme: Theme) => ({
       margin: "0 10px",
     },
   },
+  itemTitle: {
+    fontFamily: 'Open Sans',
+    fontWeight: 400,
+    fontSize: '32px',
+    lineHeight: '48px',
+    color: '#fff'
+  },
   arrow: {
     position: "absolute",
     top: "50%",
@@ -52,21 +59,43 @@ const useStyles = makeStyles((theme: Theme) => ({
       cursor: "pointer",
     },
   },
-  itemTitle: {
-    fontFamily: 'Open Sans',
-    fontWeight: 400,
-    fontSize: '32px',
-    lineHeight: '48px',
-    color: '#fff'
-  }
+  prevArrow: {
+    left: -32,
+    "&::before": {
+      content: "''",
+      display: "block",
+      width: 48,
+      height: 48,
+      backgroundImage: "url(/path/to/your/left-arrow-icon.svg)",
+      backgroundSize: "cover",
+    },
+  },
+  nextArrow: {
+    right: -32,
+    "&::before": {
+      content: "''",
+      display: "block",
+      width: 48,
+      height: 48,
+      backgroundImage: "url(/path/to/your/right-arrow-icon.svg)",
+      backgroundSize: "cover",
+    },
+  },
 }));
+
+
 
 const CustomCarousel: React.FC<CarouselProps> = ({ items }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const classes = useStyles();
 
+  const prevArrow = <div className={`${classes.arrow} ${classes.prevArrow}`} />;
+  const nextArrow = <div className={`${classes.arrow} ${classes.nextArrow}`} />;
+
   const settings: Settings = {
     arrows: true,
+    prevArrow: (prevArrow),
+    nextArrow: (nextArrow),
     infinite: true,
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -103,7 +132,8 @@ const CustomCarousel: React.FC<CarouselProps> = ({ items }) => {
               backgroundImage: `url(${item.imageUrl})`,
               backgroundRepeat: 'no-repeat',
               backgroundPosition: 'contain',
-              backgroundSize: 'cover'
+              backgroundSize: 'cover',
+              marginBottom: '32px'
             }}>
           </Box>
           <Typography variant="h5" className={classes.itemTitle}>{item.cuisineRegionName}</Typography>
