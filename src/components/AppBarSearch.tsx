@@ -10,7 +10,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import RecipeAutocompleteSearch from './RecipeAutocompleteSearch';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { Tooltip, Typography, Stack, Button, Container } from '@mui/material';
+import { Tooltip, Typography, Button, Container, Backdrop } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 
@@ -54,7 +54,7 @@ const AppBarSearch = () => {
   return (
     <AppBar position="static" sx={{ backgroundColor: '#000' }}>
       <Toolbar>
-        <Container maxWidth="xl" sx={{ height: '90px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 64px'}}>
+        <Container maxWidth="xl" sx={{ height: '90px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 64px' }}>
           <Box sx={{ display: 'flex' }}>
             <Link to={'/'}>
               <Box
@@ -70,6 +70,7 @@ const AppBarSearch = () => {
               />
             </Link>
             <RecipeAutocompleteSearch />
+
           </Box>
           <Box sx={{ display: 'flex' }}>
             <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: '24px' }}>
@@ -78,9 +79,9 @@ const AppBarSearch = () => {
                 aria-haspopup="true"
                 onClick={handleProfileMenuOpen}
                 color="inherit"
-                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '80', height: '48px'}}
+                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '80', height: '48px' }}
               >
-                <img src='src/pictures/icons_person.svg' alt='ProfileIcon'/>
+                <img src='src/pictures/icons_person.svg' alt='ProfileIcon' />
               </Button>
               <Tooltip
                 title={
@@ -92,7 +93,7 @@ const AppBarSearch = () => {
                 <Button
                   sx={{ color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '80', height: '48px' }}
                 >
-                  <img src='src/pictures/icons_location.svg' alt='locationicon'/>
+                  <img src='src/pictures/icons_location.svg' alt='locationicon' />
                 </Button>
               </Tooltip>
               <Button

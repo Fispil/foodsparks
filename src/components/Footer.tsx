@@ -38,7 +38,7 @@ const Footer = () => {
         boxSizing: 'border-box',
       }}
     >
-      <Box sx={{ display: 'flex', justifyContent: 'space-evenly', alighnItems: 'center' , marginBottom: '68px'}}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alighnItems: 'center' , marginBottom: '68px'}}>
         <Box>
           <Link to="/" style={{ marginBottom: '8px' }}>
             <Box

@@ -5,7 +5,7 @@ import { getRecipes } from '../api/fetchRecepies';
 import Recipe from '../types/recipe';
 import { theme } from '../theme';
 import { Link } from 'react-router-dom';
-import { Box , Theme, Typography } from '@mui/material';
+import { Box, Theme, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import SearchIcon from '@mui/icons-material/Search';
@@ -13,8 +13,15 @@ import SearchIcon from '@mui/icons-material/Search';
 const useStyles = makeStyles((theme: Theme) => ({
   searchIcon: {
     position: "absolute",
-    borderLeftColor: "3%"
-  }
+  },
+  root: {
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: '#CB3C2E',
+        borderRadius: '60px',
+      },
+    },
+  },
 }));
 
 const RecipeAutocompleteSearch: React.FC = () => {
@@ -58,7 +65,13 @@ const RecipeAutocompleteSearch: React.FC = () => {
   return (
     <Autocomplete
       id="recipeSearch"
-      sx={{ minWidth: '500px', height: '55px' ,color: theme.palette.common.white, backgroundColor: theme.palette.common.white, borderRadius: 50 }}
+      sx={{
+        minWidth: '500px',
+        height: '55px',
+        color: theme.palette.common.white,
+        backgroundColor: theme.palette.common.white,
+        borderRadius: '50px'
+      }}
       ref={autocompleteRef}
       open={open}
       onOpen={() => {
@@ -101,13 +114,16 @@ const RecipeAutocompleteSearch: React.FC = () => {
         //@ts-ignore
         <TextField
           {...params}
-          label={open
-            ? null
-            : <Typography sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: 3}}>
-                <SearchIcon sx={{ position: 'absolute', left: 0 }}/>Search Recipe
-              </Typography>}
-          sx={{ backgroundColor: theme.palette.common.white, position: 'relative', borderRadius: '60px', height: '50px'}}
+          className={classes.root}
+          placeholder="Search Recipe"
+          variant='outlined'
+          sx={{
+            backgroundColor: theme.palette.common.white,
+            position: 'relative',
+            borderRadius: '60px', height: '50px',
+          }}
         >
+          <SearchIcon /> 
         </TextField>
       )}
     />
