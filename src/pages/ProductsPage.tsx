@@ -1,27 +1,35 @@
-import { Container, Typography, Box, Button, Card, CardActions, CardContent, CardMedia, Pagination } from '@mui/material';
+import { Container, Typography, Box, Button, Card, CardContent, CardMedia, Pagination } from '@mui/material';
 import Breadcrumb from '../components/BreadCrums';
 import { useEffect, useState } from 'react';
 import { getByPageAndFilterRecipes, getByPageRecipes } from '../api/fetchRecepies';
 import Recipe from '../types/recipe';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import ForwardIcon from '@mui/icons-material/Forward';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import SyncAltIcon from '@mui/icons-material/SyncAlt';
 import { Link } from 'react-router-dom';
+import SortElementButton from '../components/SortElementButton';
+import FilterElementButton from '../components/FilterElementButton';
+import CuisineRegion from '../types/cuisineRegions';
+import { getComplexityTypes, getCuisineRegion, getDishTypes } from '../api/fetchTypes';
+import DishType from '../types/dishTypes';
+import ComplexityType from '../types/complexityTypes';
 
 
 const ProductsPage: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [cuisineRegions, setCuisineRegions] = useState<CuisineRegion[]>([])
   const [cuisineRegionInId, setCuisineRegionInId] = useState<number[] | null>(null);
+  const [dishTypes, setDishtypes] = useState<DishType[]>([])
   const [dishTypeInId, setDishTypeInId] = useState<number[] | null>(null);
+  const [complexityTypes, setComplexityTypes] = useState<ComplexityType[]>([])
   const [complexityInId, setComplexityInId] = useState<number[] | null>(null);
-  const [spicedIn, setSpicedIn] = useState(false)
+  const [spicedIn, setSpicedIn] = useState(false);
   const [productListInId, setProductListInId] = useState<number[] | null>(null);
-  const [fieldname, setFieldname] = useState('')
-  const [order, setOrder] = useState('')
+  const [fieldname, setFieldname] = useState('');
+  const [order, setOrder] = useState('');
   const [page, setPage] = useState(1);
-  const maxPages = 4;
+  const [maxPages, setMaxPages] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     event.preventDefault();
@@ -39,8 +47,7 @@ const ProductsPage: React.FC = () => {
     try {
       setIsLoading(true);
       const recipesFromServer = await getByPageRecipes(page);
-
-      setRecipes(currentRecipes => [...currentRecipes, recipesFromServer].flat());
+      setRecipes(currentRecipes => [...currentRecipes, recipesFromServer.content].flat());
     } catch (err) {
       throw new Error(`Cant get recipes from server: ${err}`)
     } finally {
@@ -48,13 +55,51 @@ const ProductsPage: React.FC = () => {
     };
   }
 
+  const filterOptionsClear = () => {
+    if (cuisineRegionInId && cuisineRegionInId.length === 0) {
+      setCuisineRegionInId(null);
+    }
+
+    if (dishTypeInId && dishTypeInId.length === 0) {
+      setDishTypeInId(null);
+    }
+
+    if (complexityInId && complexityInId.length === 0) {
+      setComplexityInId(null);
+    }
+  }
+
   const loadRecepiesFromServer = async () => {
     try {
       setIsLoading(true);
-      const recipesFromServer = await
-        getByPageAndFilterRecipes(page, cuisineRegionInId, dishTypeInId, complexityInId, spicedIn, productListInId, fieldname, order)
+      filterOptionsClear();
 
-      setRecipes(recipesFromServer);
+      const [recipesFromServer,] = await Promise.all([
+        getByPageAndFilterRecipes(page, cuisineRegionInId, dishTypeInId, complexityInId, spicedIn, productListInId, fieldname, order),
+      ]);
+
+      setRecipes(recipesFromServer.content);
+      setMaxPages(recipesFromServer.totalPages);
+      setTotalItems(recipesFromServer.totalElements);
+    } catch (err) {
+      throw new Error(`Cant get recipes from server: ${err}`)
+    } finally {
+      setIsLoading(false);
+    };
+  }
+
+  const loadTypesFromServer = async () => {
+    try {
+      setIsLoading(true);
+      const [dishTypesFromServer, cuisineRegionFromServer, complexityTypesFromServer] = await Promise.all([
+        getDishTypes(),
+        getCuisineRegion(),
+        getComplexityTypes(),
+      ])
+
+      setDishtypes(dishTypesFromServer);
+      setCuisineRegions(cuisineRegionFromServer);
+      setComplexityTypes(complexityTypesFromServer);
     } catch (err) {
       throw new Error(`Cant get recipes from server: ${err}`)
     } finally {
@@ -63,61 +108,44 @@ const ProductsPage: React.FC = () => {
   }
 
   useEffect(() => {
+    loadTypesFromServer();
+    console.log('loaded');
+  }, [])
+
+  useEffect(() => {
     loadRecepiesFromServer();
-  }, [page]);
+  }, [page, order, cuisineRegionInId, dishTypeInId, spicedIn, complexityInId]);
 
   return (
     <Container maxWidth="xl">
       <Breadcrumb />
       <Typography
-        variant="h3"
+        variant="h5"
         sx={{
           marginBottom: '32px',
-          fontFamily: 'Open Sans',
-          fontStyle: 'normal',
           fontWeight: 700,
-          fontSize: '38px',
-          lineHeight: '57px'
         }}
       >
         Рецепти української кухні
       </Typography>
 
       <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: '40px' }}>
-        <Button
-          variant='outlined'
-          sx={{
-            border: '1px solid #CB3C2E',
-            textTransform: 'none', color: '#CB3C2E',
-            fontFamily: 'Open Sans',
-            fontStyle: 'normal',
-            fontWeight: 400,
-            fontSize: '24px',
-            lineHeight: '16px',
-            padding: '12px 24px'
-          }}
-          endIcon={<FilterAltIcon />}
-        >
-          Фільтри
-        </Button>
-        <Button
-          variant='text'
-          sx={{
-            textTransform: 'none',
-            color: '#CB3C2E',
-            fontFamily: 'Open Sans',
-            fontStyle: 'normal',
-            fontWeight: 400,
-            fontSize: '24px',
-            lineHeight: '16px',
-            padding: '12px 24px'
-          }}
-          endIcon={<SyncAltIcon sx={{ rotate: '90deg' }} />}
-        >
-          Сортувати
-        </Button>
+        <FilterElementButton
+          cuisineRegionNames={cuisineRegions}
+          cuisineRegionInId={cuisineRegionInId}
+          setCuisineRegionInId={setCuisineRegionInId}
+          dishTypes={dishTypes}
+          dishTypeInId={dishTypeInId}
+          setDishTypeInId={setDishTypeInId}
+          complexityInId={complexityInId}
+          complexityTypes={complexityTypes}
+          setComplexityInId={setComplexityInId}
+          spicedIn={spicedIn}
+          setSpicedIn={setSpicedIn}
+          totalItems={totalItems}
+        />
+        <SortElementButton order={order} onOrderChange={setOrder} />
       </Box>
-
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '32px', justifyContent: 'center', marginBottom: '40px' }}>
         {recipes.map((item) => (
           <Card key={item.id} sx={{ width: 300, height: 440, flex: '0 0 auto', margin: '0 8px' }}>
@@ -126,18 +154,16 @@ const ProductsPage: React.FC = () => {
               image={item.imageUrl}
               title={item.title}
             >
-              <Box
-                sx={{
-                  backgroundColor: '#fff',
-                  width: 'fit-content',
-                  position: 'absolute',
-                  top: '30px',
-                  '&:hover': {
-                    backgroundColor: '#CB3C2E',
-                  },
-                }} 
-              >
-                <Typography gutterBottom variant="h5" sx={{ margin: '8px 16px' }}>
+              <Box sx={{
+                backgroundColor: '#fff',
+                width: 'fit-content',
+                position: 'absolute',
+                top: '30px',
+                '&:hover': {
+                  backgroundColor: '#CB3C2E',
+                },
+              }}>
+                <Typography variant="body2" sx={{ padding: '8px 16px' }}>
                   Легкий
                 </Typography>
               </Box>
@@ -145,14 +171,8 @@ const ProductsPage: React.FC = () => {
             <CardContent sx={{ marginTop: '24px' }}>
               <Link to={`/products/${item.id}`} style={{ textDecoration: 'none', color: 'black' }}>
                 <Typography
-                  gutterBottom
-                  variant="h6"
+                  variant="subtitle1"
                   sx={{
-                    fontFamily: 'Open Sans',
-                    fontStyle: 'normal',
-                    fontWweight: 400,
-                    fontSize: '30px',
-                    lineHeight: '25px',
                     marginBottom: '16px'
                   }}
                 >
@@ -160,30 +180,23 @@ const ProductsPage: React.FC = () => {
                 </Typography>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{
-                      fontFamily: 'Open Sans',
-                      fontStyle: 'normal',
-                      fontWweight: 400,
-                      fontSize: '20px',
-                      lineHeight: '16px'
-                    }}
-                  >
-                    {item.portions} Порцій
-                  </Typography>
-                  <Typography
-                    variant="body2"
+                    variant="body1"
                     color="text.secondary"
                     sx={{
                       display: 'flex',
                       justifyContent: 'center',
                       alignItems: 'center',
-                      fontFamily: 'Open Sans',
-                      fontStyle: 'normal',
-                      fontWweight: 400,
-                      fontSize: '20px',
-                      lineHeight: '16px'
+                    }}
+                  >
+                    <img src='src/pictures/pot.svg' alt="Pot" style={{ marginRight: '8px' }} />{item.portions} Порцій
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
                     }}>
                     <AccessTimeIcon /> {item.cookingTime}
                   </Typography>
@@ -200,17 +213,14 @@ const ProductsPage: React.FC = () => {
           endIcon={<img src='src/pictures/arrowdown.svg' alt="arrowdown" />}
           onClick={handleAddRecipes}
           sx={{
-            fontFamily: 'Open Sans',
-            fontStyle: 'normal',
-            fontWweight: 400,
-            fontSize: '24px',
-            lineHeight: '16px',
             textTransform: 'none',
             color: '#CB3C2E',
             marginBottom: '24px'
           }}
         >
-          Показати ще
+          <Typography variant='body1'>
+            Показати ще
+          </Typography>
         </Button>
       </Box>
       <Pagination
@@ -219,7 +229,7 @@ const ProductsPage: React.FC = () => {
         size='large'
         variant="outlined"
         shape="rounded"
-        count={4}
+        count={maxPages}
         page={page}
         onChange={handlePageChange}
         hidePrevButton

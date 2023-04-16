@@ -13,5 +13,44 @@ export const theme = createTheme({
     secondary: {
       main: '#89939a'
     }
-  }
+  },
+  typography: {
+    fontFamily: 'Open Sans',
+    h5: {
+      fontFamily: 'Open Sans',
+      fontWeight: 700,
+      fontSize: '38px',
+      lineHeight: '57px',
+    },
+    h6: {
+      fontFamily: 'Open Sans',
+      fontWeight: 400,
+      fontSize: '36px',
+      lineHeight: '54px',
+    },
+    subtitle1: {
+      fontFamily: 'Open Sans',
+      fontWeight: 400,
+      fontSize: '32px',
+      lineHeight: '48px',
+    },
+    subtitle2: {
+      fontFamily: 'Open Sans',
+      fontWeight: 400,
+      fontSize: '24px',
+      lineHeight: '36px',
+    },
+    body1: {
+      fontFamily: 'Open Sans',
+      fontWeight: 400,
+      fontSize: '24px',
+      lineHeight: '16px',
+    },
+    body2: {
+      fontFamily: 'Open Sans',
+      fontWeight: 400,
+      fontSize: '16px',
+      lineHeight: '24px',
+    },
+  },
 });

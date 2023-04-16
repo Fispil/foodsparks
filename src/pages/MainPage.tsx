@@ -2,18 +2,18 @@ import { useEffect, useState } from 'react';
 import { Box, Button, Container, Divider, Grid, TextField, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
-import { getDishTypes, getRecipes } from '../api/fetchRecepies';
+import { getRecipes } from '../api/fetchRecepies';
 import Recipe from '../types/recipe';
 import CustomCarousel from '../components/CustomCarousel';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { Link } from 'react-router-dom';
 import CustomCardList from '../components/CustomCardList';
 import CuisineRegion from '../types/cuisineRegions';
-import { getCuisineRegion } from '../api/fetchCuisineRegion';
+import { getCuisineRegion, getDishTypes } from '../api/fetchTypes';
 import DishType from '../types/dishTypes';
 import Promo from '../components/Promo';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(({
   flexContainer: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -35,14 +35,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     lineHeight: '57px',
     color: '#fff',
   },
-  dividerDashed: {
-    borderBottom: '5px dashed #cb3c2e',
-    borderColor: '#cb3c2e',
-  },
-  divider: {
-    borderBottom: '5px solid #cb3c2e',
-    borderColor: '#cb3c2e',
-  },
 }));
 
 const MainPage: React.FC = () => {
@@ -62,7 +54,7 @@ const MainPage: React.FC = () => {
 
       setDishtypes(dishTypesFromServer);
       setCuisineRegions(cuisineRegionFromServer);
-      setRecipes(recipesFromServer);
+      setRecipes(recipesFromServer.content);
     } catch (err) {
       throw new Error(`Cant get recipes from server: ${err}`)
     } finally {
@@ -80,14 +72,14 @@ const MainPage: React.FC = () => {
     <>
       <Box className={classes.carouselContainer}>
         <Container maxWidth="xl">
-          <Typography variant='h2' className={classes.carouselTitle}>Підбірки української кухні</Typography>
+          <Typography variant='h5' className={classes.carouselTitle}>Підбірки української кухні</Typography>
           <CustomCarousel items={cuisineRegions} />
         </Container>
       </Box>
       <Box>
         <Container maxWidth="xl">
           <Box className={classes.flexContainer} sx={{ margin: '45px 0' }}>
-            <Typography variant='h4'>Рецепти української кухні</Typography>
+            <Typography variant='h6'>Рецепти української кухні</Typography>
             <Button
               variant="contained"
               endIcon={<KeyboardArrowRightIcon fontSize="large" sx={{ color: '#fff' }} />}
@@ -112,16 +104,16 @@ const MainPage: React.FC = () => {
                   fontStyle: 'normal',
                   textTransform: 'none'
                 }}>
-                Всі рецепти
+                <Typography variant='body1'>Всі рецепти</Typography>
               </Link>
             </Button>
           </Box>
           <Divider sx={{ backgroundColor: 'grey', marginBottom: '40px' }} />
           {dishTypes.map(category => (
-            <Box key={category.id} sx={{ marginBottom: '40px' }}>
+            <Box key={category.id} sx={{ marginBottom: '40px'}}>
               <Box sx={{ marginBottom: '40px' }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center' }}>
-                  <Typography variant='h4' sx={{ display: 'flex', alignItems: 'center', marginBottom: '25px' }}>
+                  <Typography variant='h6' sx={{ display: 'flex', alignItems: 'center', marginBottom: '25px' }}>
                     <img src="src/pictures/catergoriesicon.svg" alt="categoryimage" style={{ marginRight: '16px' }} />
                     {category.dishTypeName}
                   </Typography>
@@ -132,13 +124,9 @@ const MainPage: React.FC = () => {
                     }}
                   >
                     <Typography
+                      variant="body2"
                       sx={{
                         color: '#CB3C2E',
-                        fontFamily: 'Open Sans',
-                        fontStyle: 'normal',
-                        fontWeight: 400,
-                        fontSize: '16px',
-                        lineHeight: '24px',
                         '&:hover': {
                           color: 'black',
                         },

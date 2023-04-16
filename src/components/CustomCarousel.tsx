@@ -13,7 +13,7 @@ interface CarouselProps {
   items: CuisineRegion[];
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(({
   slideContainer: {
     display: "flex",
     justifyContent: "center",
@@ -89,13 +89,8 @@ const CustomCarousel: React.FC<CarouselProps> = ({ items }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const classes = useStyles();
 
-  const prevArrow = <div className={`${classes.arrow} ${classes.prevArrow}`} />;
-  const nextArrow = <div className={`${classes.arrow} ${classes.nextArrow}`} />;
-
   const settings: Settings = {
     arrows: true,
-    prevArrow: (prevArrow),
-    nextArrow: (nextArrow),
     infinite: true,
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -136,7 +131,7 @@ const CustomCarousel: React.FC<CarouselProps> = ({ items }) => {
               marginBottom: '32px'
             }}>
           </Box>
-          <Typography variant="h5" className={classes.itemTitle}>{item.cuisineRegionName}</Typography>
+          <Typography variant="subtitle1" className={classes.itemTitle}>{item.cuisineRegionName}</Typography>
         </Box>
       ))}
     </Slider>

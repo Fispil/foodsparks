@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getRecipeById } from '../api/fetchRecepies';
 import RecipeExtended from '../types/recipeExtended';
-import { Box, Button, Container, Divider, Grid, Typography, Theme, Stack } from '@mui/material';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { Box, Button, Container, Divider, Grid, Typography, Stack, useTheme } from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { makeStyles } from '@mui/styles';
 import Promo from '../components/Promo';
 
-const useStyles = makeStyles((theme: Theme) => ({
+
+const useStyles = makeStyles(({
   aboutContainer: {
     backgroundColor: "#0F0F10",
     maxWidth: '100%',
@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   aboutTitle: {
     fontFamily: 'Open Sans',
-    fontStyle: 'normal',
     fontWeight: 700,
     fontSize: '38px',
     lineHeight: '57px',
@@ -26,11 +25,18 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   aboutContent: {
     fontFamily: 'Open Sans',
-    fontStyle: 'normal',
     fontWeight: 400,
     fontSize: '32px',
     lineHeight: '48px',
     color: '#fff',
+  },
+
+  pageContent: {
+    fontFamily: 'Open Sans',
+    fontWeight: 600,
+    fontSize: '32px',
+    lineHeight: '48px',
+    color: '#212529',
   },
 }));
 
@@ -41,6 +47,7 @@ const ProductPage = () => {
   const pathnames = location.pathname.split('/');
 
   const classes = useStyles();
+  const theme = useTheme();
 
   const loadRecipeFromServer = async () => {
     try {
@@ -73,59 +80,157 @@ const ProductPage = () => {
         >
           <Grid container>
             <Grid item sm={6}>
-              <Typography variant='h3' className={classes.aboutTitle}>{recipe?.title}</Typography>
+              <Typography variant='h5' className={classes.aboutTitle}>{recipe?.title}</Typography>
               <Divider sx={{ backgroundColor: '#8E8F96', width: '75%' }} />
-              <Typography variant='subtitle1' className={classes.aboutContent}>{recipe?.subtitle}</Typography>
+              <Typography variant='subtitle1' sx={{ color: '#CED4DA' }}>{recipe?.subtitle}</Typography>
             </Grid>
             <Grid item sm={6}>
-              <Box sx={{
-                minHeight: '535px',
-                minWidth: '535px',
-                top: '64px',
-                bottom: '-64px',
-                position: 'absolute',
-                objectFit: 'cover',
-                objectPosition: 'center',
-                backgroundImage: `url(${recipe?.imageUrl})`,
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'contain',
-                backgroundSize: 'cover'
-              }} />
+              <Box
+                sx={{
+                  minHeight: '535px',
+                  minWidth: '535px',
+                  top: '64px',
+                  right: '26px',
+                  position: 'absolute',
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                  backgroundImage: `url(${recipe?.imageUrl})`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'center',
+                  backgroundSize: 'cover',
+                  [theme.breakpoints.down(1335)]: {
+                    position: 'static',
+                    minHeight: '350px',
+                    minWidth: '350px',
+                  },
+                }}
+              />
             </Grid>
           </Grid>
         </Container>
       </Box>
       <Container maxWidth="xl">
-        <Box sx={{ display: 'flex', gap: '64px', height: '88px' }}>
-          <Stack>
-            <img src='' alt='coockedmeal' />
-            <Typography>Кількість порцій</Typography>
-            <Typography>Кількість порцій</Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            gap: '64px',
+            height: '88px',
+            marginBottom: '72px',
+            [theme.breakpoints.down('lg')]: {
+              gap: '32px'
+            },
+          }}
+        >
+          <Stack sx={{ alignItems: 'center' }}>
+            <Box>
+              <img src='src/pictures/clock.svg' alt='portions' />
+            </Box>
+            <Typography
+              variant='body2'
+              sx={{
+                fontFamily: 'Open Sans',
+                color: '#343A40'
+              }}
+            >
+              Кількість порцій
+            </Typography>
+            <Typography
+              variant='body2'
+              sx={{
+                fontFamily: 'Open Sans',
+                color: '#CB3C2E'
+              }}
+            >
+              {recipe?.portions}
+            </Typography>
           </Stack>
           <Divider orientation="vertical" flexItem sx={{ backgroundColor: '#000', height: '32px', alighSelf: 'center', marginTop: '28px' }} />
-          <Stack>
-            <img src='' alt='coockedmeal' />
-            <Typography>Кількість порцій</Typography>
-            <Typography>Кількість порцій</Typography>
+          <Stack sx={{ alignItems: 'center' }}>
+            <Box>
+              <img src='src/pictures/pot.svg' alt='coockedmeal' />
+            </Box>
+            <Typography
+              variant='body2'
+              sx={{
+                fontFamily: 'Open Sans',
+                color: '#343A40'
+              }}
+            >
+              Час приготування
+            </Typography>
+            <Typography variant='body2'
+              sx={{
+                fontFamily: 'Open Sans',
+                color: '#CB3C2E'
+              }}
+            >
+              {recipe?.cookingTime}
+            </Typography>
           </Stack>
           <Divider orientation="vertical" flexItem sx={{ backgroundColor: '#000', height: '32px', alighSelf: 'center', marginTop: '28px' }} />
-          <Stack>
-            <img src='' alt='coockedmeal' />
-            <Typography>Кількість порцій</Typography>
-            <Typography>Кількість порцій</Typography>
+          <Stack sx={{ alignItems: 'center' }}>
+            <Box>
+              <img src='src/pictures/pot.svg' alt='coockedmeal' />
+            </Box>
+            <Typography
+              variant='body2'
+              sx={{
+                fontFamily: 'Open Sans',
+                color: '#343A40'
+              }}
+            >
+              Рівень складності
+            </Typography>
+            <Typography variant='body2'
+              sx={{
+                fontFamily: 'Open Sans',
+                color: '#CB3C2E'
+              }}
+            >
+              {recipe?.complexity}
+            </Typography>
           </Stack>
         </Box>
         <Box>
-          <Typography variant='h4' sx={{ display: 'flex', alignItems: 'center', marginBottom: '25px' }}>
+          <Typography
+            variant='h5'
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: '32px',
+              fontFamily: 'Open Sans',
+              fontWeight: 700,
+              color: '#343A40',
+            }}>
             <img src="src/pictures/catergoriesicon.svg" alt="categoryimage" style={{ marginRight: '16px' }} />
             Інгридієнти:
           </Typography>
           {recipe?.productsList.map(item => (
-            <Box sx={{ height: '120px', marginBottom: '8px' }}>
+            <Box
+              key={item.productId}
+              sx={{
+                padding: '16px 24px',
+                marginBottom: '8px',
+                boxShadow: '0px 4px 25px rgba(0, 0, 0, 0.04)',
+                borderRadius: '12px',
+              }}
+            >
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <Typography variant='h6' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '25px' }}>
-                    <img src="src/pictures/catergoriesicon.svg" alt="categoryimage" style={{ marginRight: '16px' }} />
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alighItems: 'center'
+                  }}
+                >
+                  <img src="src/pictures/catergoriesicon.svg" alt="categoryimage" style={{ marginRight: '16px' }} />
+                  <Typography
+                    variant='body1'
+                    sx={{
+                      color: '#343A40',
+                      textAlign: 'center'
+                    }}
+                  >
                     {item.name} - {item.amount}
                   </Typography>
                 </Box>
@@ -133,55 +238,131 @@ const ProductPage = () => {
                   variant='outlined'
                   sx={{
                     border: '1px solid #CB3C2E',
-                    textTransform: 'none', color: '#CB3C2E',
-                    fontFamily: 'Open Sans',
-                    fontStyle: 'normal',
-                    fontWeight: 400,
-                    fontSize: '24px',
-                    lineHeight: '16px',
+                    textTransform: 'none', 
+                    color: '#CB3C2E',
                     padding: '24px 84px',
                     borderRadius: '12px'
                   }}
                   endIcon={<ShoppingCartOutlinedIcon sx={{ width: '32px', height: '32px' }} />}
                 >
-                  Купити
+                  <Typography variant='body1'>Купити</Typography>
                 </Button>
               </Box>
             </Box>
           ))}
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alighItems: 'center', marginBottom: '72px', padding: '16px 24px' }}>
+            <Typography
+              variant='h4'
+              sx={{
+                fontFamily: 'Open Sans',
+                fontWeight: 600,
+                fontSize: '32px',
+                lineHeight: '48px',
+                color: '#212529',
+              }}
+            >
+              Всього
+            </Typography>
+            <Typography
+              variant='subtitle1'
+              sx={{
+                fontWeight: 600,
+                color: '#212529',
+              }}
+            >
+              240грн
+            </Typography>
+          </Box>
         </Box>
         <Box>
-          <Typography variant='h4' sx={{ display: 'flex', alignItems: 'center', marginBottom: '25px' }}>
+          <Typography
+            variant='subtitle1'
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: '24px',
+              fontWeight: 700,
+              color: '#343A40'
+            }}
+          >
             <img src="src/pictures/catergoriesicon.svg" alt="categoryimage" style={{ marginRight: '16px' }} />
-            Покроковий рецепт приготування
+            Покроковий рецепт приготування:
           </Typography>
-          <Divider sx={{ backgroundColor: '#8E8F96' }} />
+          <Divider sx={{ marginBottom: '24px', border: '1px solid #495057' }} />
           {recipe?.instructions.map((item, index) => (
-            <Grid container>
-              <Grid item sm={1}></Grid>
-              <Grid item sm={1} sx={{ width: 64, height: 64 }}>
-                <Typography
-                  variant="h6"
-                  sx={{
-                    backgroundColor: 'black',
+            <Grid
+              key={item}
+              container
+              alignItems="center"
+              sx={{
+                marginBottom: '40px',
+                padding: '32px',
+                '&:hover': {
+                  backgroundColor: '#F1F3F5',
+                  borderRadius: '12px',
+                  '& .stepRecipeContent': {
                     color: 'white',
-                    display: 'inline-block',
-                    padding: '0.2em 0.7em',
+                    backgroundColor: '#CB3C2E'
+                  },
+                },
+              }}
+            >
+              <Grid item sm={1} justifyContent="center" alignItems="center" >
+                <Box
+                  className='stepRecipeContent'
+                  sx={{
+                    width: '64px',
+                    height: '64px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
                     borderRadius: '50%',
-                  }}>
-                  {index}
-                </Typography>
+                    color: '#CB3C2E',
+                    border: '1px solid #CB3C2E',
+                    '&:hover': {
+                      backgroundColor: '#CB3C2E;',
+                      color: '#fff'
+                    }
+                  }}
+                >
+                  <Typography
+                    variant="h5"
+                    className='stepRecipeContent'
+                  >
+                    {index+1}
+                  </Typography>
+                </Box>
               </Grid>
-              <Grid item sm={10}>
-                <Typography>{item}</Typography>
+              <Grid item sm={10}> 
+                <Typography
+                  variant='subtitle1'
+                  sx={{
+                    fontWeight: 600,
+                    color: '#212529',
+                  }}
+                >
+                  {item}
+                </Typography>
               </Grid>
             </Grid>
           ))}
-          <Divider />
+          <Divider sx={{ border: '1px solid #495057', marginBottom: '24px' }} />
+          <Typography
+            variant='h5'
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginBottom: '72px',
+              fontWeight: 700,
+              color: '#343A40'
+            }}
+          >
+            Смачного
+          </Typography>
           <Promo />
-          <Divider />
         </Box>
-      </Container>
+      </Container >
     </>
   )
 }

@@ -2,16 +2,12 @@ import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import RecipeAutocompleteSearch from './RecipeAutocompleteSearch';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Tooltip, Typography, Button, Container, Backdrop } from '@mui/material';
 import { Link } from 'react-router-dom';
+import CartElement from './CartElement';
 
 
 const AppBarSearch = () => {
@@ -85,7 +81,7 @@ const AppBarSearch = () => {
               </Button>
               <Tooltip
                 title={
-                  <Typography>
+                  <Typography variant='body1'>
                     Address
                   </Typography>
                 }
@@ -96,16 +92,7 @@ const AppBarSearch = () => {
                   <img src='src/pictures/icons_location.svg' alt='locationicon' />
                 </Button>
               </Tooltip>
-              <Button
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"
-                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '80', height: '48px', backgroundColor: '#CB3C2E' }}
-              >
-                <Badge badgeContent={17} color="success">
-                  <img src='src/pictures/basket.svg' alt='cartIcon' />
-                </Badge>
-              </Button>
+              <CartElement />
             </Box>
             {renderMenu}
           </Box>

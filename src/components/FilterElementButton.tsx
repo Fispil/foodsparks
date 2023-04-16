@@ -1,0 +1,222 @@
+import * as React from 'react';
+import { useState, useEffect } from 'react';
+import { makeStyles, createStyles, } from '@mui/styles';
+import Drawer from '@mui/material/Drawer';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Checkbox, FormControlLabel, Theme, Typography } from '@mui/material';
+import CuisineRegion from '../types/cuisineRegions';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import DishType from '../types/dishTypes';
+import ComplexityType from '../types/complexityTypes';
+
+interface Props {
+  cuisineRegionNames: CuisineRegion[],
+  cuisineRegionInId: number[] | null,
+  setCuisineRegionInId: (cuisineRegionInId: number[] | null) => void,
+  dishTypes: DishType[],
+  dishTypeInId: number[] | null,
+  setDishTypeInId: (dishTypeInId: number[] | null) => void,
+  complexityTypes: ComplexityType[],
+  complexityInId: number[] | null,
+  setComplexityInId: (complexityInId: number[] | null) => void,
+  spicedIn: boolean,
+  setSpicedIn: (spicedIn: boolean) => void,
+  totalItems: number
+}
+
+const useStyles = makeStyles(({
+    root: {
+      display: 'flex'
+    },
+    drawer: {
+      width: '550px',
+      flexShrink: 0
+    },
+    drawerPaper: {
+      width: '550px'
+    },
+    content: {
+      flexGrow: 1,
+      padding: '32px'
+    },
+    labelContent: {
+      color: '#CB3C2E'
+    }
+  })
+);
+
+const FilterElementButton: React.FC<Props> = ({
+  cuisineRegionNames,
+  cuisineRegionInId,
+  setCuisineRegionInId,
+  dishTypes,
+  dishTypeInId,
+  setDishTypeInId,
+  complexityTypes,
+  complexityInId,
+  setComplexityInId,
+  spicedIn,
+  setSpicedIn,
+  totalItems
+}) => {
+  const classes = useStyles();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const handlePropertyChange = (propertyId: number, propertyToHandle: number[] | null, functionToHandle: (propertyToHandle: number[] | null) => void) => {
+    if (propertyToHandle == null) {
+      functionToHandle([propertyId])
+    } else if (propertyToHandle.includes(propertyId)) {
+      functionToHandle(propertyToHandle.filter((id) => id !== propertyId));
+
+      if (propertyToHandle && propertyToHandle.length === 0) {
+        functionToHandle(null);
+      }
+    } else {
+      functionToHandle([...propertyToHandle, propertyId]);
+
+      if (propertyToHandle && propertyToHandle.length === 0) {
+        functionToHandle(null);
+      }
+    }
+  }
+
+  const handleDrawerOpen = () => {
+    setIsDrawerOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setIsDrawerOpen(false);
+  };
+
+  return (
+    <Box className={classes.root}>
+      <Button
+        variant='outlined'
+        sx={{
+          border: '1px solid #CB3C2E',
+          textTransform: 'none', color: '#CB3C2E',
+          fontFamily: 'Open Sans',
+          fontStyle: 'normal',
+          fontWeight: 400,
+          fontSize: '24px',
+          lineHeight: '16px',
+          padding: '12px 24px'
+        }}
+        endIcon={<img src='src/pictures/icons_filter.svg' alt='FilterIcon' />}
+        onClick={handleDrawerOpen}
+      >
+        Фільтри
+      </Button>
+      <Drawer
+        className={classes.drawer}
+        variant="temporary"
+        anchor="left"
+        open={isDrawerOpen}
+        classes={{
+          paper: classes.drawerPaper
+        }}
+        onClose={handleDrawerClose}
+        ModalProps={{
+          keepMounted: true // Better open performance on mobile.
+        }}
+      >
+        <Box sx={{ p: 2 }}>
+          <Button variant='text' startIcon={<img src='src/pictures/arrowleft.svg' alt='ArrowIcon' />} onClick={handleDrawerClose}>Назад</Button>
+          <Typography variant='body1' sx={{ textAlign: 'center' }}>
+            Фільтри
+          </Typography>
+          <Accordion>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography variant="body1">Тип страви</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {dishTypes.map(property => (
+                  <FormControlLabel
+                    key={property.id}
+                    control={
+                      <Checkbox
+                        checked={dishTypeInId != null && dishTypeInId.includes(property.id)}
+                        onChange={() => handlePropertyChange(property.id, dishTypeInId, setDishTypeInId)} />
+                    }
+                    label={<Typography variant="body1" className={dishTypeInId && dishTypeInId.includes(property.id) ? 'labelContent' : '' }>{property.dishTypeName}</Typography>}
+                  />
+                ))}
+              </Box>
+            </AccordionDetails>
+          </Accordion>
+
+          <Accordion>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography variant="body1">Регіон</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {cuisineRegionNames.map(property => (
+                  <FormControlLabel
+                    key={property.id}
+                    control={
+                      <Checkbox checked={cuisineRegionInId !== null && cuisineRegionInId.includes(property.id)}
+                        onChange={() => handlePropertyChange(property.id, cuisineRegionInId, setCuisineRegionInId)} />}
+                    label={property.cuisineRegionName}
+                  />
+                ))}
+              </Box>
+            </AccordionDetails>
+          </Accordion>
+
+          <Accordion>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography variant="body1">Ступінь складності</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {complexityTypes.map(property => (
+                  <FormControlLabel
+                    key={property.id}
+                    control={
+                      <Checkbox checked={complexityInId !== null && complexityInId.includes(property.id)}
+                        onChange={() => handlePropertyChange(property.id, complexityInId, setComplexityInId)} />}
+                    label={property.complexityName}
+                  />
+                ))}
+              </Box>
+            </AccordionDetails>
+          </Accordion>
+
+          <Accordion>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography variant="body1">Гострі страви</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <FormControlLabel
+                  control={<Checkbox
+                    checked={spicedIn}
+                    onChange={() => setSpicedIn(!spicedIn)} />
+                  }
+                  label="Гострі страви"
+                />
+              </Box>
+            </AccordionDetails>
+          </Accordion>
+          <Box>
+            <Typography variant="body1" sx={{ fontWeight: 600 }}>Знайдено рецептів: {totalItems}</Typography>
+          </Box>
+
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Button variant='outlined' onClick={handleDrawerClose}>
+              <Typography variant="body1">Скинути зміни</Typography>
+              </Button>
+            <Button variant='contained' onClick={handleDrawerClose}>
+              <Typography variant="body1">Застосувати</Typography>
+            </Button>
+          </Box>
+        </Box>
+      </Drawer>
+    </Box>
+  );
+}
+
+
+export default FilterElementButton;

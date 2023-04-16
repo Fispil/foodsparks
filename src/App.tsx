@@ -5,6 +5,7 @@ import MainPage from './pages/MainPage';
 import ProductsPage from './pages/ProductsPage';
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
+import DeliveryPage from './pages/DeliveryPage';
 
 const App: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const App: React.FC = () => {
         <Route path="/products/:id" element={<ProductPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/delivery" element={<DeliveryPage />} />
         <Route path="/home" element={<Navigate to="/" replace />} />
       </Routes>
     </Layout>
@@ -22,4 +24,3 @@ const App: React.FC = () => {
 };
 
 export default App
- 

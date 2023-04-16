@@ -29,7 +29,7 @@ const CustomCardList: React.FC<Props> = ({ items }) => {
                 backgroundColor: '#CB3C2E',
               },
             }}>
-              <Typography gutterBottom variant="h5" sx={{ margin: '8px 16px' }}>
+              <Typography variant="body2" sx={{ padding: '8px 16px' }}>
                 Легкий
               </Typography>
             </Box>
@@ -37,14 +37,8 @@ const CustomCardList: React.FC<Props> = ({ items }) => {
           <CardContent sx={{ marginTop: '24px' }}>
             <Link to={`/products/${item.id}`} style={{ textDecoration: 'none', color: 'black' }}>
               <Typography
-                gutterBottom
-                variant="h6"
+                variant="subtitle1"
                 sx={{
-                  fontFamily: 'Open Sans',
-                  fontStyle: 'normal',
-                  fontWweight: 400,
-                  fontSize: '30px',
-                  lineHeight: '25px',
                   marginBottom: '16px'
                 }}
               >
@@ -52,30 +46,23 @@ const CustomCardList: React.FC<Props> = ({ items }) => {
               </Typography>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  sx={{
-                    fontFamily: 'Open Sans',
-                    fontStyle: 'normal',
-                    fontWweight: 400,
-                    fontSize: '20px',
-                    lineHeight: '16px'
-                  }}
-                >
-                  {item.portions} Порцій
-                </Typography>
-                <Typography
-                  variant="body2"
+                  variant="body1"
                   color="text.secondary"
                   sx={{
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    fontFamily: 'Open Sans',
-                    fontStyle: 'normal',
-                    fontWweight: 400,
-                    fontSize: '20px',
-                    lineHeight: '16px'
+                  }}
+                >
+                  <img src='src/pictures/pot.svg' alt="Pot" style={{ marginRight: '8px' }}/>{item.portions} Порцій
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}>
                   <AccessTimeIcon /> {item.cookingTime}
                 </Typography>

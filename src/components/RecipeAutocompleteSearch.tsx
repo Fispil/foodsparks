@@ -5,24 +5,37 @@ import { getRecipes } from '../api/fetchRecepies';
 import Recipe from '../types/recipe';
 import { theme } from '../theme';
 import { Link } from 'react-router-dom';
-import { Box, Theme, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { Box, Typography } from '@mui/material';
+import { makeStyles, styled } from '@mui/styles';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import SearchIcon from '@mui/icons-material/Search';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  searchIcon: {
-    position: "absolute",
-  },
+const useStyles = makeStyles(({
   root: {
     '& .MuiOutlinedInput-root': {
       '& fieldset': {
         borderColor: '#CB3C2E',
-        borderRadius: '60px',
+        borderRadius: '100px',
+        height: '65px'
       },
     },
+    '& .MuiOutlinedInput-root .MuiAutocomplete-endAdornment': {
+      top: 12
+    },
+    
+    '& .MuiOutlinedInput-root .MuiAutocomplete-input': {
+      fontSize: '16px',
+      color: 'black',
+      backgroundColor: 'white',
+      borderRadius: '60px',
+      height: '25px',
+      padding: '10px',
+      display: 'flex',
+      justifyContent: 'center',
+      alighItems: 'center'
+    }
   },
 }));
+
 
 const RecipeAutocompleteSearch: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -37,7 +50,7 @@ const RecipeAutocompleteSearch: React.FC = () => {
 
       const recipes = await getRecipes();
 
-      setOptions(recipes);
+      setOptions(recipes.content);
     } catch (err) {
       throw new Error(`Can't get recipes from server: ${err}`)
     } finally {
@@ -111,7 +124,7 @@ const RecipeAutocompleteSearch: React.FC = () => {
         </li>
       )}
       renderInput={(params) => (
-        //@ts-ignore
+        //@ts-expect-error
         <TextField
           {...params}
           className={classes.root}
@@ -119,12 +132,14 @@ const RecipeAutocompleteSearch: React.FC = () => {
           variant='outlined'
           sx={{
             backgroundColor: theme.palette.common.white,
-            position: 'relative',
-            borderRadius: '60px', height: '50px',
+            borderRadius: '60px', 
+            height: '60px',
+            fontFamily: 'Open Sans',
+            fontWeight: 400,
+            fontSize: '16px',
+            lineHeight: '24px',
           }}
-        >
-          <SearchIcon /> 
-        </TextField>
+        />
       )}
     />
   );

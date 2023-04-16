@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Dialog, DialogTitle, DialogContentText, Button, DialogActions, DialogContent, TextField, Grid } from '@mui/material';
+import { Dialog, DialogTitle, DialogContentText, Button, DialogActions, DialogContent, TextField, Grid, Typography, Box } from '@mui/material';
 import { registerNewUser } from '../api/fetchUser';
 import NewUser from '../types/userRegistration';
 
@@ -34,8 +34,8 @@ const SignUpDialog = () => {
       firstName: '',
       lastName: '',
       email: '',
-      password: 
-      '',
+      password:
+        '',
       confirmPassword: ''
     };
     let hasError = false;
@@ -109,7 +109,7 @@ const SignUpDialog = () => {
       [name]: value,
     }));
   };
-  
+
   const isEmptyLine = (text: string) => {
     return text.length > 1 ? true : false;
   }
@@ -117,22 +117,29 @@ const SignUpDialog = () => {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Sign Up
+      <Button variant="outlined" sx={{ color: '#fff' }} onClick={handleClickOpen}>
+        <Typography variant='body2'>
+          Sign Up
+        </Typography>
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle sx={{ textAlign: 'center' }}>Sign Up</DialogTitle>
+        <DialogTitle sx={{ textAlign: 'center' }}>
+          <Typography variant='subtitle1'>Sign Up</Typography>
+        </DialogTitle>
         <form id="signupform" onSubmit={handleFormSubmit}>
           <DialogContent>
             <Grid container>
               <Grid item md={12}>
                 <DialogContentText>
-                  To subscribe to this website, please enter your email address here. We
-                  will send updates occasionally.
+                  <Typography variant='body2'>
+                    To subscribe to this website, please enter your email address here. We
+                    will send updates occasionally.
+                  </Typography>
                 </DialogContentText>
               </Grid>
               <Grid item sm={6}>
                 <TextField
+                  variant="outlined"
                   error={isEmptyLine(formErrors.firstName)}
                   helperText={formErrors.firstName.length ? `${formErrors.firstName}` : ''}
                   autoFocus
@@ -143,7 +150,6 @@ const SignUpDialog = () => {
                   name='firstName'
                   label="Name"
                   type="input"
-                  variant="standard"
                   required
                 />
               </Grid>
@@ -159,7 +165,7 @@ const SignUpDialog = () => {
                   name='lastName'
                   label="Last Name"
                   type="input"
-                  variant="standard"
+                  variant="outlined"
                   required
                 />
               </Grid>
@@ -175,7 +181,7 @@ const SignUpDialog = () => {
                   label="Email Address"
                   name='email'
                   type="email"
-                  variant="standard"
+                  variant="outlined"
                   required
                 />
               </Grid>
@@ -191,7 +197,7 @@ const SignUpDialog = () => {
                   label="Password"
                   name='password'
                   type="password"
-                  variant="standard"
+                  variant="outlined"
                   required
                   onCopy={(event) => event.preventDefault()}
                   onCut={(event) => event.preventDefault()}
@@ -209,7 +215,7 @@ const SignUpDialog = () => {
                   label="Confirm password"
                   name='confirmPassword'
                   type="password"
-                  variant="standard"
+                  variant="outlined"
                   required
                   onCopy={(event) => event.preventDefault()}
                   onCut={(event) => event.preventDefault()}
@@ -218,8 +224,14 @@ const SignUpDialog = () => {
             </Grid>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit">Submit</Button>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: '20px 40px' }}>
+              <Button variant='outlined' onClick={handleClose}>
+                <Typography variant='body2'>Cancel</Typography>
+              </Button>
+              <Button variant='outlined' type="submit">
+                <Typography variant='body2'>Submit</Typography>
+              </Button>
+            </Box>
           </DialogActions>
         </form>
       </Dialog>
