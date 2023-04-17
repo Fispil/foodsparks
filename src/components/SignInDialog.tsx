@@ -5,6 +5,9 @@ import { loginUser } from '../api/fetchUser';
 import { Link } from 'react-router-dom';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import GoogleIcon from '../assets/google.svg';
+import AppleIcon from '../assets/apple.svg';
+import FacebookIcon from '../assets/facebook.svg';
 
 const SignInDialog = () => {
   const [open, setOpen] = useState(false);
@@ -163,7 +166,7 @@ const SignInDialog = () => {
                   }}
                 >
                   <Link to="/" style={{ margin: 0, padding: 0, height: '64px', width: '65px' }}>
-                    <img src='src/pictures/google.svg' alt="googleicon" style={{ padding: '18px' }} />
+                    <img src={GoogleIcon} alt="googleicon" style={{ padding: '18px' }} />
                   </Link>
                 </IconButton>
                 <IconButton
@@ -176,7 +179,7 @@ const SignInDialog = () => {
                   }}
                 >
                   <Link to="/" style={{ margin: 0, padding: 0, height: '64px', width: '65px' }}>
-                    <img src='src/pictures/apple.svg' alt="appleicon" style={{ padding: '18px' }} />
+                    <img src={AppleIcon} alt="appleicon" style={{ padding: '18px' }} />
                   </Link>
                 </IconButton>
                 <IconButton
@@ -189,7 +192,7 @@ const SignInDialog = () => {
                   }}
                 >
                   <Link to="/" style={{ margin: 0, padding: 0, height: '64px', width: '65px' }}>
-                    <img src='src/pictures/facebook.svg' alt="facebookicon" style={{ padding: '18px' }} />
+                    <img src={FacebookIcon} alt="facebookicon" style={{ padding: '18px' }} />
                   </Link>
                 </IconButton>
               </Box>

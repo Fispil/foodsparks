@@ -4,6 +4,7 @@ import { makeStyles, createStyles, } from '@mui/styles';
 import Drawer from '@mui/material/Drawer';
 
 import { Badge, Box, Button, Typography, Theme } from '@mui/material';
+import CartIcon from '../assets/basket.svg'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -48,7 +49,7 @@ const CartElement: React.FC = () => {
         onClick={handleDrawerOpen}
       >
         <Badge badgeContent={17} color="success">
-          <img src='src/pictures/basket.svg' alt='cartIcon' />
+          <img src={CartIcon} alt='CartIcon' />
         </Badge>
       </Button>
       <Drawer

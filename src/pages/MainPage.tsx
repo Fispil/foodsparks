@@ -12,6 +12,7 @@ import CuisineRegion from '../types/cuisineRegions';
 import { getCuisineRegion, getDishTypes } from '../api/fetchTypes';
 import DishType from '../types/dishTypes';
 import Promo from '../components/Promo';
+import CategoryIcon from '../assets/catergoriesicon.svg';
 
 const useStyles = makeStyles(({
   flexContainer: {
@@ -114,7 +115,7 @@ const MainPage: React.FC = () => {
               <Box sx={{ marginBottom: '40px' }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center' }}>
                   <Typography variant='h6' sx={{ display: 'flex', alignItems: 'center', marginBottom: '25px' }}>
-                    <img src="src/pictures/catergoriesicon.svg" alt="categoryimage" style={{ marginRight: '16px' }} />
+                    <img src={CategoryIcon} alt="categoryimage" style={{ marginRight: '16px' }} />
                     {category.dishTypeName}
                   </Typography>
                   <Link

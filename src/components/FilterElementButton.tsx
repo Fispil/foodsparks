@@ -1,13 +1,14 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
-import { makeStyles, createStyles, } from '@mui/styles';
+import { useState } from 'react';
+import { makeStyles } from '@mui/styles';
 import Drawer from '@mui/material/Drawer';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Checkbox, FormControlLabel, Theme, Typography } from '@mui/material';
 import CuisineRegion from '../types/cuisineRegions';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DishType from '../types/dishTypes';
 import ComplexityType from '../types/complexityTypes';
+import LeftArrowIcon from '../assets/arrowleft.svg';
+import FilterIcon from '../assets/icons_filter.svg';
 
 interface Props {
   cuisineRegionNames: CuisineRegion[],
@@ -25,24 +26,24 @@ interface Props {
 }
 
 const useStyles = makeStyles(({
-    root: {
-      display: 'flex'
-    },
-    drawer: {
-      width: '550px',
-      flexShrink: 0
-    },
-    drawerPaper: {
-      width: '550px'
-    },
-    content: {
-      flexGrow: 1,
-      padding: '32px'
-    },
-    labelContent: {
-      color: '#CB3C2E'
-    }
-  })
+  root: {
+    display: 'flex'
+  },
+  drawer: {
+    width: '550px',
+    flexShrink: 0
+  },
+  drawerPaper: {
+    width: '550px'
+  },
+  content: {
+    flexGrow: 1,
+    padding: '32px'
+  },
+  labelContent: {
+    color: '#CB3C2E'
+  }
+})
 );
 
 const FilterElementButton: React.FC<Props> = ({
@@ -102,10 +103,10 @@ const FilterElementButton: React.FC<Props> = ({
           lineHeight: '16px',
           padding: '12px 24px'
         }}
-        endIcon={<img src='src/pictures/icons_filter.svg' alt='FilterIcon' />}
+        endIcon={<img src={FilterIcon} alt='FilterIcon' />}
         onClick={handleDrawerOpen}
       >
-        Фільтри
+        <Typography variant='body1'>Фільтри</Typography>
       </Button>
       <Drawer
         className={classes.drawer}
@@ -121,13 +122,20 @@ const FilterElementButton: React.FC<Props> = ({
         }}
       >
         <Box sx={{ p: 2 }}>
-          <Button variant='text' startIcon={<img src='src/pictures/arrowleft.svg' alt='ArrowIcon' />} onClick={handleDrawerClose}>Назад</Button>
-          <Typography variant='body1' sx={{ textAlign: 'center' }}>
+          <Button
+            variant='text'
+            startIcon={<img src={LeftArrowIcon} alt='ArrowIcon' />}
+            onClick={handleDrawerClose}
+            sx={{ marginBottom: '40px', textTransform: 'none' }}
+          >
+            <Typography variant='body1'>Назад</Typography>
+          </Button>
+          <Typography variant='body1' sx={{ textAlign: 'center', marginBottom: '32px' }}>
             Фільтри
           </Typography>
-          <Accordion>
+          <Accordion sx={{ marginBottom: '32px' }}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography variant="body1">Тип страви</Typography>
+              <Typography variant="body1" sx={{ padding: '24px' }}>Тип страви</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -139,16 +147,16 @@ const FilterElementButton: React.FC<Props> = ({
                         checked={dishTypeInId != null && dishTypeInId.includes(property.id)}
                         onChange={() => handlePropertyChange(property.id, dishTypeInId, setDishTypeInId)} />
                     }
-                    label={<Typography variant="body1" className={dishTypeInId && dishTypeInId.includes(property.id) ? 'labelContent' : '' }>{property.dishTypeName}</Typography>}
+                    label={<Typography variant="body1" className={dishTypeInId && dishTypeInId.includes(property.id) ? 'labelContent' : ''}>{property.dishTypeName}</Typography>}
                   />
                 ))}
               </Box>
             </AccordionDetails>
           </Accordion>
 
-          <Accordion>
+          <Accordion sx={{ marginBottom: '32px' }}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography variant="body1">Регіон</Typography>
+              <Typography variant="body1" sx={{ padding: '24px' }}>Регіон</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -165,9 +173,9 @@ const FilterElementButton: React.FC<Props> = ({
             </AccordionDetails>
           </Accordion>
 
-          <Accordion>
+          <Accordion sx={{ marginBottom: '32px' }}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography variant="body1">Ступінь складності</Typography>
+              <Typography variant="body1" sx={{ padding: '24px' }}>Ступінь складності</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -184,9 +192,9 @@ const FilterElementButton: React.FC<Props> = ({
             </AccordionDetails>
           </Accordion>
 
-          <Accordion>
+          <Accordion sx={{ marginBottom: '56px' }}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography variant="body1">Гострі страви</Typography>
+              <Typography variant="body1" sx={{ padding: '24px' }}>Гострі страви</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -200,17 +208,19 @@ const FilterElementButton: React.FC<Props> = ({
               </Box>
             </AccordionDetails>
           </Accordion>
-          <Box>
-            <Typography variant="body1" sx={{ fontWeight: 600 }}>Знайдено рецептів: {totalItems}</Typography>
-          </Box>
+          <Box sx={{ padding: '16px 24px' }} >
+            <Box>
+              <Typography variant="body1" textAlign="center" sx={{ fontWeight: 600, marginBottom: '24px' }}>Знайдено рецептів: {totalItems}</Typography>
+            </Box>
 
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Button variant='outlined' onClick={handleDrawerClose}>
-              <Typography variant="body1">Скинути зміни</Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '24px' }}>
+              <Button variant='outlined' sx={{ textTransform: 'none', borderRadius: '12px' }} onClick={handleDrawerClose}>
+                <Typography variant="body1" sx={{ padding: '16px 24px' }}>Скинути зміни</Typography>
               </Button>
-            <Button variant='contained' onClick={handleDrawerClose}>
-              <Typography variant="body1">Застосувати</Typography>
-            </Button>
+              <Button variant='contained' sx={{ textTransform: 'none', borderRadius: '12px' }} onClick={handleDrawerClose}>
+                <Typography variant="body1" sx={{ padding: '24px 46px' }}>Застосувати</Typography>
+              </Button>
+            </Box>
           </Box>
         </Box>
       </Drawer>

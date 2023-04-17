@@ -8,6 +8,9 @@ import RecipeAutocompleteSearch from './RecipeAutocompleteSearch';
 import { Tooltip, Typography, Button, Container, Backdrop } from '@mui/material';
 import { Link } from 'react-router-dom';
 import CartElement from './CartElement';
+import PersonIcon from '../assets/icons_person.svg';
+import LocationIcon from '../assets/icons_location.svg';
+import LogoSvg from '../assets/Logo.png'
 
 
 const AppBarSearch = () => {
@@ -45,8 +48,6 @@ const AppBarSearch = () => {
     </Menu>
   );
 
-  const viewPort = '90vh';
-
   return (
     <AppBar position="static" sx={{ backgroundColor: '#000' }}>
       <Toolbar>
@@ -58,7 +59,7 @@ const AppBarSearch = () => {
                   height: 50,
                   width: 305,
                   marginRight: '32px',
-                  backgroundImage: `url(src/pictures/Logo.png)`,
+                  backgroundImage: `url(${LogoSvg})`,
                   backgroundRepeat: 'no-repeat',
                   backgroundPosition: 'contain',
                   backgroundSize: 'cover'
@@ -77,7 +78,7 @@ const AppBarSearch = () => {
                 color="inherit"
                 sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '80', height: '48px' }}
               >
-                <img src='src/pictures/icons_person.svg' alt='ProfileIcon' />
+                <img src={PersonIcon} alt='ProfileIcon' />
               </Button>
               <Tooltip
                 title={
@@ -89,7 +90,7 @@ const AppBarSearch = () => {
                 <Button
                   sx={{ color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '80', height: '48px' }}
                 >
-                  <img src='src/pictures/icons_location.svg' alt='locationicon' />
+                  <img src={LocationIcon} alt='locationicon' />
                 </Button>
               </Tooltip>
               <CartElement />

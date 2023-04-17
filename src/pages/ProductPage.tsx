@@ -6,6 +6,9 @@ import { Box, Button, Container, Divider, Grid, Typography, Stack, useTheme } fr
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { makeStyles } from '@mui/styles';
 import Promo from '../components/Promo';
+import ClockIcon from '../assets/clock.svg';
+import PotIcon from '../assets/pot.svg';
+import CategoryIcon from '../assets/catergoriesicon.svg';
 
 
 const useStyles = makeStyles(({
@@ -123,7 +126,7 @@ const ProductPage = () => {
         >
           <Stack sx={{ alignItems: 'center' }}>
             <Box>
-              <img src='src/pictures/clock.svg' alt='portions' />
+              <img src={ClockIcon} alt='portions' />
             </Box>
             <Typography
               variant='body2'
@@ -147,7 +150,7 @@ const ProductPage = () => {
           <Divider orientation="vertical" flexItem sx={{ backgroundColor: '#000', height: '32px', alighSelf: 'center', marginTop: '28px' }} />
           <Stack sx={{ alignItems: 'center' }}>
             <Box>
-              <img src='src/pictures/pot.svg' alt='coockedmeal' />
+              <img src={PotIcon} alt='coockedmeal' />
             </Box>
             <Typography
               variant='body2'
@@ -170,7 +173,7 @@ const ProductPage = () => {
           <Divider orientation="vertical" flexItem sx={{ backgroundColor: '#000', height: '32px', alighSelf: 'center', marginTop: '28px' }} />
           <Stack sx={{ alignItems: 'center' }}>
             <Box>
-              <img src='src/pictures/pot.svg' alt='coockedmeal' />
+              <img src={PotIcon} alt='coockedmeal' />
             </Box>
             <Typography
               variant='body2'
@@ -202,7 +205,7 @@ const ProductPage = () => {
               fontWeight: 700,
               color: '#343A40',
             }}>
-            <img src="src/pictures/catergoriesicon.svg" alt="categoryimage" style={{ marginRight: '16px' }} />
+            <img src={CategoryIcon} alt="categoryimage" style={{ marginRight: '16px' }} />
             Інгридієнти:
           </Typography>
           {recipe?.productsList.map(item => (
@@ -223,7 +226,7 @@ const ProductPage = () => {
                     alighItems: 'center'
                   }}
                 >
-                  <img src="src/pictures/catergoriesicon.svg" alt="categoryimage" style={{ marginRight: '16px' }} />
+                  <img src={CategoryIcon} alt="categoryimage" style={{ marginRight: '16px' }} />
                   <Typography
                     variant='body1'
                     sx={{
@@ -285,7 +288,7 @@ const ProductPage = () => {
               color: '#343A40'
             }}
           >
-            <img src="src/pictures/catergoriesicon.svg" alt="categoryimage" style={{ marginRight: '16px' }} />
+            <img src={CategoryIcon} alt="categoryimage" style={{ marginRight: '16px' }} />
             Покроковий рецепт приготування:
           </Typography>
           <Divider sx={{ marginBottom: '24px', border: '1px solid #495057' }} />

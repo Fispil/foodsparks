@@ -11,6 +11,8 @@ import CuisineRegion from '../types/cuisineRegions';
 import { getComplexityTypes, getCuisineRegion, getDishTypes } from '../api/fetchTypes';
 import DishType from '../types/dishTypes';
 import ComplexityType from '../types/complexityTypes';
+import PotIcon from '../assets/pot.svg';
+import ArrowDownIcon from '../assets/arrowdown.svg';
 
 
 const ProductsPage: React.FC = () => {
@@ -188,7 +190,7 @@ const ProductsPage: React.FC = () => {
                       alignItems: 'center',
                     }}
                   >
-                    <img src='src/pictures/pot.svg' alt="Pot" style={{ marginRight: '8px' }} />{item.portions} Порцій
+                    <img src={PotIcon} alt="Pot" style={{ marginRight: '8px' }} />{item.portions} Порцій
                   </Typography>
                   <Typography
                     variant="body1"
@@ -210,7 +212,7 @@ const ProductsPage: React.FC = () => {
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center ' }}>
         <Button
           variant="text"
-          endIcon={<img src='src/pictures/arrowdown.svg' alt="arrowdown" />}
+          endIcon={<img src={ArrowDownIcon} alt="arrowdown" />}
           onClick={handleAddRecipes}
           sx={{
             textTransform: 'none',

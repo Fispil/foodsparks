@@ -4,6 +4,7 @@ import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { ScrollContainer } from 'react-indiana-drag-scroll';
 import 'react-indiana-drag-scroll/dist/style.css'
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import PotIcon from '../assets/pot.svg';
 import { Link } from 'react-router-dom';
 
 interface Props {
@@ -54,7 +55,7 @@ const CustomCardList: React.FC<Props> = ({ items }) => {
                     alignItems: 'center',
                   }}
                 >
-                  <img src='src/pictures/pot.svg' alt="Pot" style={{ marginRight: '8px' }}/>{item.portions} Порцій
+                  <img src={PotIcon} alt="Pot" style={{ marginRight: '8px' }}/>{item.portions} Порцій
                 </Typography>
                 <Typography
                   variant="body1"

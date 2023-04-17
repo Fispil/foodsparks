@@ -1,6 +1,7 @@
 import { Box, Typography, Divider, Grid, TextField, Button } from "@mui/material"
 import { useState } from "react";
 import { sentCoupon } from "../api/fetchCoupons";
+import PromoImage from "../assets/promoimage.svg";
 
 const Promo = () => {
   const [promocodeInput, setPromocodeInput] = useState('');
@@ -39,7 +40,7 @@ const Promo = () => {
         Введіть електронну адресу та отримайте промокод
       </Typography>
 
-      <img src='src/pictures/promoimage.svg' alt="promoimage" style={{ position: 'absolute', bottom: 0, right: 0, margin: '20px -85px', zIndex: 0 }} />
+      <img src={PromoImage} alt="promoimage" style={{ position: 'absolute', bottom: 0, right: 0, margin: '20px -85px', zIndex: 0 }} />
       <Divider sx={{ backgroundColor: '#fff' }} />
       <form onSubmit={handlePromoSumbit}>
         <Grid

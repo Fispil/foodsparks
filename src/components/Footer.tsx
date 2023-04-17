@@ -1,10 +1,11 @@
-import { Box, Typography, Container, Theme, Stack } from '@mui/material';
+import { Box, Typography, Container, Stack } from '@mui/material';
 
 import { Link } from 'react-router-dom';
 import { theme } from '../theme';
+import OrnamentSvg from '../assets/ornament.svg';
+import WhiteLogo from '../assets/logowhite.svg';
 
 const Footer = () => {
-
   return (
     <Container
       maxWidth="xl"
@@ -26,7 +27,7 @@ const Footer = () => {
               sx={{
                 height: 50,
                 width: 305,
-                backgroundImage: `url(src/pictures/logowhite.svg)`,
+                backgroundImage: `url(${WhiteLogo})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'contain',
                 backgroundSize: 'cover',
@@ -68,7 +69,7 @@ const Footer = () => {
         </Box>
       </Box>
       <Box sx={{ marginBottom: '24px' }}>
-        <img src="src/pictures/ornament.svg" style={{ width: '100%' }} alt='ornament' />
+        <img src={OrnamentSvg} style={{ width: '100%' }} alt='ornament' />
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'center', alighnItems: 'center', paddingBottom: '32px'}}>
         <Typography sx={{ textAlign: 'center', color: '#212529' }} variant='body2'>© 2023 Foodsparks. All Rights Reserved. </Typography>
