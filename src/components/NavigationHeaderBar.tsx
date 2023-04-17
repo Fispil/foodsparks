@@ -78,41 +78,6 @@ const NavigationHeaderBar = () => {
                 Контакти
               </Link>
             </Box>
-            <Box
-              mr={3}
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                gap: '24px',
-                flexShrink: 2,
-                marginLeft: '24px'
-              }}
-            >
-              <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-                <Box
-                  sx={{
-                    border: `1px solid ${theme.palette.primary.dark}`,
-                    borderRadius: '5px',
-                    backgroundColor: 'rgb(176,224,230)',
-                    color: 'black'
-                  }}
-                >
-                  <SignInDialog />
-                </Box>
-
-                <Box
-                  sx={{
-                    border: `1px solid ${theme.palette.primary.dark}`,
-                    borderRadius: '5px',
-                    backgroundColor: 'rgb(220,20,60)',
-                    color: 'black'
-                  }}
-                >
-                  <SignUpDialog />
-                </Box>
-              </Box>
-            </Box>
           </Box>
         </Container>
       </Toolbar></>

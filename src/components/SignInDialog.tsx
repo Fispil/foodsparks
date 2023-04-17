@@ -8,6 +8,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import GoogleIcon from '../assets/google.svg';
 import AppleIcon from '../assets/apple.svg';
 import FacebookIcon from '../assets/facebook.svg';
+import PersonIcon from '../assets/icons_person.svg';
 
 const SignInDialog = () => {
   const [open, setOpen] = useState(false);
@@ -68,15 +69,24 @@ const SignInDialog = () => {
     }
 
     if (!hasError) {
-      loginUser(userAuth)
-      handleClose()
+      try {
+        loginUser(userAuth);
+      } catch (err) {
+        
+      } finally {
+      } 
     }
   };
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Вхід
+      <Button
+        aria-haspopup="true"
+        onClick={handleClickOpen}
+        color="inherit"
+        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '80', height: '48px' }}
+      >
+        <img src={PersonIcon} alt='ProfileIcon' />
       </Button>
       <Dialog open={open} onClose={handleClose} sx={{ padding: '30px 24px', borderRadius: '12px' }}>
         <Box sx={{ padding: '30px 24px', borderRadius: '12px' }}>
@@ -153,7 +163,9 @@ const SignInDialog = () => {
               />
             </DialogContent>
             <DialogActions sx={{ padding: '0 24px', display: 'flex', flexDirection: 'column' }}>
-              <Button type="submit" variant='contained' sx={{ width: '100%', marginBottom: '40px' }}>Увійти</Button>
+              <Button type="submit" variant='contained' sx={{ width: '100%', marginBottom: '40px', textTransform: 'none', borderRadius: '12px' }}>
+                <Typography variant='body1' sx={{ padding: '24px' }}>Увійти</Typography>
+              </Button>
               <Typography variant='body2' sx={{ marginBottom: '24px' }}>Вхід за допомогою соціальних мереж</Typography>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '24px', marginBottom: '40px' }}>
                 <IconButton
@@ -201,7 +213,7 @@ const SignInDialog = () => {
                   Не маєте аккаунта?
                 </Typography>
                 <Button sx={{ textTransform: 'none' }} onClick={handleClose}>
-                  <Link to="/register">
+                  <Link to="/register" style={{ textDecoration: 'none' }}>
                     <Typography variant='body2' sx={{ color: '#CB3C2E' }}>Зареєструватись</Typography>
                   </Link>
                 </Button>

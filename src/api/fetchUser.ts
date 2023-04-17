@@ -2,17 +2,17 @@ import axios from 'axios';
 import User from '../types/user';
 import NewUser from '../types/userRegistration'
 
-// localStorage.getItem('token'); to get bearer token
-
 const userOptions = {
   headers: {
     'Content-Type': 'application/json'
   }
 };
 
+const HostName = 'https://www.foodsparks.pp.ua'
+
 export const loginUser = async (user: User): Promise<string> => {
   try {
-    const response = await axios.post('https://www.foodsparks.pp.ua/login', JSON.stringify(user), userOptions);
+    const response = await axios.post(`${HostName}/login`, JSON.stringify(user), userOptions);
     const isLogin = response.data;
 
     localStorage.setItem('token', `Bearer ${isLogin.token}`);
@@ -25,7 +25,7 @@ export const loginUser = async (user: User): Promise<string> => {
 
 export const registerNewUser = async (user: NewUser) => {
   try {
-    const response = await axios.post('https://www.foodsparks.pp.ua/register', JSON.stringify(user), userOptions);
+    const response = await axios.post(`${HostName}/register`, JSON.stringify(user), userOptions);
     const isRegistred = response.data;
     console.log(isRegistred);
 

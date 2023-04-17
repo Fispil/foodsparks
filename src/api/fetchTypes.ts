@@ -3,9 +3,11 @@ import CuisineRegion from '../types/cuisineRegions';
 import DishType from '../types/dishTypes';
 import ComplexityType from '../types/complexityTypes';
 
+const HostName = 'https://www.foodsparks.pp.ua'
+
 export const getCuisineRegion = async (): Promise<CuisineRegion[]> => {
   try {
-    const response = await axios.get(`https://www.foodsparks.pp.ua/cuisine-regions`);
+    const response = await axios.get(`${HostName}/cuisine-regions`);
     const cuisineRegion = response.data;
 
     return cuisineRegion;
@@ -16,7 +18,7 @@ export const getCuisineRegion = async (): Promise<CuisineRegion[]> => {
 
 export const getDishTypes = async (): Promise<DishType[]> => {
   try {
-    const response = await axios.get('https://www.foodsparks.pp.ua/dish-types');
+    const response = await axios.get(`${HostName}/dish-types`);
     const dishTypes = response.data;
 
     return dishTypes;
@@ -27,7 +29,7 @@ export const getDishTypes = async (): Promise<DishType[]> => {
 
 export const getComplexityTypes = async (): Promise<ComplexityType[]> => {
   try {
-    const response = await axios.get('https://www.foodsparks.pp.ua:80/complexities');
+    const response = await axios.get(`${HostName}/complexities`);
     const complexityTypes = response.data;
 
     return complexityTypes;

@@ -2,9 +2,11 @@ import axios from 'axios';
 import RecipeResponse from '../types/recipeResponse';
 import RecipeExtended from '../types/recipeExtended';
 
+const HostName = 'https://www.foodsparks.pp.ua'
+
 export const getRecipes = async (): Promise<RecipeResponse> => {
   try {
-    const response = await axios.get('https://www.foodsparks.pp.ua/recipes');
+    const response = await axios.get(`${HostName}/recipes`);
     const recipe = response.data;
 
     return recipe;
@@ -15,7 +17,7 @@ export const getRecipes = async (): Promise<RecipeResponse> => {
 
 export const getByPageRecipes = async (page: number): Promise<RecipeResponse> => {
   try {
-    const response = await axios.get(`https://www.foodsparks.pp.ua/recipes?page=${page - 1}&count=20`);
+    const response = await axios.get(`${HostName}/recipes?page=${page - 1}&count=20`);
     const recipe = response.data;
 
     return recipe;
@@ -75,11 +77,9 @@ export const getByPageAndFilterRecipes = async (
 
   const result = str.join('&');
 
-  console.log(`https://www.foodsparks.pp.ua/recipes?page=${page - 1}&count=20&${result}`);
-
   try {
     const response = await axios
-      .get(`https://www.foodsparks.pp.ua/recipes?page=${page - 1}&count=20&${result}`);
+      .get(`${HostName}/recipes?page=${page - 1}&count=20&${result}`);
     const recipe = response.data;
 
     return recipe;
@@ -90,7 +90,7 @@ export const getByPageAndFilterRecipes = async (
 
 export const getRecipeById = async (id: number): Promise<RecipeExtended> => {
   try {
-    const response = await axios.get(`https://www.foodsparks.pp.ua/recipes/${id}`);
+    const response = await axios.get(`${HostName}/recipes/${id}`);
     const recipe = response.data;
 
     return recipe;

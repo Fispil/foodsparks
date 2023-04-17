@@ -5,12 +5,12 @@ import Toolbar from '@mui/material/Toolbar';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import RecipeAutocompleteSearch from './RecipeAutocompleteSearch';
-import { Tooltip, Typography, Button, Container, Backdrop } from '@mui/material';
+import { Tooltip, Typography, Button, Container } from '@mui/material';
 import { Link } from 'react-router-dom';
 import CartElement from './CartElement';
-import PersonIcon from '../assets/icons_person.svg';
 import LocationIcon from '../assets/icons_location.svg';
 import LogoSvg from '../assets/Logo.png'
+import ProfileMenu from './ProfileMenu';
 
 
 const AppBarSearch = () => {
@@ -18,15 +18,12 @@ const AppBarSearch = () => {
 
   const isMenuOpen = Boolean(anchorEl);
 
-  const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+
 
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
 
-  const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -71,15 +68,7 @@ const AppBarSearch = () => {
           </Box>
           <Box sx={{ display: 'flex' }}>
             <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: '24px' }}>
-              <Button
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '80', height: '48px' }}
-              >
-                <img src={PersonIcon} alt='ProfileIcon' />
-              </Button>
+              <ProfileMenu />
               <Tooltip
                 title={
                   <Typography variant='body1'>

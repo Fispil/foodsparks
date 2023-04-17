@@ -1,8 +1,10 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
+import userReducer from '../features/userReduser';
 
 const rootReducer = combineReducers({
+  user: userReducer
 });
 
 // The `store` is passed to the Provider in `/src/index.tsx`
