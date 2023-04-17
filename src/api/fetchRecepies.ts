@@ -4,7 +4,7 @@ import RecipeExtended from '../types/recipeExtended';
 
 export const getRecipes = async (): Promise<RecipeResponse> => {
   try {
-    const response = await axios.get('http://foodsparks.eu-central-1.elasticbeanstalk.com/recipes');
+    const response = await axios.get('https://www.foodsparks.pp.ua/recipes');
     const recipe = response.data;
 
     return recipe;
@@ -15,7 +15,7 @@ export const getRecipes = async (): Promise<RecipeResponse> => {
 
 export const getByPageRecipes = async (page: number): Promise<RecipeResponse> => {
   try {
-    const response = await axios.get(`http://foodsparks.eu-central-1.elasticbeanstalk.com/recipes?page=${page - 1}&count=20`);
+    const response = await axios.get(`https://www.foodsparks.pp.ua/recipes?page=${page - 1}&count=20`);
     const recipe = response.data;
 
     return recipe;
@@ -75,11 +75,11 @@ export const getByPageAndFilterRecipes = async (
 
   const result = str.join('&');
 
-  console.log(`http://foodsparks.eu-central-1.elasticbeanstalk.com/recipes?page=${page - 1}&count=20&${result}`);
+  console.log(`https://www.foodsparks.pp.ua/recipes?page=${page - 1}&count=20&${result}`);
 
   try {
     const response = await axios
-      .get(`http://foodsparks.eu-central-1.elasticbeanstalk.com/recipes?page=${page - 1}&count=20&${result}`);
+      .get(`https://www.foodsparks.pp.ua/recipes?page=${page - 1}&count=20&${result}`);
     const recipe = response.data;
 
     return recipe;
@@ -90,7 +90,7 @@ export const getByPageAndFilterRecipes = async (
 
 export const getRecipeById = async (id: number): Promise<RecipeExtended> => {
   try {
-    const response = await axios.get(`http://foodsparks.eu-central-1.elasticbeanstalk.com/recipes/${id}`);
+    const response = await axios.get(`https://www.foodsparks.pp.ua/recipes/${id}`);
     const recipe = response.data;
 
     return recipe;

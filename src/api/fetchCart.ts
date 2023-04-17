@@ -9,7 +9,7 @@ const withAuthOptions = {
 
 export const addItemCart = async (productId: number, quantity: number): Promise<string> => {
   try {
-    const response = await axios.put(`http://foodsparks.eu-central-1.elasticbeanstalk.com/shopping-cart/add?productId=${productId}&quantity=${quantity}`, null, withAuthOptions)
+    const response = await axios.put(`https://www.foodsparks.pp.ua/shopping-cart/add?productId=${productId}&quantity=${quantity}`, null, withAuthOptions)
     const cart = response.data;
 
     return cart;

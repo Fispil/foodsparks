@@ -150,7 +150,7 @@ const ProductsPage: React.FC = () => {
       </Box>
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '32px', justifyContent: 'center', marginBottom: '40px' }}>
         {recipes.map((item) => (
-          <Card key={item.id} sx={{ width: 300, height: 440, flex: '0 0 auto', margin: '0 8px' }}>
+          <Card key={item.id} sx={{ width: 300, height: 500, flex: '0 0 auto', margin: '0 8px' }}>
             <CardMedia
               sx={{ height: 305, position: 'relative' }}
               image={item.imageUrl}
@@ -170,7 +170,7 @@ const ProductsPage: React.FC = () => {
                 </Typography>
               </Box>
             </CardMedia>
-            <CardContent sx={{ marginTop: '24px' }}>
+            <CardContent>
               <Link to={`/products/${item.id}`} style={{ textDecoration: 'none', color: 'black' }}>
                 <Typography
                   variant="subtitle1"
@@ -180,7 +180,7 @@ const ProductsPage: React.FC = () => {
                 >
                   {item.title}
                 </Typography>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
                   <Typography
                     variant="body1"
                     color="text.secondary"

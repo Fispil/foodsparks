@@ -15,7 +15,7 @@ const CustomCardList: React.FC<Props> = ({ items }) => {
   return (
     <ScrollContainer style={{ display: 'flex', flexWrap: 'nowrap', overflowX: 'auto', WebkitOverflowScrolling: 'touch', msOverflowStyle: '-ms-autohiding-scrollbar' }}>
       {items.map((item) => (
-        <Card key={item.id} sx={{ width: 300, height: 440, flex: '0 0 auto', margin: '0 8px' }}>
+        <Card key={item.id} sx={{ width: 300, flex: '0 0 auto', margin: '0 8px', position: 'relative' }}>
           <CardMedia
             sx={{ height: 305, position: 'relative' }}
             image={item.imageUrl}
@@ -35,7 +35,7 @@ const CustomCardList: React.FC<Props> = ({ items }) => {
               </Typography>
             </Box>
           </CardMedia>
-          <CardContent sx={{ marginTop: '24px' }}>
+          <CardContent>
             <Link to={`/products/${item.id}`} style={{ textDecoration: 'none', color: 'black' }}>
               <Typography
                 variant="subtitle1"
@@ -45,28 +45,31 @@ const CustomCardList: React.FC<Props> = ({ items }) => {
               >
                 {item.title}
               </Typography>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography
-                  variant="body1"
-                  color="text.secondary"
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <img src={PotIcon} alt="Pot" style={{ marginRight: '8px' }}/>{item.portions} Порцій
-                </Typography>
-                <Typography
-                  variant="body1"
-                  color="text.secondary"
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <AccessTimeIcon /> {item.cookingTime}
-                </Typography>
+              <Box sx={{ position: 'absolute', bottom: '12px', width: 270 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      marginRight: '8px'
+                    }}
+                  >
+                    <img src={PotIcon} alt="Pot" style={{ marginRight: '8px' }} />{item.portions} Порцій
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <AccessTimeIcon /> {item.cookingTime}
+                  </Typography>
+                </Box>
               </Box>
             </Link>
           </CardContent>

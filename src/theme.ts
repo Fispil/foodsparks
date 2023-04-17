@@ -53,4 +53,14 @@ export const theme = createTheme({
       lineHeight: '24px',
     },
   },
+
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        html: {
+          fontSize: '80%',
+        },
+      },
+    },
+  },
 });

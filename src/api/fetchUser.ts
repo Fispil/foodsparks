@@ -12,7 +12,7 @@ const userOptions = {
 
 export const loginUser = async (user: User): Promise<string> => {
   try {
-    const response = await axios.post('http://foodsparks.eu-central-1.elasticbeanstalk.com/login', JSON.stringify(user), userOptions);
+    const response = await axios.post('https://www.foodsparks.pp.ua/login', JSON.stringify(user), userOptions);
     const isLogin = response.data;
 
     localStorage.setItem('token', `Bearer ${isLogin.token}`);
@@ -25,7 +25,7 @@ export const loginUser = async (user: User): Promise<string> => {
 
 export const registerNewUser = async (user: NewUser) => {
   try {
-    const response = await axios.post('http://foodsparks.eu-central-1.elasticbeanstalk.com/register', JSON.stringify(user), userOptions);
+    const response = await axios.post('https://www.foodsparks.pp.ua/register', JSON.stringify(user), userOptions);
     const isRegistred = response.data;
     console.log(isRegistred);
 

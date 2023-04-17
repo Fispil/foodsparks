@@ -5,7 +5,7 @@ import ComplexityType from '../types/complexityTypes';
 
 export const getCuisineRegion = async (): Promise<CuisineRegion[]> => {
   try {
-    const response = await axios.get(`http://foodsparks.eu-central-1.elasticbeanstalk.com/cuisine-regions`);
+    const response = await axios.get(`https://www.foodsparks.pp.ua/cuisine-regions`);
     const cuisineRegion = response.data;
 
     return cuisineRegion;
@@ -16,7 +16,7 @@ export const getCuisineRegion = async (): Promise<CuisineRegion[]> => {
 
 export const getDishTypes = async (): Promise<DishType[]> => {
   try {
-    const response = await axios.get('http://foodsparks.eu-central-1.elasticbeanstalk.com/dish-types');
+    const response = await axios.get('https://www.foodsparks.pp.ua/dish-types');
     const dishTypes = response.data;
 
     return dishTypes;
@@ -27,7 +27,7 @@ export const getDishTypes = async (): Promise<DishType[]> => {
 
 export const getComplexityTypes = async (): Promise<ComplexityType[]> => {
   try {
-    const response = await axios.get('http://foodsparks.eu-central-1.elasticbeanstalk.com:80/complexities');
+    const response = await axios.get('https://www.foodsparks.pp.ua:80/complexities');
     const complexityTypes = response.data;
 
     return complexityTypes;
