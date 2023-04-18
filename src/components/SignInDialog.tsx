@@ -9,6 +9,8 @@ import GoogleIcon from '../assets/google.svg';
 import AppleIcon from '../assets/apple.svg';
 import FacebookIcon from '../assets/facebook.svg';
 import PersonIcon from '../assets/icons_person.svg';
+import { useAppDispatch, useAppSelector } from '../util/hooks';
+import { actions as userActions } from '../features/userReduser';
 
 const SignInDialog = () => {
   const [open, setOpen] = useState(false);
@@ -22,6 +24,9 @@ const SignInDialog = () => {
     login: '',
     password: '',
   });
+
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -71,6 +76,7 @@ const SignInDialog = () => {
     if (!hasError) {
       try {
         loginUser(userAuth);
+        dispatch(userActions.setIsLoggined(true));
       } catch (err) {
         
       } finally {

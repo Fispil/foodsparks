@@ -1,7 +1,8 @@
 interface Product {
   productId: number;
   name: string;
-  amount: number;
+  amount: string;
+  price: number;
 }
 
 export default interface RecipeExtended {

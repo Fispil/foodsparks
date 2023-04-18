@@ -8,7 +8,7 @@ const setIsLoggined = (isLoggined: boolean): SetIsLogginedAction => ({
   payload: isLoggined
 });
 
-type Action =  SetIsLogginedAction;
+type Action = SetIsLogginedAction;
 
 export const actions = { setIsLoggined };
 

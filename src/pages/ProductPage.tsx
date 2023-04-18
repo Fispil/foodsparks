@@ -9,6 +9,8 @@ import Promo from '../components/Promo';
 import ClockIcon from '../assets/clock.svg';
 import PotIcon from '../assets/pot.svg';
 import CategoryIcon from '../assets/catergoriesicon.svg';
+import { useAppSelector } from '../util/hooks';
+import CartButton from '../components/СartButton';
 
 
 const useStyles = makeStyles(({
@@ -46,6 +48,8 @@ const useStyles = makeStyles(({
 const ProductPage = () => {
   const [recipe, setRecipe] = useState<RecipeExtended>();
   const [isLoading, setIsLoading] = useState(false);
+  const [activeBlock, setActiveBlock] = useState<number[]>([]);
+  const userIsLoggined = useAppSelector(state => state.user.isLoggined);
   const location = useLocation();
   const pathnames = location.pathname.split('/');
 
@@ -63,6 +67,10 @@ const ProductPage = () => {
       setIsLoading(false);
     };
   }
+
+  const openCartButtonHandler = (itemToHandle: number) => {
+    setActiveBlock(state => [...state, itemToHandle ]);
+  };
 
   useEffect(() => {
     loadRecipeFromServer();
@@ -237,19 +245,24 @@ const ProductPage = () => {
                     {item.name} - {item.amount}
                   </Typography>
                 </Box>
-                <Button
-                  variant='outlined'
-                  sx={{
-                    border: '1px solid #CB3C2E',
-                    textTransform: 'none', 
-                    color: '#CB3C2E',
-                    padding: '24px 84px',
-                    borderRadius: '12px'
-                  }}
-                  endIcon={<ShoppingCartOutlinedIcon sx={{ width: '32px', height: '32px' }} />}
-                >
-                  <Typography variant='body1'>Купити</Typography>
-                </Button>
+                {activeBlock.includes(item.productId) ?
+                  (<CartButton itemId={item.productId} elementUnit={item.amount.split(' ')[1]} priceItem={item.price} />)
+                  : (<Button
+                    variant='outlined'
+                    disabled={userIsLoggined}
+                    sx={{
+                      border: '1px solid #CB3C2E',
+                      textTransform: 'none',
+                      color: '#CB3C2E',
+                      padding: '24px 84px',
+                      borderRadius: '12px'
+                    }}
+                    endIcon={<ShoppingCartOutlinedIcon sx={{ width: '32px', height: '32px' }} />}
+                    onClick={() => openCartButtonHandler(item.productId)}
+                  >
+                    <Typography variant='body1'>Купити</Typography>
+                  </Button>)
+                }
               </Box>
             </Box>
           ))}
@@ -273,7 +286,7 @@ const ProductPage = () => {
                 color: '#212529',
               }}
             >
-              240грн
+              
             </Typography>
           </Box>
         </Box>
@@ -332,11 +345,11 @@ const ProductPage = () => {
                     variant="h5"
                     className='stepRecipeContent'
                   >
-                    {index+1}
+                    {index + 1}
                   </Typography>
                 </Box>
               </Grid>
-              <Grid item sm={10}> 
+              <Grid item sm={10}>
                 <Typography
                   variant='subtitle1'
                   sx={{

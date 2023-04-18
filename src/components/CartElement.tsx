@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { makeStyles, createStyles, } from '@mui/styles';
+import { makeStyles } from '@mui/styles';
 import Drawer from '@mui/material/Drawer';
 
 import { Badge, Box, Button, Typography, Theme } from '@mui/material';
 import CartIcon from '../assets/basket.svg'
+import { getitemCart } from '../api/fetchCart';
+import { useAppSelector } from '../util/hooks';
 
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles(({
     root: {
       display: 'flex'
     },
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       flexGrow: 1,
-      padding: theme.spacing(3)
+      padding: '24px'
     },
   })
 );
@@ -29,6 +30,9 @@ const useStyles = makeStyles((theme: Theme) =>
 const CartElement: React.FC = () => {
   const classes = useStyles();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [userCart, setUserCart] = useState('');
+
+  const isLoggined = useAppSelector(state => state.user.isLoggined);
 
 
   const handleDrawerOpen = () => {
@@ -38,6 +42,21 @@ const CartElement: React.FC = () => {
   const handleDrawerClose = () => {
     setIsDrawerOpen(false);
   };
+
+  const loadCartFromServer = async () => {
+    try {
+      const userCartFromServer = await getitemCart(isLoggined);
+      setUserCart(userCartFromServer);
+    } catch (error) {
+      throw new Error(`Cant load cart: ${error}`);
+    }
+  }
+  
+
+  useEffect(() => {
+    loadCartFromServer();
+  }, [])
+
 
   return (
     <Box className={classes.root}>
@@ -62,28 +81,34 @@ const CartElement: React.FC = () => {
         }}
         onClose={handleDrawerClose}
         ModalProps={{
-          keepMounted: true // Better open performance on mobile.
+          keepMounted: true 
         }}
       >
         <Box sx={{ p: 2 }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography variant="subtitle1">Кошик</Typography>
-          <Button variant='text' onClick={handleDrawerClose}>Назад</Button>
+            <Typography variant="subtitle1">Кошик</Typography>
+            <Button variant='text' onClick={handleDrawerClose} sx={{ textTransform: 'none' }}>
+              <Typography variant="body1">Назад</Typography>
+            </Button>
+          </Box>
+          <Box>
+
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Button
               variant='contained'
+              fullWidth
               sx={{
                 border: '1px solid #CB3C2E',
-                textTransform: 'none', 
+                textTransform: 'none',
                 color: '#fff',
                 fontFamily: 'Open Sans',
                 fontStyle: 'normal',
                 fontWeight: 400,
                 fontSize: '24px',
                 lineHeight: '16px',
-                padding: '12px 24px',
-                width: '100%'
+                padding: '24px 0',
+                borderRadius: '12px'
               }}
               onClick={handleDrawerOpen}
             >

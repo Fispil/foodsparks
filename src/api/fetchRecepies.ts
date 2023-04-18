@@ -4,6 +4,7 @@ import RecipeExtended from '../types/recipeExtended';
 
 const HostName = 'https://www.foodsparks.pp.ua'
 
+
 export const getRecipes = async (): Promise<RecipeResponse> => {
   try {
     const response = await axios.get(`${HostName}/recipes`);
@@ -92,6 +93,7 @@ export const getRecipeById = async (id: number): Promise<RecipeExtended> => {
   try {
     const response = await axios.get(`${HostName}/recipes/${id}`);
     const recipe = response.data;
+    console.log(recipe)
 
     return recipe;
   } catch (error) {
