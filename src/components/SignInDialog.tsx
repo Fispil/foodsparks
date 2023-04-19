@@ -26,7 +26,7 @@ const SignInDialog = () => {
   });
 
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user);
+  const userShoppingCart = useAppSelector((state) => state.user.userShoppingCart);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -76,7 +76,6 @@ const SignInDialog = () => {
 
     if (!hasError) {
       loginUser(userAuth);
-      console.log(loginUser);
       if (localStorage.getItem('token')) {
         dispatch(userActions.setIsLoggined(true));
         handleClose();

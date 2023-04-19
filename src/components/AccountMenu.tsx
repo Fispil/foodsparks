@@ -13,13 +13,14 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { useAppDispatch, useAppSelector } from '../util/hooks';
 import { actions as userActions } from '../features/userReduser';
+import { Link } from 'react-router-dom';
 
 const AccountMenu = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user);
+  const user = useAppSelector((state) => state.user.isLoggined);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -28,7 +29,7 @@ const AccountMenu = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
+
   const handleLogout = () => {
     dispatch(userActions.setIsLoggined(false));
     localStorage.removeItem('token');
@@ -86,7 +87,10 @@ const AccountMenu = () => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleClose}>
-          <Avatar /> <Typography variant='body1'>Profile</Typography>
+          <Avatar />
+          <Link to="/profile" style={{ textDecoration: 'none' }}>
+            <Typography variant='body1'>Profile</Typography>
+          </Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <Avatar /> <Typography variant='body1'>My account</Typography>

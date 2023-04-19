@@ -10,7 +10,7 @@ const Breadcrumb: React.FC<Props> = ({ nameRecipe }) => {
   const pathnames = location.pathname.split('/').filter((x) => x);
 
   return (
-    <Breadcrumbs aria-label="breadcrumb" sx={{ margin: '50px 0' }}>
+    <Breadcrumbs aria-label="breadcrumb" separator="|" sx={{ margin: '50px 0' }}>
       {pathnames.length > 0 ? (
         <Link
           style={{
@@ -30,25 +30,31 @@ const Breadcrumb: React.FC<Props> = ({ nameRecipe }) => {
       )}
       {pathnames.map((name, index) => {
         nameRecipe ? name = nameRecipe : name;
-        let routeTo = `/${pathnames.slice(0, index + 1).join('/')}`;
+        let routeTo = `/${pathnames.slice(0, index + 1).join('|')}`;
         routeTo === '/products' ? name = 'Всі рецепти' : routeTo
+        routeTo === '/order' ? name = 'Оформлення замовлення' : routeTo
 
         return index === pathnames.length - 1 ? (
-          <Typography key={routeTo} variant='body2'>{name}</Typography>
+          <Typography key={routeTo} variant='body2' sx={{ color: '#CB3C2E' }}>{name}</Typography>
         ) : (
           <Link
             style={{
               textDecoration: 'none',
-              color: 'black',
-              fontFamily: 'Open Sans',
-              fontWeight: 400,
-              fontSize: '16px',
-              lineHeight: '24px',
             }}
             key={routeTo}
             to={routeTo}
           >
-            {name}
+            <Typography
+              variant='body2'
+              sx={{
+                color: 'black',
+                '&:hover': {
+                  color: '#CB3C2E'
+                }
+              }}
+            >
+              {name}
+            </Typography>
           </Link>
         );
       })}

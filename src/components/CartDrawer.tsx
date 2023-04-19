@@ -168,7 +168,7 @@ const CartElement: React.FC = () => {
             }
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Link to="/" style={{ width: '100%' }}>
+            <Link to="/order" style={{ width: '100%' }}>
               <Button
                 variant='contained'
                 fullWidth
@@ -184,7 +184,7 @@ const CartElement: React.FC = () => {
                   padding: '24px 0',
                   borderRadius: '12px'
                 }}
-                onClick={handleDrawerOpen}
+                onClick={handleDrawerClose}
               >
                 Оформити замовлення
               </Button>

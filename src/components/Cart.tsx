@@ -6,11 +6,7 @@ import { useAppSelector, useAppDispatch } from "../util/hooks";
 import { actions as userActions } from '../features/userReduser';
 import DeleteIcon from '../assets/deleteicon.svg';
 
-interface LoadingProps {
-
-}
-
-const Cart: React.FC<LoadingProps> = () => {
+const Cart: React.FC = () => {
   const isLoggined = useAppSelector(state => state.user.isLoggined);
   const userShoppingCart = useAppSelector(state => state.user.userShoppingCart);
   const dispatch = useAppDispatch();
@@ -53,38 +49,30 @@ const Cart: React.FC<LoadingProps> = () => {
     <Box sx={{ marginBottom: '72px' }}>
       {userShoppingCart.productAmount.length === 0 ?
         (<Typography variant="body1" sx={{ marginBottom: '72px' }}>Ваш кошик пустий</Typography>)
-        : (<Box>
+        : (<Stack>
           {userShoppingCart.productAmount.map(item => (
-            <Stack>
-              <Grid container>
-                <Grid item sm={2}>
-                  <img src={item.name} alt='Product picture' />
-                </Grid>
-                <Grid item sm={10}>
-                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                    <Typography variant="body1">
-                      {item.name}
-                    </Typography>
-                    <Box sx={{ display: 'flex' }} >
-                      <Box sx={{ marginRight: '32px' }}>
-                        <CartButton
-                          itemId={item.productId}
-                          totalPrice={item.productSum}
-                          elementQty={item.quantityInPackages}
-                        />
-                      </Box>
-                      <IconButton
-                        aria-label="Delete item from cart"
-                        onClick={() => handleClickDeleteItem(item.productId)}
-                        edge="end"
-                      >
-                        <img src={DeleteIcon} alt='delete icon' />
-                      </IconButton>
-                    </Box>
-                  </Box>
-                </Grid>
-              </Grid>
-            </Stack>
+            <Box key={item.productId} sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '24px 32px', borderRadius: '12px' }}>
+              <Box>
+                <img src={item.imageUrl} alt='Product picture' />
+              </Box>
+              <Typography variant="body1">
+                {item.name}
+              </Typography>
+              <Box sx={{ marginRight: '32px' }}>
+                <CartButton
+                  itemId={item.productId}
+                  totalPrice={item.productSum}
+                  elementQty={item.quantityInPackages}
+                />
+              </Box>
+              <IconButton
+                aria-label="Delete item from cart"
+                onClick={() => handleClickDeleteItem(item.productId)}
+                edge="end"
+              >
+                <img src={DeleteIcon} alt='delete icon' />
+              </IconButton>
+            </Box>
           ))}
           <Divider />
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '24px' }}>
@@ -95,7 +83,7 @@ const Cart: React.FC<LoadingProps> = () => {
               {userShoppingCart.sum}грн
             </Typography>
           </Box>
-        </Box>
+        </Stack>
         )
       }
     </Box>

@@ -124,7 +124,6 @@ const RecipeAutocompleteSearch: React.FC = () => {
         </li>
       )}
       renderInput={(params) => (
-        //@ts-expect-error
         <TextField
           {...params}
           className={classes.root}

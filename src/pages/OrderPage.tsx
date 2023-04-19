@@ -1,39 +1,67 @@
-import { Box, Typography, Stack, Grid, IconButton, Divider, Button, Container, TextField, Paper } from "@mui/material"
+import { Box, Typography, Stack, Grid, IconButton, Divider, Button, Container, TextField, Paper, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material"
 import CartButton from "../components/СartButton";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { getitemsCart, removeItemCart, deleteAllItemsCart } from "../api/fetchCart";
 import { useAppSelector, useAppDispatch } from "../util/hooks";
 import { actions as userActions } from '../features/userReduser';
 import DeleteIcon from '../assets/deleteicon.svg';
 import { Link } from "react-router-dom";
+import Breadcrumb from "../components/BreadCrums";
+import Cart from "../components/Cart";
 
-interface LoadingProps {
-
-}
-
-const OrderPage: React.FC<LoadingProps> = () => {
+const OrderPage: React.FC = () => {
   const isLoggined = useAppSelector(state => state.user.isLoggined);
   const userShoppingCart = useAppSelector(state => state.user.userShoppingCart);
+  const userInformation = useAppSelector(state => state.user.userInformation);
+  const userAddress = useAppSelector(state => state.user.userAddress);
   const dispatch = useAppDispatch();
+  const [promo, setPromo] = useState('');
+  const [city, setCity] = useState(0);
+  const [time, setTime] = useState('');
+  const [date, setDate] = useState('');
+  const [cellPhoneNumber, setCellPhoneNumber] = useState('');
+  const [street, setStreet] = useState('');
+  const [building, setBuilding] = useState('');
+  const [appartment, setAppartment] = useState(0);
 
-  const loadCartFromServer = async () => {
-    if (isLoggined) {
-      try {
-        const userCartFromServer = await getitemsCart();
+  const handleCellPhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCellPhoneNumber(event.target.value);
+  }
 
-        dispatch(userActions.setShoppingCart(userCartFromServer));
-      } catch (error) {
-        throw new Error(`Cant load cart: ${error}`);
-      }
+  const handlePromoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPromo(event.target.value);
+  }
+
+  const handleStreetChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setStreet(event.target.value);
+  }
+
+  const handleBuildingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setBuilding(event.target.value);
+  }
+
+  const handleAppartmentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    if (/^\d*$/.test(value)) {
+      setAppartment(event.target.value as unknown as number);
     }
   }
 
-  const handleClickDeleteItem = async (productId: number) => {
-    try {
-      const userCartFromServer = await removeItemCart(productId);
-      dispatch(userActions.setShoppingCart(userCartFromServer));
-    } catch (error) {
-      throw new Error(`Cant load cart: ${error}`);
+  const handleCityChange = (event: SelectChangeEvent<unknown>) => {
+    setCity(event.target.value as number);
+  };
+
+  const handleTimeChange = (event: SelectChangeEvent<unknown>) => {
+    setTime(event.target.value as string);
+  };
+
+  const handleDateChange = (event: SelectChangeEvent<unknown>) => {
+    setDate(event.target.value as string);
+  };
+
+  const setDefaultValues = () => {
+    if (userInformation.phone) {
+      setCellPhoneNumber(userInformation.phone);
     }
   }
 
@@ -47,71 +75,151 @@ const OrderPage: React.FC<LoadingProps> = () => {
   }
 
   useEffect(() => {
-    loadCartFromServer();
-  }, [isLoggined, userShoppingCart])
+    setDefaultValues();
+  }, [])
 
   return (
     <Container maxWidth="xl">
-      <Typography variant="h6">
+      <Breadcrumb />
+      <Typography variant="h6" sx={{ marginBottom: '24px' }}>
         Особисті дані
       </Typography>
-      <Box>
-        <Box>
-          <Typography>ПІБ</Typography>
-          <TextField />
-        </Box>
-        <Box>
-          
-        </Box>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
+        <Stack spacing={2}>
+          <Typography>Імя</Typography>
+          <TextField
+            placeholder="Введіть ваше ім'я"
+            fullWidth
+            value={userInformation.firstName}
+            disabled
+          />
+        </Stack>
+        <Stack spacing={2}>
+          <Typography>Фамілія</Typography>
+          <TextField placeholder="Введіть вашу прізвище" value={userInformation.lastName} disabled />
+        </Stack>
+        <Stack spacing={2}>
+          <Typography>Мобільний номер</Typography>
+          <TextField placeholder="Введіть мобільний телефон" value={cellPhoneNumber} onChange={handleCellPhoneChange} />
+        </Stack>
       </Box>
+
+      <Typography variant="h6" sx={{ marginBottom: '24px' }}>
+        Деталі доставки
+      </Typography>
+
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+        <Stack minWidth="48%" gap={4}>
+          <Stack gap={1}>
+            <Typography variant="body1">Місто</Typography>
+            <div>
+              <FormControl sx={{ m: 1, minWidth: '100%' }}>
+                <InputLabel id="demo-simple-select-autowidth-label">Місто</InputLabel>
+                <Select
+                  labelId="demo-simple-select-autowidth-label"
+                  value={city}
+                  onChange={handleCityChange}
+                  fullWidth
+                  label="Місто"
+                >
+                  <MenuItem value="">
+                    <em>Нічого</em>
+                  </MenuItem>
+                  <MenuItem value={1}>Київ</MenuItem>
+                  <MenuItem value={2}>Одеса</MenuItem>
+                  <MenuItem value={3}>Львів</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+          </Stack>
+          <Stack gap={1}>
+            <Typography variant="body1">Будинок</Typography>
+            <TextField
+              placeholder="Хрещатик, 7"
+              fullWidth
+              value={building}
+              onChange={handleBuildingChange}
+            />
+          </Stack>
+        </Stack>
+        <Stack minWidth="48%" gap={4}>
+          <Stack gap={1}>
+            <Typography variant="body1">Вулиця</Typography>
+            <TextField
+              placeholder="Введіть вашу вулицю"
+              fullWidth
+              value={street}
+              onChange={handleStreetChange}
+            />
+          </Stack>
+          <Stack gap={1}>
+            <Typography variant="body1">Квартира</Typography>
+            <TextField
+              placeholder="Введіть номер вашої квартири"
+              fullWidth
+              value={appartment}
+              onChange={handleAppartmentChange}
+            />
+          </Stack>
+        </Stack>
+      </Box>
+
+      <Divider sx={{ border: '1px solid #ADB5BD', marginBottom: '24px' }} />
+
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '48px' }}>
+        <Stack minWidth="48%" gap={1}>
+          <Typography variant="body1">Виберіть зручну для вас дату доставки</Typography>
+          <div>
+            <FormControl sx={{ m: 1, minWidth: '100%' }}>
+              <InputLabel id="demo-simple-select-autowidth-label">Дата доставки</InputLabel>
+              <Select
+                labelId="Дата доставки"
+                value={date}
+                onChange={handleDateChange}
+                fullWidth
+                label="Дата доставки"
+              >
+                <MenuItem value="">
+                  <em>Нічого</em>
+                </MenuItem>
+                <MenuItem value={'Взавтра'}>Взавтра</MenuItem>
+                <MenuItem value={'Післязавтра'}>Післязавтра</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+        </Stack>
+        <Stack minWidth="48%" gap={1}>
+          <Typography variant="body1">Виберіть зручний для вас час доставки</Typography>
+          <div>
+            <FormControl sx={{ m: 1, minWidth: '100%' }}>
+              <InputLabel id="demo-simple-select-autowidth-label">Дата доставки</InputLabel>
+              <Select
+                labelId="Дата доставки"
+                value={time}
+                onChange={handleTimeChange}
+                fullWidth
+                label="Час доставки"
+              >
+                <MenuItem value="">
+                  <em>Нічого</em>
+                </MenuItem>
+                <MenuItem value={'До 18:00'}>До 18:00</MenuItem>
+                <MenuItem value={'Після 18:00'}>Після 18:00</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+        </Stack>
+      </Box>
+
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
         <Typography variant="subtitle1">Кошик</Typography>
         <Button variant='text' onClick={handleClearShoppingCart} sx={{ textTransform: 'none' }} startIcon={<img src={DeleteIcon} alt='delete icon' />}>
           <Typography variant="body2" sx={{ padding: '8px' }}>Очистити кошик</Typography>
         </Button>
       </Box>
-      <Box sx={{ marginBottom: '72px' }}>
-        {userShoppingCart.productAmount.length === 0 ?
-          (<Typography variant="body1" sx={{ marginBottom: '72px' }}>Ваш кошик пустий</Typography>)
-          : (<Stack>
-            {userShoppingCart.productAmount.map(item => (
-              <Box key={item.productId} sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '24px 32px', borderRadius: '12px' }}>
-                <Box>
-                  <img src={item.imageUrl} alt='Product picture' />
-                </Box>
 
-                <Typography variant="body1">
-                  {item.name}
-                </Typography>
-                <Box sx={{ marginRight: '32px' }}>
-                  <CartButton
-                    itemId={item.productId}
-                    totalPrice={item.productSum}
-                    elementQty={item.quantityInPackages}
-                  />
-                </Box>
-                <IconButton
-                  aria-label="Delete item from cart"
-                  onClick={() => handleClickDeleteItem(item.productId)}
-                  edge="end"
-                >
-                  <img src={DeleteIcon} alt='delete icon' />
-                </IconButton>
-              </Box>
-            ))}
-            <Divider />
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '24px' }}>
-              <Typography variant='body1'>
-                Всього
-              </Typography>
-              <Typography variant='body1'>
-                {userShoppingCart.sum}грн
-              </Typography>
-            </Box>
-          </Stack>
-          )
-        }
-      </Box>
+      <Cart />
+
       <Stack gap={3}>
         <Stack gap={3}>
           <Typography>Коментар до замовлення</Typography>
@@ -128,27 +236,13 @@ const OrderPage: React.FC<LoadingProps> = () => {
           <Stack gap={3} sx={{ padding: '32px' }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <Typography variant="body1" sx={{ fontWeight: 600 }}>Промокод</Typography>
-              <Link to="/"
-                style={{
-                  textDecoration: 'none'
-                }}
-              >
-                <Typography
-                  variant="body1"
-                  sx={{
-                    fontWeight: 600,
-                    textDecoration: 'none',
-                    color: '#000',
-                    '&:hover': {
-                      color: '#CB3C2E'
-                    }
-                  }}
-                >
-                  Вхід/Реєстрація
-                </Typography>
-              </Link>
             </Box>
-            <Typography variant="body2" sx={{ color: '#ADB5BD' }}>Необхідно авторизуватись, щоб ввести промокод</Typography>
+            <TextField
+              placeholder="Введіть ваш промокод"
+              fullWidth
+              value={promo}
+              onChange={handlePromoChange}
+            />
           </Stack>
         </Paper>
 
@@ -171,6 +265,7 @@ const OrderPage: React.FC<LoadingProps> = () => {
               <Link to="/" style={{ width: '50%' }}>
                 <Button
                   variant='contained'
+                  type="submit"
                   fullWidth
                   sx={{
                     border: '1px solid #CB3C2E',
