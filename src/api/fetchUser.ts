@@ -16,6 +16,8 @@ export const loginUser = async (user: User): Promise<string> => {
     const response = await axios.post(`${HostName}/login`, JSON.stringify(user), userOptions);
     const isLogin = response.data;
 
+    localStorage.setItem('token', `Bearer ${isLogin.token}`);
+
     return isLogin.token;
   } catch (error) {
     if (axios.isAxiosError(error)) {

@@ -11,7 +11,6 @@ import FacebookIcon from '../assets/facebook.svg';
 import PersonIcon from '../assets/icons_person.svg';
 import { useAppDispatch, useAppSelector } from '../util/hooks';
 import { actions as userActions } from '../features/userReduser';
-import { AxiosError } from 'axios';
 
 const SignInDialog = () => {
   const [open, setOpen] = useState(false);
@@ -70,27 +69,18 @@ const SignInDialog = () => {
     }
 
     setFormErrors(errors);
+    
     if (hasError) {
       return;
     }
 
     if (!hasError) {
-      try {
-        const login = await loginUser(userAuth);
-      } catch (error: any) {
-        if (error.response) {
-          alert(error.message);
-          return error.message;
-        } else {
-          alert('Unexpected error');
-          return 'An unexpected error occurred';
-        }
-      } finally { 
-        if (localStorage.getItem('token')) {
-          dispatch(userActions.setIsLoggined(true));
-          handleClose();
-        }
-      } 
+      loginUser(userAuth);
+      console.log(loginUser);
+      if (localStorage.getItem('token')) {
+        dispatch(userActions.setIsLoggined(true));
+        handleClose();
+      }
     }
   };
 
