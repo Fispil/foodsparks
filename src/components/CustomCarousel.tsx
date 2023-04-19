@@ -97,7 +97,7 @@ const CustomCarousel: React.FC<CarouselProps> = ({ items }) => {
     centerMode: true,
     centerPadding: "10px",
     speed: 1000,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 5000,
     cssEase: "linear",
     afterChange: (index: number) => setActiveItemIndex(index),
@@ -118,17 +118,17 @@ const CustomCarousel: React.FC<CarouselProps> = ({ items }) => {
   return (
     <Slider {...settings} initialSlide={activeItemIndex} className={classes.slideContainer}>
       {items.map((item) => (
-        <Box key={item.id} style={{ margin: '20px' }}>
+        <Box key={item.id} style={{ margin: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <Box
             sx={{
-              height: 300,
-              width: 320,
-              marginRight: '32px',
+              height: 350,
+              width: '90%',
               backgroundImage: `url(${item.imageUrl})`,
               backgroundRepeat: 'no-repeat',
               backgroundPosition: 'contain',
               backgroundSize: 'cover',
-              marginBottom: '32px'
+              marginBottom: '32px',
+              marginRight: '32px'
             }}>
           </Box>
           <Typography variant="subtitle1" className={classes.itemTitle}>{item.cuisineRegionName}</Typography>

@@ -145,7 +145,7 @@ const SignUpPage = () => {
                   will send updates occasionally.
                 </Typography>
             </Grid>
-            <Grid item sm={6}>
+            <Grid item sm={5}>
               <TextField
                 variant="outlined"
                 error={isEmptyLine(formErrors.firstName)}
@@ -162,7 +162,8 @@ const SignUpPage = () => {
                 fullWidth
               />
             </Grid>
-            <Grid item sm={6}>
+            <Grid item sm={2}/>
+            <Grid item sm={5}>
               <TextField
                 error={formErrors.lastName.length > 0}
                 helperText={formErrors.lastName ? `${formErrors.lastName}` : ''}
@@ -179,7 +180,7 @@ const SignUpPage = () => {
                 fullWidth
               />
             </Grid>
-            <Grid item sm={6}>
+            <Grid item sm={5}>
               <TextField
                 error={formErrors.email.length > 0}
                 helperText={formErrors.email ? `${formErrors.email}` : ''}
@@ -196,7 +197,8 @@ const SignUpPage = () => {
                 fullWidth
               />
             </Grid>
-            <Grid item sm={6}>
+            <Grid item sm={2}/>
+            <Grid item sm={5}>
               <TextField
                 error={formErrors.password.length > 0}
                 helperText={formErrors.password ? `${formErrors.password}` : ''}
@@ -215,7 +217,7 @@ const SignUpPage = () => {
                 fullWidth
               />
             </Grid>
-            <Grid item sm={6}>
+            <Grid item sm={5}>
               <TextField
                 error={formErrors.confirmPassword.length > 0}
                 helperText={formErrors.confirmPassword ? `${formErrors.confirmPassword}` : ''}

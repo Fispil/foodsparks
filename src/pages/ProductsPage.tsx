@@ -76,7 +76,7 @@ const ProductsPage: React.FC = () => {
       setIsLoading(true);
       filterOptionsClear();
 
-      const [recipesFromServer,] = await Promise.all([
+      const [recipesFromServer] = await Promise.all([
         getByPageAndFilterRecipes(page, cuisineRegionInId, dishTypeInId, complexityInId, spicedIn, productListInId, fieldname, order),
       ]);
 
@@ -111,7 +111,6 @@ const ProductsPage: React.FC = () => {
 
   useEffect(() => {
     loadTypesFromServer();
-    console.log('loaded');
   }, [])
 
   useEffect(() => {

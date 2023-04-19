@@ -9,7 +9,7 @@ import Promo from '../components/Promo';
 import ClockIcon from '../assets/clock.svg';
 import PotIcon from '../assets/pot.svg';
 import CategoryIcon from '../assets/catergoriesicon.svg';
-import { useAppSelector } from '../util/hooks';
+import { useAppDispatch, useAppSelector } from '../util/hooks';
 import CartButton from '../components/СartButton';
 
 
@@ -49,7 +49,8 @@ const ProductPage = () => {
   const [recipe, setRecipe] = useState<RecipeExtended>();
   const [isLoading, setIsLoading] = useState(false);
   const [activeBlock, setActiveBlock] = useState<number[]>([]);
-  const userIsLoggined = useAppSelector(state => state.user.isLoggined);
+  const userIsLoggined = useAppSelector(state => state.user);
+  const userShoppingCart = useAppSelector(state => state.user.userShoppingCart);
   const location = useLocation();
   const pathnames = location.pathname.split('/');
 
@@ -69,7 +70,7 @@ const ProductPage = () => {
   }
 
   const openCartButtonHandler = (itemToHandle: number) => {
-    setActiveBlock(state => [...state, itemToHandle ]);
+    setActiveBlock(state => [...state, itemToHandle]);
   };
 
   useEffect(() => {
@@ -246,10 +247,20 @@ const ProductPage = () => {
                   </Typography>
                 </Box>
                 {activeBlock.includes(item.productId) ?
-                  (<CartButton itemId={item.productId} elementUnit={item.amount.split(' ')[1]} priceItem={item.price} />)
+                  (<CartButton itemId={item.productId}
+                    totalPrice={
+                      userShoppingCart.productAmount.some(element => element.productId === item.productId) ?
+                        userShoppingCart.productAmount.filter(element => element.productId === item.productId)[0].productSum
+                        : 0
+                    }
+                    elementQty={
+                      userShoppingCart.productAmount.some(element => element.productId === item.productId) ?
+                      userShoppingCart.productAmount.filter(element => element.productId === item.productId)[0].quantityInPackages
+                      : '-'}
+                  />)
                   : (<Button
                     variant='outlined'
-                    disabled={userIsLoggined}
+                    disabled={!userIsLoggined}
                     sx={{
                       border: '1px solid #CB3C2E',
                       textTransform: 'none',
@@ -286,7 +297,7 @@ const ProductPage = () => {
                 color: '#212529',
               }}
             >
-              
+              {userShoppingCart.sum}грн
             </Typography>
           </Box>
         </Box>

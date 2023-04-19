@@ -1,6 +1,7 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import User from '../types/user';
 import NewUser from '../types/userRegistration'
+
 
 const userOptions = {
   headers: {
@@ -15,12 +16,24 @@ export const loginUser = async (user: User): Promise<string> => {
     const response = await axios.post(`${HostName}/login`, JSON.stringify(user), userOptions);
     const isLogin = response.data;
 
-    localStorage.setItem('token', `Bearer ${isLogin.token}`);
-
-    return isLogin;
+    return isLogin.token;
   } catch (error) {
-    throw new Error(`Failed to login:${error}`);
-  }
+    if (axios.isAxiosError(error)) {
+      switch(error.response?.status) {
+        case 401:
+          alert('Username or password is incorrect.');
+          break;
+
+        case 500:
+          alert('Server can`t handle request');
+          break;
+      }
+      return error.message;
+    } else {
+      alert('Unexpected error');
+      return 'An unexpected error occurred';
+    }
+  } 
 }
 
 export const registerNewUser = async (user: NewUser) => {
@@ -31,6 +44,12 @@ export const registerNewUser = async (user: NewUser) => {
 
     return isRegistred;
   } catch (error) {
-    throw new Error(`Failed to login:${error}`);
+    if (axios.isAxiosError(error)) {
+      alert(error.message);
+      return error.message;
+    } else {
+      alert('Unexpected error');
+      return 'An unexpected error occurred';
+    }
   }
 } 

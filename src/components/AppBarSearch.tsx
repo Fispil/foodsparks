@@ -7,7 +7,7 @@ import Menu from '@mui/material/Menu';
 import RecipeAutocompleteSearch from './RecipeAutocompleteSearch';
 import { Tooltip, Typography, Button, Container } from '@mui/material';
 import { Link } from 'react-router-dom';
-import CartElement from './CartElement';
+import CartElement from './CartDrawer';
 import LocationIcon from '../assets/icons_location.svg';
 import LogoSvg from '../assets/Logo.png'
 import ProfileMenu from './ProfileMenu';

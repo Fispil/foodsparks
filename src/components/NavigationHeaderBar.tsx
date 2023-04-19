@@ -2,7 +2,6 @@ import { Toolbar, Container, Box,} from "@mui/material";
 import { Link } from "react-router-dom";
 import { theme } from "../theme";
 import SignInDialog from "./SignInDialog";
-import SignUpDialog from "./SignUpDialog";
 
 const NavigationHeaderBar = () => {
   return (

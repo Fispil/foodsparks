@@ -57,7 +57,7 @@ const MainPage: React.FC = () => {
       setCuisineRegions(cuisineRegionFromServer);
       setRecipes(recipesFromServer.content);
     } catch (err) {
-      throw new Error(`Cant get recipes from server: ${err}`)
+      throw (`${err}`)
     } finally {
       setIsLoading(false);
     };

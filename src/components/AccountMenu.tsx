@@ -11,10 +11,15 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
+import { useAppDispatch, useAppSelector } from '../util/hooks';
+import { actions as userActions } from '../features/userReduser';
 
 const AccountMenu = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -23,6 +28,11 @@ const AccountMenu = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  
+  const handleLogout = () => {
+    dispatch(userActions.setIsLoggined(false));
+    localStorage.removeItem('token');
+  }
 
   return (
     <>
@@ -76,29 +86,29 @@ const AccountMenu = () => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
+          <Avatar /> <Typography variant='body1'>Profile</Typography>
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <Avatar /> My account
+          <Avatar /> <Typography variant='body1'>My account</Typography>
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <PersonAdd fontSize="small" />
           </ListItemIcon>
-          Add another account
+          <Typography variant='body1'>Add another account</Typography>
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
-          Settings
+          <Typography variant='body1'>Settings</Typography>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Logout
+          <Typography variant='body1'>Logout</Typography>
         </MenuItem>
       </Menu>
     </>

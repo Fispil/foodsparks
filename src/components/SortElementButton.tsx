@@ -61,6 +61,16 @@ const SortElementButton: React.FC<Props> = ({ order, onOrderChange }) => {
             </Typography>
           </Button>
           <Button>
+            <Typography variant="body1" sx={{ p: 2, color: '#212529' }} onClick={() => handleOrdrerChange('cookingTime:ASC')}>
+              Час приготування: Від А до Я
+            </Typography>
+          </Button>
+          <Button>
+            <Typography variant="body1" sx={{ p: 2, color: '#212529' }} onClick={() => handleOrdrerChange('cookingTime:DESC')}>
+              Час приготування: Від А до Я
+            </Typography>
+          </Button>
+          <Button>
             <Typography variant="body1" sx={{ p: 2, color: '#212529' }} onClick={() => handleOrdrerChange('title:ASC')}>
               Від А до Я
             </Typography>
