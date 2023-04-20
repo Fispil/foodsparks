@@ -1,8 +1,6 @@
-import axios, { AxiosError } from 'axios';
-import User from '../types/user';
-import NewUser from '../types/userRegistration'
+import axios from 'axios';
+import { User, NewUser, UserOrder } from '../types/user';
 import { UserAdress, UserInformation, UserAdressInformation } from '../types/userAdress';
-
 
 const userOptions = {
   headers: {
@@ -43,7 +41,7 @@ export const registerNewUser = async (user: NewUser) => {
   try {
     const response = await axios.post(`${HostName}/register`, JSON.stringify(user), userOptions);
     const isRegistred = response.data;
-    console.log(isRegistred);
+    console.log(`${HostName}/register`, JSON.stringify(user), userOptions);
 
     return isRegistred;
   } catch (error) {
@@ -138,6 +136,43 @@ export const informationByUser = async (): Promise<UserInformation>  => {
         'Authorization': localStorage.getItem('token'),
       }
     })
+    const information = response.data;
+
+    return information;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      if (error.response) {
+        switch(error.response.status) {
+          case 403:
+            alert('Please log in to your personal account.');
+            break;
+
+          case 500:
+            alert('Server can`t handle request');
+            break;
+            
+          default:
+            alert('Unexpected error');
+        }
+      } else {
+        alert('Network error');
+      }
+    } else {
+      alert('Unexpected error');
+    }
+    throw error;
+  }
+}
+
+export const makeUserOrder = async (order: UserOrder): Promise<any>  => {
+  try {
+    const response = await axios.post(`${HostName}/orders/complete`, JSON.stringify(order) , {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('token'),
+      }
+    })
+    
     const information = response.data;
 
     return information;

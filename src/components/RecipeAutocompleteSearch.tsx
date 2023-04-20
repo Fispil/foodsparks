@@ -6,7 +6,7 @@ import Recipe from '../types/recipe';
 import { theme } from '../theme';
 import { Link } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
-import { makeStyles, styled } from '@mui/styles';
+import { makeStyles } from '@mui/styles';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 const useStyles = makeStyles(({

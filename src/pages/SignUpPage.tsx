@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link } from 'react-router-dom';
 import { registerNewUser } from '../api/fetchUser';
-import NewUser from '../types/userRegistration';
+import { NewUser } from '../types/user';
 import { useNavigate } from 'react-router-dom';
 
 const SignUpPage = () => {

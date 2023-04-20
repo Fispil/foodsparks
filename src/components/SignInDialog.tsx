@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Dialog, DialogTitle, DialogContentText, Button, DialogActions, DialogContent, TextField, Box, Typography, InputAdornment, IconButton } from '@mui/material';
-import User from '../types/user';
+import { User } from '../types/user';
 import { loginUser } from '../api/fetchUser';
 import { Link } from 'react-router-dom';
 import { Visibility, VisibilityOff } from '@mui/icons-material';

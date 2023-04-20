@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import ShoppingCart from '../types/cartTypes';
 
 const HostName = 'https://www.foodsparks.pp.ua'
@@ -161,6 +161,42 @@ export const deleteAllItemsCart = async (): Promise<ShoppingCart> => {
     const cart = response.data;
 
     return cart;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      if (error.response) {
+        switch(error.response.status) {
+          case 403:
+            alert('Please log in to your personal account.');
+            break;
+
+          case 500:
+            alert('Server can`t handle request');
+            break;
+            
+          default:
+            alert('Unexpected error');
+        }
+      } else {
+        alert('Network error');
+      }
+    } else {
+      alert('Unexpected error');
+    }
+    throw error;
+  }
+}
+
+export const sentPromoFromUser = async (coupon: string): Promise<ShoppingCart>  => {
+  try {
+    const response = await axios.put(`${HostName}/shopping-cart/addCoupon?couponValue=${coupon}`, null ,{
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('token'),
+      }
+    })
+    const information = response.data;
+
+    return information;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       if (error.response) {

@@ -1,6 +1,5 @@
 import React from 'react';
 import { AppBar, Box } from '@mui/material';
-
 import AppBarSearch from './AppBarSearch';
 import NavigationHeaderBar from './NavigationHeaderBar';
 import OrnamentSvg from '../assets/ornament.svg';

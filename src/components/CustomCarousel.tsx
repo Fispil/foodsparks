@@ -3,7 +3,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useState } from "react";
 import Slider, { Settings } from "react-slick";
-
 import { Theme } from "@emotion/react";
 import { makeStyles } from "@mui/styles";
 import { Box, Typography } from "@mui/material";

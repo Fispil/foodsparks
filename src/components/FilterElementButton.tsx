@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import Drawer from '@mui/material/Drawer';
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Checkbox, FormControlLabel, Theme, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Checkbox, FormControlLabel, Typography } from '@mui/material';
 import CuisineRegion from '../types/cuisineRegions';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DishType from '../types/dishTypes';

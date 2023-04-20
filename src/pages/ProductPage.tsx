@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getRecipeById } from '../api/fetchRecepies';
-import RecipeExtended from '../types/recipeExtended';
+import RecipeExtended  from '../types/recipeExtended';
 import { Box, Button, Container, Divider, Grid, Typography, Stack, useTheme } from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { makeStyles } from '@mui/styles';
@@ -9,7 +9,7 @@ import Promo from '../components/Promo';
 import ClockIcon from '../assets/clock.svg';
 import PotIcon from '../assets/pot.svg';
 import CategoryIcon from '../assets/catergoriesicon.svg';
-import { useAppDispatch, useAppSelector } from '../util/hooks';
+import { useAppSelector } from '../util/hooks';
 import CartButton from '../components/СartButton';
 
 

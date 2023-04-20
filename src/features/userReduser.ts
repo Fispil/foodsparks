@@ -1,4 +1,3 @@
-import { getitemsCart } from "../api/fetchCart";
 import ShoppingCart from "../types/cartTypes";
 import { UserAdressInformation, UserInformation } from "../types/userAdress";
 

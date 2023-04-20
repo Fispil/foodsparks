@@ -1,4 +1,4 @@
-import { Box, Typography, Container } from '@mui/material';
+import { Typography, Container } from '@mui/material';
 import React, { useEffect } from 'react'
 import { adressByUser, informationByUser } from '../api/fetchUser';
 import { useAppDispatch, useAppSelector } from '../util/hooks';
@@ -18,9 +18,6 @@ const ProfilePage: React.FC = () => {
       
       dispatch(userActions.setUserInformation(userFromServer));
       dispatch(userActions.setUserAddress(userAddressFromServer));
-
-      console.log(userInformation);
-      console.log(userAddress);
 
     } catch (error) {
       throw new Error(`Cant handle load: ${error}`)

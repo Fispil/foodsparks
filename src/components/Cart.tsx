@@ -1,4 +1,4 @@
-import { Box, Typography, Stack, Grid, IconButton, Divider } from "@mui/material"
+import { Box, Typography, Stack, IconButton, Divider } from "@mui/material"
 import CartButton from "./СartButton";
 import { useEffect } from "react";
 import { getitemsCart, removeItemCart, deleteAllItemsCart } from "../api/fetchCart";
