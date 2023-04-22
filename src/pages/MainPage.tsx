@@ -72,15 +72,15 @@ const MainPage: React.FC = () => {
   return (
     <>
       <Box className={classes.carouselContainer}>
-        <Container maxWidth="xl">
-          <Typography variant='h5' className={classes.carouselTitle}>Підбірки української кухні</Typography>
+        <Box sx={{ padding: '40px 16px' }}>
+          <Typography variant='h5' sx={{ paddingLeft: '80px' }} className={classes.carouselTitle}>Підбірки української кухні</Typography>
           <CustomCarousel items={cuisineRegions} />
-        </Container>
+        </Box>
       </Box>
       <Box>
         <Container maxWidth="xl">
           <Box className={classes.flexContainer} sx={{ margin: '45px 0' }}>
-            <Typography variant='h6'>Рецепти української кухні</Typography>
+            <Typography variant='h6' sx={{ paddingLeft: '80px' }}>Рецепти української кухні</Typography>
             <Button
               variant="contained"
               endIcon={<KeyboardArrowRightIcon fontSize="large" sx={{ color: '#fff' }} />}
@@ -111,7 +111,7 @@ const MainPage: React.FC = () => {
           </Box>
           <Divider sx={{ backgroundColor: 'grey', marginBottom: '40px' }} />
           {dishTypes.map(category => (
-            <Box key={category.id} sx={{ marginBottom: '40px'}}>
+            <Box key={category.id} sx={{ marginBottom: '40px' }}>
               <Box sx={{ marginBottom: '40px' }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center' }}>
                   <Typography variant='h6' sx={{ display: 'flex', alignItems: 'center', marginBottom: '25px' }}>

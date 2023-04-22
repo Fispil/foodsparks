@@ -17,7 +17,14 @@ const CustomCardList: React.FC<Props> = ({ items }) => {
       {items.map((item) => (
         <Card key={item.id} sx={{ width: 300, flex: '0 0 auto', margin: '0 8px', position: 'relative' }}>
           <CardMedia
-            sx={{ height: 305, position: 'relative' }}
+             sx={{
+              height: 305,
+              position: 'relative',
+              transition: 'transform 0.2s',
+              '&:hover': {
+                transform: 'scale(1.1)',
+              },
+            }}
             image={item.imageUrl}
             title={item.title}
           >

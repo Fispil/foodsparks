@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { getByPageAndFilterRecipes, getByPageRecipes } from '../api/fetchRecepies';
 import Recipe from '../types/recipe';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import SortElementButton from '../components/SortElementButton';
 import FilterElementButton from '../components/FilterElementButton';
 import CuisineRegion from '../types/cuisineRegions';
@@ -31,6 +31,9 @@ const ProductsPage: React.FC = () => {
   const [page, setPage] = useState(1);
   const [maxPages, setMaxPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
+  const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const linkcuisineRegionIn = searchParams.get('linkcuisineRegionIn');
 
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -69,6 +72,8 @@ const ProductsPage: React.FC = () => {
     if (complexityInId && complexityInId.length === 0) {
       setComplexityInId(null);
     }
+
+    
   }
 
   const loadRecepiesFromServer = async () => {
@@ -79,6 +84,11 @@ const ProductsPage: React.FC = () => {
       const [recipesFromServer] = await Promise.all([
         getByPageAndFilterRecipes(page, cuisineRegionInId, dishTypeInId, complexityInId, spicedIn, productListInId, fieldname, order),
       ]);
+      
+      if (linkcuisineRegionIn) {
+        setCuisineRegionInId([+linkcuisineRegionIn]);
+        searchParams.delete('linkcuisineRegionIn');
+      }
 
       setRecipes(recipesFromServer.content);
       setMaxPages(recipesFromServer.totalPages);
@@ -151,7 +161,14 @@ const ProductsPage: React.FC = () => {
         {recipes.map((item) => (
           <Card key={item.id} sx={{ width: 300, flex: '0 0 auto', margin: '0 8px', position: 'relative' }}>
             <CardMedia
-              sx={{ height: 305, position: 'relative' }}
+              sx={{
+                height: 305,
+                position: 'relative',
+                transition: 'transform 0.2s',
+                '&:hover': {
+                  transform: 'scale(1.1)',
+                },
+              }}
               image={item.imageUrl}
               title={item.title}
             >
