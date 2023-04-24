@@ -44,11 +44,10 @@ const OrderPage: React.FC = () => {
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('submited')
-    console.log(userOrder);
+
     await makeUserOrder(userOrder);
 
-    // isSuccsesfull && navigate('/successfulorder');
+   navigate('/successfulorder');
   };
 
   const setDefaultValues = () => {
@@ -222,7 +221,7 @@ const OrderPage: React.FC = () => {
                   <MenuItem value="">
                     <em>Нічого</em>
                   </MenuItem>
-                  <MenuItem value={'Взавтра'}>Взавтра</MenuItem>
+                  <MenuItem value={'Взавтра'}>Завтра</MenuItem>
                   <MenuItem value={'Післязавтра'}>Післязавтра</MenuItem>
                 </Select>
               </FormControl>
@@ -288,7 +287,7 @@ const OrderPage: React.FC = () => {
                     onChange={handlePromoChange}
                   />
                 </Grid>
-                <Grid sm={1} />
+                <Grid item sm={1} />
                 <Grid item sm={2}>
                   <Button
                     variant='contained'

@@ -48,7 +48,6 @@ export const addItemCart = async (productId: number): Promise<ShoppingCart> => {
       }
     })
     const cart = response.data;
-    console.log(cart);
 
     return cart;
   } catch (error: unknown) {
@@ -85,8 +84,6 @@ export const subtractItemCart = async (productId: number): Promise<ShoppingCart>
       }
     })
     const cart = response.data;
-
-    console.log(cart);
 
     return cart;
   } catch (error: unknown) {

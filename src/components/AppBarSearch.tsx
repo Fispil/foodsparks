@@ -4,17 +4,20 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import RecipeAutocompleteSearch from './RecipeAutocompleteSearch';
 import { Tooltip, Typography, Button, Container } from '@mui/material';
 import { Link } from 'react-router-dom';
 import CartElement from './CartDrawer';
 import LocationIcon from '../assets/icons_location.svg';
 import LogoSvg from '../assets/Logo.png'
 import ProfileMenu from './ProfileMenu';
+import CustomSearchBar from './CustomSearchBar';
+import { useAppSelector } from '../util/hooks';
 
 
 const AppBarSearch = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const isLoggined = useAppSelector(state => state.user.isLoggined);
+  const userAddressInformation = useAppSelector(state => state.user.userAddress);
 
   const isMenuOpen = Boolean(anchorEl);
 
@@ -61,16 +64,15 @@ const AppBarSearch = () => {
                 }}
               />
             </Link>
-            <RecipeAutocompleteSearch />
-
+            <CustomSearchBar />
           </Box>
           <Box sx={{ display: 'flex' }}>
             <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: '24px' }}>
               <ProfileMenu />
               <Tooltip
                 title={
-                  <Typography variant='body1'>
-                    Address
+                  <Typography variant='body1' sx={{ padding: '20px' }}>
+                   {isLoggined ? `${userAddressInformation.town}` : 'Адреса не вказана'}
                   </Typography>
                 }
               >

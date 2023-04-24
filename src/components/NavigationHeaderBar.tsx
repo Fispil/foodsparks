@@ -1,7 +1,5 @@
-import { Toolbar, Container, Box,} from "@mui/material";
+import { Toolbar, Container, Box, Typography, } from "@mui/material";
 import { Link } from "react-router-dom";
-import { theme } from "../theme";
-import SignInDialog from "./SignInDialog";
 
 const NavigationHeaderBar = () => {
   return (
@@ -29,52 +27,72 @@ const NavigationHeaderBar = () => {
                 style={{
                   textDecoration: 'none',
                   color: 'black',
-                  fontSize: '24px',
-                  fontFamily: 'Open-Sans',
-                  fontStyle: 'regular',
-                  lineHeight: '16px'
                 }}
               >
-                Рецепти
+                <Typography
+                  variant="body1"
+                  sx={{
+                    '&:hover': {
+                      color: '#CB3C2E',
+                    },
+                  }}
+                >
+                  Рецепти
+                </Typography>
               </Link>
               <Link
                 to="/"
                 style={{
                   textDecoration: 'none',
                   color: 'black',
-                  fontSize: '24px',
-                  fontFamily: 'Open-Sans',
-                  fontStyle: 'regular',
-                  lineHeight: '16px'
                 }}
               >
-                Магазин
+                <Typography
+                  variant="body1"
+                  sx={{
+                    '&:hover': {
+                      color: '#CB3C2E',
+                    },
+                  }}
+                >
+                  Магазин
+                </Typography>
               </Link>
               <Link
                 to="/delivery"
                 style={{
                   textDecoration: 'none',
                   color: 'black',
-                  fontSize: '24px',
-                  fontFamily: 'Open-Sans',
-                  fontStyle: 'regular',
-                  lineHeight: '16px'
                 }}
               >
-                Доставка
+                <Typography
+                  variant="body1"
+                  sx={{
+                    '&:hover': {
+                      color: '#CB3C2E',
+                    },
+                  }}
+                >
+                  Доставка
+                </Typography>
               </Link>
               <Link
                 to="/about"
                 style={{
                   textDecoration: 'none',
                   color: 'black',
-                  fontSize: '24px',
-                  fontFamily: 'Open-Sans',
-                  fontStyle: 'regular',
-                  lineHeight: '16px',
                 }}
               >
-                Контакти
+                <Typography
+                  variant="body1"
+                  sx={{
+                    '&:hover': {
+                      color: '#CB3C2E',
+                    },
+                  }}
+                >
+                  Контакти
+                </Typography>
               </Link>
             </Box>
           </Box>

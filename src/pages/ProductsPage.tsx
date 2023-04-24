@@ -13,6 +13,8 @@ import DishType from '../types/dishTypes';
 import ComplexityType from '../types/complexityTypes';
 import PotIcon from '../assets/pot.svg';
 import ArrowDownIcon from '../assets/arrowdown.svg';
+import { useAppDispatch } from '../util/hooks';
+import { actions as snackActtions } from '../features/snackReducer';
 
 
 const ProductsPage: React.FC = () => {
@@ -34,6 +36,7 @@ const ProductsPage: React.FC = () => {
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const linkcuisineRegionIn = searchParams.get('linkcuisineRegionIn');
+  const dispatch = useAppDispatch();
 
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -72,8 +75,6 @@ const ProductsPage: React.FC = () => {
     if (complexityInId && complexityInId.length === 0) {
       setComplexityInId(null);
     }
-
-    
   }
 
   const loadRecepiesFromServer = async () => {
@@ -84,7 +85,7 @@ const ProductsPage: React.FC = () => {
       const [recipesFromServer] = await Promise.all([
         getByPageAndFilterRecipes(page, cuisineRegionInId, dishTypeInId, complexityInId, spicedIn, productListInId, fieldname, order),
       ]);
-      
+
       if (linkcuisineRegionIn) {
         setCuisineRegionInId([+linkcuisineRegionIn]);
         searchParams.delete('linkcuisineRegionIn');
@@ -176,10 +177,7 @@ const ProductsPage: React.FC = () => {
                 backgroundColor: '#fff',
                 width: 'fit-content',
                 position: 'absolute',
-                top: '30px',
-                '&:hover': {
-                  backgroundColor: '#CB3C2E',
-                },
+                top: '30px'
               }}>
                 <Typography variant="body2" sx={{ padding: '8px 16px' }}>
                   Легкий
@@ -191,7 +189,10 @@ const ProductsPage: React.FC = () => {
                 <Typography
                   variant="subtitle1"
                   sx={{
-                    marginBottom: '16px'
+                    marginBottom: '16px',
+                    '&:hover': {
+                      color: '#CB3C2E',
+                    },
                   }}
                 >
                   {item.title}

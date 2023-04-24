@@ -33,9 +33,6 @@ const CustomCardList: React.FC<Props> = ({ items }) => {
               width: 'fit-content',
               position: 'absolute',
               top: '30px',
-              '&:hover': {
-                backgroundColor: '#CB3C2E',
-              },
             }}>
               <Typography variant="body2" sx={{ padding: '8px 16px' }}>
                 Легкий
@@ -47,7 +44,10 @@ const CustomCardList: React.FC<Props> = ({ items }) => {
               <Typography
                 variant="subtitle1"
                 sx={{
-                  marginBottom: '16px'
+                  marginBottom: '16px',
+                  '&:hover': {
+                    color: '#CB3C2E',
+                  },
                 }}
               >
                 {item.title}

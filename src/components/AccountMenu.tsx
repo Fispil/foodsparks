@@ -92,16 +92,7 @@ const AccountMenu = () => {
             <Typography variant='body1'>Profile</Typography>
           </Link>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Avatar /> <Typography variant='body1'>My account</Typography>
-        </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          <Typography variant='body1'>Add another account</Typography>
-        </MenuItem>
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Settings fontSize="small" />

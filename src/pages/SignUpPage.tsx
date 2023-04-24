@@ -11,6 +11,8 @@ import { Link } from 'react-router-dom';
 import { registerNewUser } from '../api/fetchUser';
 import { NewUser } from '../types/user';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../util/hooks';
+import { actions as snackActions } from '../features/snackReducer';
 
 const SignUpPage = () => {
   const [formValues, setFormValues] = useState<NewUser>({
@@ -28,8 +30,9 @@ const SignUpPage = () => {
     confirmPassword: '',
   });
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const errors = {
       firstName: '',
@@ -99,10 +102,21 @@ const SignUpPage = () => {
 
     if (!hasError) {
       try {
-        registerNewUser(formValues);
+        const isUserRegistred = await registerNewUser(formValues);
+
+        if (typeof isUserRegistred === 'object' && isUserRegistred.isAxiosError && isUserRegistred.response?.data.message) {
+          dispatch(snackActions.setMessage(isUserRegistred.response.data.message));
+          dispatch(snackActions.setSeverity('error'));
+          dispatch(snackActions.setIsActive(true));
+          return;
+        }
+
+        dispatch(snackActions.setMessage('Ви успішно зареєстровали користувача'));
+        dispatch(snackActions.setIsActive(true));
+
         setTimeout(() => {
-          navigate('/profile');
-        }, 500);
+          navigate('/');
+        }, 1000);
       } catch (error) {
         throw new Error(`Failed to login:${error}`);
       }
@@ -140,10 +154,10 @@ const SignUpPage = () => {
         <Box component="form" noValidate onSubmit={handleFormSubmit} sx={{ mt: 3 }}>
           <Grid container>
             <Grid item md={12}>
-                <Typography variant='body2'>
-                  To subscribe to this website, please enter your email address here. We
-                  will send updates occasionally.
-                </Typography>
+              <Typography variant='body2'>
+                To subscribe to this website, please enter your email address here. We
+                will send updates occasionally.
+              </Typography>
             </Grid>
             <Grid item sm={5}>
               <TextField
@@ -162,7 +176,7 @@ const SignUpPage = () => {
                 fullWidth
               />
             </Grid>
-            <Grid item sm={2}/>
+            <Grid item sm={2} />
             <Grid item sm={5}>
               <TextField
                 error={formErrors.lastName.length > 0}
@@ -197,7 +211,7 @@ const SignUpPage = () => {
                 fullWidth
               />
             </Grid>
-            <Grid item sm={2}/>
+            <Grid item sm={2} />
             <Grid item sm={5}>
               <TextField
                 error={formErrors.password.length > 0}

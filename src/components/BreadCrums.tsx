@@ -33,6 +33,7 @@ const Breadcrumb: React.FC<Props> = ({ nameRecipe }) => {
         let routeTo = `/${pathnames.slice(0, index + 1).join('|')}`;
         routeTo === '/products' ? name = 'Всі рецепти' : routeTo
         routeTo === '/order' ? name = 'Оформлення замовлення' : routeTo
+        routeTo === '/successfulorder' ? name = 'Оформлення замовлення' : routeTo
 
         return index === pathnames.length - 1 ? (
           <Typography key={routeTo} variant='body2' sx={{ color: '#CB3C2E' }}>{name}</Typography>

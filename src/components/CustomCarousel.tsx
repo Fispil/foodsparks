@@ -1,6 +1,6 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Slider, { Settings } from "react-slick";
 import { makeStyles } from "@mui/styles";
 import { Box, IconButton, Typography } from "@mui/material";
@@ -46,13 +46,14 @@ const useStyles = makeStyles(({
 }));
 
 interface ArrowProps {
-  activeItemIndex: number;
-  setActiveItemIndex: React.Dispatch<React.SetStateAction<number>>;
+  slider: Slider | null;
 }
 
-const PrevArrow: React.FC<ArrowProps> = ({ activeItemIndex, setActiveItemIndex }) => {
+const PrevArrow: React.FC<ArrowProps> = ({ slider }) => {
   const handleClick = () => {
-    setActiveItemIndex((activeItemIndex) => activeItemIndex - 1);
+    if (slider) {
+      slider.slickPrev();
+    }
   };
 
   return (
@@ -64,9 +65,11 @@ const PrevArrow: React.FC<ArrowProps> = ({ activeItemIndex, setActiveItemIndex }
   );
 };
 
-const NextArrow: React.FC<ArrowProps> = ({ activeItemIndex, setActiveItemIndex }) => {
+const NextArrow: React.FC<ArrowProps> = ({ slider }) => {
   const handleClick = () => {
-    setActiveItemIndex((activeItemIndex) => activeItemIndex + 1);
+    if (slider) {
+      slider.slickNext();
+    }
   };
 
   return (
@@ -81,11 +84,12 @@ const NextArrow: React.FC<ArrowProps> = ({ activeItemIndex, setActiveItemIndex }
 const CustomCarousel: React.FC<CarouselProps> = ({ items }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const classes = useStyles();
+  const sliderRef = useRef<Slider | null>(null);
 
   const settings: Settings = {
     arrows: true,
     infinite: true,
-    slidesToShow: 6,
+    slidesToShow: 5,
     slidesToScroll: 1,
     centerMode: true,
     centerPadding: "10px",
@@ -95,8 +99,8 @@ const CustomCarousel: React.FC<CarouselProps> = ({ items }) => {
     cssEase: "linear",
     afterChange: (index: number) => setActiveItemIndex(index),
     lazyLoad: "ondemand",
-    prevArrow: <PrevArrow activeItemIndex={activeItemIndex} setActiveItemIndex={setActiveItemIndex} />,
-    nextArrow: <NextArrow activeItemIndex={activeItemIndex} setActiveItemIndex={setActiveItemIndex} />,
+    prevArrow: <PrevArrow slider={sliderRef.current} />,
+    nextArrow: <NextArrow slider={sliderRef.current} />,
     responsive: [
       {
         breakpoint: 768,
@@ -107,11 +111,29 @@ const CustomCarousel: React.FC<CarouselProps> = ({ items }) => {
           centerPadding: "30px",
         },
       },
+      {
+        breakpoint: 1100,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          centerMode: true,
+          centerPadding: "30px",
+        },
+      },
+      {
+        breakpoint: 1400,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          centerMode: true,
+          centerPadding: "30px",
+        },
+      },
     ],
   };
 
   return (
-    <Slider {...settings} initialSlide={activeItemIndex} className={classes.slideContainer}>
+    <Slider {...settings} ref={sliderRef} initialSlide={activeItemIndex} className={classes.slideContainer}>
       {items.map((item) => (
         <Box key={item.id} style={{ margin: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '292px' }}>
           <Box

@@ -53,7 +53,7 @@ const Cart: React.FC = () => {
           {userShoppingCart.productAmount.map(item => (
             <Box key={item.productId} sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '24px 32px', borderRadius: '12px' }}>
               <Box>
-                <img src={item.imageUrl} alt='Product picture' />
+                <img src={item.imageUrl} alt='Product picture' style={{ width: '120px', height: '120px' }} />
               </Box>
               <Typography variant="body1">
                 {item.name}

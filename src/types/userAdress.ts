@@ -6,6 +6,7 @@ export interface UserAdress {
 }
 
 export interface UserAdressInformation {
+  map(arg0: (item: any) => any): unknown
   id: number,
   town: string,
   street: string,

@@ -1,12 +1,24 @@
 import axios from 'axios';
 import RecipeResponse from '../types/recipeResponse';
 import RecipeExtended from '../types/recipeExtended';
+import Recipe from '../types/recipe';
 
 const HostName = 'https://www.foodsparks.pp.ua'
 
 export const getRecipes = async (): Promise<RecipeResponse> => {
   try {
     const response = await axios.get(`${HostName}/recipes`);
+    const recipe = response.data;
+
+    return recipe;
+  } catch (error) {
+    throw new Error(`Failed to fetch recipe:${error}`);
+  }
+};
+
+export const getSearchedRecipes = async (searchedValue: string): Promise<Recipe[]> => {
+  try {
+    const response = await axios.get(`${HostName}/recipes/search?letters=${searchedValue}`);
     const recipe = response.data;
 
     return recipe;
@@ -92,7 +104,6 @@ export const getRecipeById = async (id: number): Promise<RecipeExtended> => {
   try {
     const response = await axios.get(`${HostName}/recipes/${id}`);
     const recipe = response.data;
-    console.log(recipe)
 
     return recipe;
   } catch (error) {

@@ -81,6 +81,14 @@ const FilterElementButton: React.FC<Props> = ({
     }
   }
 
+  const handleReset = () => {
+    setCuisineRegionInId(null);
+    setDishTypeInId(null);
+    setComplexityInId(null);
+    setSpicedIn(false);
+    setIsDrawerOpen(false);
+  }
+
   const handleDrawerOpen = () => {
     setIsDrawerOpen(true);
   };
@@ -214,8 +222,8 @@ const FilterElementButton: React.FC<Props> = ({
             </Box>
 
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '24px' }}>
-              <Button variant='outlined' sx={{ textTransform: 'none', borderRadius: '12px' }} onClick={handleDrawerClose}>
-                <Typography variant="body1" sx={{ padding: '16px 24px' }}>Скинути зміни</Typography>
+              <Button variant='outlined' sx={{ textTransform: 'none', borderRadius: '12px' }} onClick={handleReset}>
+                <Typography variant="body1" sx={{ padding: '16px 24px' }}>Скинути</Typography>
               </Button>
               <Button variant='contained' sx={{ textTransform: 'none', borderRadius: '12px' }} onClick={handleDrawerClose}>
                 <Typography variant="body1" sx={{ padding: '24px 46px' }}>Застосувати</Typography>

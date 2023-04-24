@@ -2,17 +2,29 @@ import { Box, Typography, Divider, Grid, TextField, Button } from "@mui/material
 import { useState } from "react";
 import { sentCoupon } from "../api/fetchCoupons";
 import PromoImage from "../assets/promoimage.svg";
+import { useAppDispatch } from "../util/hooks";
+import { actions as snackActions } from "../features/snackReducer";
 
 const Promo = () => {
   const [promocodeInput, setPromocodeInput] = useState('');
+  const dispatch = useAppDispatch();
 
   const handlePromocodeInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPromocodeInput(event.target.value);
   }
 
-  const handlePromoSumbit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handlePromoSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    sentCoupon(promocodeInput);
+    const isPromoSent = await sentCoupon(promocodeInput);
+    if (typeof isPromoSent === 'object' && isPromoSent.isAxiosError && isPromoSent.response?.data) {
+      dispatch(snackActions.setMessage(isPromoSent.response.data.message));
+      dispatch(snackActions.setSeverity('error'));
+      dispatch(snackActions.setIsActive(true));
+      return;
+    }
+
+    dispatch(snackActions.setMessage('Ви успішно отримали купон на знижку'));
+    dispatch(snackActions.setIsActive(true));
   };
 
   return (
@@ -74,6 +86,7 @@ const Promo = () => {
           <Grid item sm={2}>
             <Button
               variant="contained"
+              type="submit"
               sx={{
                 borderRadius: '12px',
                 backgroundColor: 'rgb(176,224,230)',
@@ -84,7 +97,7 @@ const Promo = () => {
                 height: '64px',
                 background: '#CB3C2E',
                 textTransform: 'none'
-              }}>     
+              }}>
               <Typography variant="body2">Надіслати</Typography>
             </Button>
           </Grid>

@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/material"
 import { addItemCart, subtractItemCart } from "../api/fetchCart";
 import { useAppDispatch } from "../util/hooks";
-import { actions as userActions }  from "../features/userReduser";
+import { actions as userActions } from "../features/userReduser";
 
 interface Props {
   itemId: number,
@@ -41,7 +41,16 @@ const CartButton: React.FC<Props> = ({ itemId, totalPrice, elementQty }) => {
             -
           </Typography>
         </Button>
-        <Box sx={{ display: 'flex', justifyContent: 'center', alighItems: 'center', textAlign: 'center' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alighItems: 'center',
+            textAlign: 'center',
+            background: 'rgba(203, 60, 46, 0.1)',
+            borderRadius: '12px',
+            width: '195px'
+          }}>
           <Typography variant="body1" sx={{ padding: '24px 43px' }}>{isNaN(totalPrice) ? '0 грн' : `${elementQty}`}</Typography>
         </Box>
         <Button variant="outlined" onClick={onAddHandler}>

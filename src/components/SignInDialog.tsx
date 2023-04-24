@@ -11,6 +11,7 @@ import FacebookIcon from '../assets/facebook.svg';
 import PersonIcon from '../assets/icons_person.svg';
 import { useAppDispatch, useAppSelector } from '../util/hooks';
 import { actions as userActions } from '../features/userReduser';
+import { actions as snackActions } from '../features/snackReducer';
 
 const SignInDialog = () => {
   const [open, setOpen] = useState(false);
@@ -69,17 +70,27 @@ const SignInDialog = () => {
     }
 
     setFormErrors(errors);
-    
+
     if (hasError) {
       return;
     }
 
     if (!hasError) {
-      loginUser(userAuth);
-      if (localStorage.getItem('token')) {
-        dispatch(userActions.setIsLoggined(true));
-        handleClose();
+      const isLoggined = await loginUser(userAuth);
+  
+      if (typeof isLoggined === 'object' && isLoggined.isAxiosError && isLoggined.response?.data.message) {
+        dispatch(snackActions.setMessage(isLoggined.response.data.message));
+        dispatch(snackActions.setSeverity('error'));
+        dispatch(snackActions.setIsActive(true));
+        return;
       }
+      dispatch(snackActions.setMessage('Ви успішно війшли на свій аккаунт'));
+      dispatch(snackActions.setIsActive(true));
+      dispatch(userActions.setIsLoggined(true));
+   
+      setTimeout(() => {
+        handleClose();
+      }, (500))
     }
   };
 

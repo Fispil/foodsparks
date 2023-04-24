@@ -13,6 +13,9 @@ import { getCuisineRegion, getDishTypes } from '../api/fetchTypes';
 import DishType from '../types/dishTypes';
 import Promo from '../components/Promo';
 import CategoryIcon from '../assets/catergoriesicon.svg';
+import { informationByUser, adressByUser } from '../api/fetchUser';
+import { useAppDispatch, useAppSelector } from '../util/hooks';
+import { actions as userActions } from '../features/userReduser';
 
 const useStyles = makeStyles(({
   flexContainer: {
@@ -43,6 +46,32 @@ const MainPage: React.FC = () => {
   const [cuisineRegions, setCuisineRegions] = useState<CuisineRegion[]>([])
   const [dishTypes, setDishtypes] = useState<DishType[]>([])
   const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useAppDispatch();
+  const userInformation = useAppSelector((state) => state.user.userInformation);
+  const userAddress = useAppSelector((state) => state.user.userAddress);
+  const userIsLoggined = useAppSelector((state) => state.user.isLoggined);
+
+  const loadUserFromServer = async () => {
+    try {
+      const [userFromServer, userAddressFromServer] = await Promise.all([
+        await informationByUser(),
+        await adressByUser(),
+      ]);
+      
+      dispatch(userActions.setUserInformation(userFromServer));
+      dispatch(userActions.setUserAddress(userAddressFromServer));
+
+    } catch (error) {
+      throw new Error(`Cant handle load: ${error}`)
+    }
+  }
+
+  useEffect(() => {
+    if(userIsLoggined) {
+      loadUserFromServer();
+    }  
+  }, [userIsLoggined])
 
   const loadRecepiesFromServer = async () => {
     try {
@@ -80,7 +109,7 @@ const MainPage: React.FC = () => {
       <Box>
         <Container maxWidth="xl">
           <Box className={classes.flexContainer} sx={{ margin: '45px 0' }}>
-            <Typography variant='h6' sx={{ paddingLeft: '80px' }}>Рецепти української кухні</Typography>
+            <Typography variant='h6'>Рецепти української кухні</Typography>
             <Button
               variant="contained"
               endIcon={<KeyboardArrowRightIcon fontSize="large" sx={{ color: '#fff' }} />}

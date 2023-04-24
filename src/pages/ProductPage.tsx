@@ -83,14 +83,14 @@ const ProductPage = () => {
         <Container
           maxWidth="xl"
           sx={{
-            height: '470px',
+            minHeight: '600px',
             display: 'flex',
             justifyContent: 'space-evenly',
             alignItems: 'center',
             position: 'relative',
           }}
         >
-          <Grid container>
+          <Grid container sx={{ padding: '0 80px' }}>
             <Grid item sm={6}>
               <Typography variant='h5' className={classes.aboutTitle}>{recipe?.title}</Typography>
               <Divider sx={{ backgroundColor: '#8E8F96', width: '75%' }} />
@@ -99,9 +99,9 @@ const ProductPage = () => {
             <Grid item sm={6}>
               <Box
                 sx={{
-                  minHeight: '535px',
-                  minWidth: '535px',
-                  top: '64px',
+                  minHeight: '512px',
+                  minWidth: '512px',
+                  top: '200px',
                   right: '26px',
                   position: 'absolute',
                   objectFit: 'cover',
@@ -215,7 +215,7 @@ const ProductPage = () => {
               color: '#343A40',
             }}>
             <img src={CategoryIcon} alt="categoryimage" style={{ marginRight: '16px' }} />
-            Інгридієнти:
+            Інгредієнти:
           </Typography>
           {recipe?.productsList.map(item => (
             <Box
@@ -232,7 +232,8 @@ const ProductPage = () => {
                   sx={{
                     display: 'flex',
                     justifyContent: 'center',
-                    alighItems: 'center'
+                    alighItems: 'center',
+                    padding: '16px 24px'
                   }}
                 >
                   <img src={CategoryIcon} alt="categoryimage" style={{ marginRight: '16px' }} />
@@ -240,7 +241,7 @@ const ProductPage = () => {
                     variant='body1'
                     sx={{
                       color: '#343A40',
-                      textAlign: 'center'
+                      padding: '8px'
                     }}
                   >
                     {item.name} - {item.amount}
