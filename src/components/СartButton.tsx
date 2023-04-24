@@ -49,9 +49,9 @@ const CartButton: React.FC<Props> = ({ itemId, totalPrice, elementQty }) => {
             textAlign: 'center',
             background: 'rgba(203, 60, 46, 0.1)',
             borderRadius: '12px',
-            width: '195px'
+            width: '210px'
           }}>
-          <Typography variant="body1" sx={{ padding: '24px 43px' }}>{isNaN(totalPrice) ? '0 грн' : `${elementQty}`}</Typography>
+          <Typography variant="body1" sx={{ padding: '24px 40px' }}>{isNaN(totalPrice) ? '0 грн' : `${elementQty}`}</Typography>
         </Box>
         <Button variant="outlined" onClick={onAddHandler}>
           <Typography variant="body1" sx={{ padding: '16px 20px' }}>

@@ -16,6 +16,7 @@ import CategoryIcon from '../assets/catergoriesicon.svg';
 import { informationByUser, adressByUser } from '../api/fetchUser';
 import { useAppDispatch, useAppSelector } from '../util/hooks';
 import { actions as userActions } from '../features/userReduser';
+import ScrollToTop from '../components/ScrollToTop';
 
 const useStyles = makeStyles(({
   flexContainer: {
@@ -174,6 +175,7 @@ const MainPage: React.FC = () => {
           <Promo />
         </Container >
       </Box >
+      <ScrollToTop />
     </>
   );
 }

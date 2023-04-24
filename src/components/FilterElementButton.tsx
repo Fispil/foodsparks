@@ -223,7 +223,7 @@ const FilterElementButton: React.FC<Props> = ({
 
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '24px' }}>
               <Button variant='outlined' sx={{ textTransform: 'none', borderRadius: '12px' }} onClick={handleReset}>
-                <Typography variant="body1" sx={{ padding: '16px 24px' }}>Скинути</Typography>
+                <Typography variant="body1" sx={{ padding: '24px 46px' }}>Скинути</Typography>
               </Button>
               <Button variant='contained' sx={{ textTransform: 'none', borderRadius: '12px' }} onClick={handleDrawerClose}>
                 <Typography variant="body1" sx={{ padding: '24px 46px' }}>Застосувати</Typography>

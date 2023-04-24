@@ -14,7 +14,7 @@ import ComplexityType from '../types/complexityTypes';
 import PotIcon from '../assets/pot.svg';
 import ArrowDownIcon from '../assets/arrowdown.svg';
 import { useAppDispatch } from '../util/hooks';
-import { actions as snackActtions } from '../features/snackReducer';
+import { animateScroll as scroll } from 'react-scroll';
 
 
 const ProductsPage: React.FC = () => {
@@ -33,11 +33,8 @@ const ProductsPage: React.FC = () => {
   const [page, setPage] = useState(1);
   const [maxPages, setMaxPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const linkcuisineRegionIn = searchParams.get('linkcuisineRegionIn');
-  const dispatch = useAppDispatch();
-
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     event.preventDefault();
@@ -160,7 +157,7 @@ const ProductsPage: React.FC = () => {
       </Box>
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '32px', justifyContent: 'center', marginBottom: '40px' }}>
         {recipes.map((item) => (
-          <Card key={item.id} sx={{ width: 300, flex: '0 0 auto', margin: '0 8px', position: 'relative' }}>
+          <Card key={item.id} sx={{ width: 320, flex: '0 0 auto', margin: '0 8px', position: 'relative' }}>
             <CardMedia
               sx={{
                 height: 305,
@@ -177,7 +174,7 @@ const ProductsPage: React.FC = () => {
                 backgroundColor: '#fff',
                 width: 'fit-content',
                 position: 'absolute',
-                top: '30px'
+                top: '30px',
               }}>
                 <Typography variant="body2" sx={{ padding: '8px 16px' }}>
                   Легкий
@@ -254,6 +251,7 @@ const ProductsPage: React.FC = () => {
         count={maxPages}
         page={page}
         onChange={handlePageChange}
+        onClick={() => scroll.scrollToTop()}
         hidePrevButton
         hideNextButton
       />

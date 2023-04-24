@@ -84,7 +84,7 @@ const CustomSearchBar: React.FC = () => {
 
   return (
     <>
-      <Button onClick={() => setShowResults(true)}>
+      <Button sx={{ visibility: showResults ? 'hidden' : 'visible' }} onClick={() => setShowResults(true)}>
         <img src={SearchIconCustom} alt='coockedmeal' />
       </Button>
       <Modal open={showResults} onClose={handleModalClose}>

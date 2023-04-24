@@ -133,21 +133,22 @@ const CartElement: React.FC = () => {
                           <Typography variant="body1" sx={{ padding: '20px' }}>
                             {item.name}
                           </Typography>
-                          <Box sx={{ display: 'flex' }} >
-                            <Box sx={{ marginRight: '32px' }}>
+                          <Box sx={{ display: 'flex',  justifyContent: 'flex-end' }} >
+                            <Box sx={{ marginRight: '32px', display: 'flex', alignItems: 'center' }}>
                               <CartButton
                                 itemId={item.productId}
                                 totalPrice={item.productSum}
                                 elementQty={item.quantityInPackages}
                               />
+                              <IconButton
+                                aria-label="Delete item from cart"
+                                onClick={() => handleClickDeleteItem(item.productId)}
+                                edge="end"
+                                sx={{ marginLeft: '20px' }}
+                              >
+                                <img src={DeleteIcon} alt='delete icon' />
+                              </IconButton>
                             </Box>
-                            <IconButton
-                              aria-label="Delete item from cart"
-                              onClick={() => handleClickDeleteItem(item.productId)}
-                              edge="end"
-                            >
-                              <img src={DeleteIcon} alt='delete icon' />
-                            </IconButton>
                           </Box>
                         </Box>
                       </Grid>

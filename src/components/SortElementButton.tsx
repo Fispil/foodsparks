@@ -37,7 +37,7 @@ const SortElementButton: React.FC<Props> = ({ order, onOrderChange }) => {
           fontWeight: 400,
           fontSize: '24px',
           lineHeight: '16px',
-          padding: '12px 24px'
+          padding: '12px 24px',
         }}
         endIcon={<SyncAltIcon sx={{ rotate: '90deg' }} />}
         onClick={handleOpenPopover}
@@ -55,27 +55,27 @@ const SortElementButton: React.FC<Props> = ({ order, onOrderChange }) => {
         }}
       >
         <Stack>
-          <Button onClick={() => handleOrdrerChange('')}>
+          <Button sx={{ textTransform: 'none' }} onClick={() => handleOrdrerChange('')}>
             <Typography variant="body1" sx={{ p: 2, color: '#212529' }}>
               Спочатку популярні
             </Typography>
           </Button>
-          <Button>
+          <Button sx={{ textTransform: 'none' }}>
             <Typography variant="body1" sx={{ p: 2, color: '#212529' }} onClick={() => handleOrdrerChange('cookingTime:ASC')}>
               Час приготування: Від А до Я
             </Typography>
           </Button>
-          <Button>
+          <Button sx={{ textTransform: 'none' }}>
             <Typography variant="body1" sx={{ p: 2, color: '#212529' }} onClick={() => handleOrdrerChange('cookingTime:DESC')}>
               Час приготування: Від А до Я
             </Typography>
           </Button>
-          <Button>
+          <Button sx={{ textTransform: 'none' }}>
             <Typography variant="body1" sx={{ p: 2, color: '#212529' }} onClick={() => handleOrdrerChange('title:ASC')}>
               Від А до Я
             </Typography>
           </Button>
-          <Button>
+          <Button sx={{ textTransform: 'none' }}>
             <Typography variant="body1" sx={{ p: 2, color: '#212529' }} onClick={() => handleOrdrerChange('title:DESC')}>
               Від Я до А
             </Typography>

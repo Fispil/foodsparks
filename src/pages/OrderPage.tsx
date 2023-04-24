@@ -125,30 +125,36 @@ const OrderPage: React.FC = () => {
       </Typography>
       <form onSubmit={handleFormSubmit}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
-          <Stack spacing={2}>
-            <Typography>Імя</Typography>
-            <TextField
-              placeholder="Введіть ваше ім'я"
-              value={userOrder.firstName}
-              onChange={(e) => handleUserOrderChange('firstName')(e.target.value)}
-            />
-          </Stack>
-          <Stack spacing={2}>
-            <Typography>Фамілія</Typography>
-            <TextField
-              placeholder="Введіть прізвище"
-              value={userOrder.lastName}
-              onChange={(e) => handleUserOrderChange('lastName')(e.target.value)}
-            />
-          </Stack>
-          <Stack spacing={2}>
-            <Typography>Мобільний номер</Typography>
-            <TextField
-              placeholder="Введіть мобільний телефон"
-              value={userOrder.phone}
-              onChange={(e) => handleUserOrderChange('phone')(e.target.value)}
-            />
-          </Stack>
+          <Box sx={{ minWidth: '30%' }}>
+            <Stack spacing={2}>
+              <Typography>Імя</Typography>
+              <TextField
+                placeholder="Введіть ваше ім'я"
+                value={userOrder.firstName}
+                onChange={(e) => handleUserOrderChange('firstName')(e.target.value)}
+              />
+            </Stack>
+          </Box>
+          <Box sx={{ minWidth: '30%' }}>
+            <Stack spacing={2}>
+              <Typography>Прізвище</Typography>
+              <TextField
+                placeholder="Введіть прізвище"
+                value={userOrder.lastName}
+                onChange={(e) => handleUserOrderChange('lastName')(e.target.value)}
+              />
+            </Stack>
+          </Box>
+          <Box sx={{ minWidth: '30%' }}>
+            <Stack spacing={2}>
+              <Typography>Мобільний номер</Typography>
+              <TextField
+                placeholder="Введіть мобільний телефон"
+                value={userOrder.phone}
+                onChange={(e) => handleUserOrderChange('phone')(e.target.value)}
+              />
+            </Stack>
+          </Box>
         </Box>
 
         <Typography variant="h6" sx={{ marginBottom: '24px' }}>
@@ -160,8 +166,8 @@ const OrderPage: React.FC = () => {
             <Stack gap={1}>
               <Typography variant="body1">Місто</Typography>
               <div>
-                <FormControl sx={{ minWidth: '100%' }}>
-                  <InputLabel id="demo-simple-select-autowidth-label">Місто</InputLabel>
+                <FormControl sx={{ minWidth: '100%' }} className="MuiFormControl-root css-3cjm13-MuiFormControl-root" style={{ margin: 0 }}>
+                  <InputLabel id="demo-simple-select-autowidth-label" sx={{ marginBottom: '8px' }}>Місто</InputLabel>
                   <Select
                     labelId="demo-simple-select-autowidth-label"
                     value={userOrder.town}
@@ -215,7 +221,7 @@ const OrderPage: React.FC = () => {
 
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '48px' }}>
           <Stack minWidth="48%" gap={1}>
-            <Typography variant="body1">Виберіть зручну для вас дату доставки</Typography>
+            <Typography variant="body1" sx={{ marginBottom: '8px' }}>Виберіть зручну для вас дату доставки</Typography>
             <div>
               <FormControl sx={{ m: 1, minWidth: '100%' }}>
                 <InputLabel id="demo-simple-select-autowidth-label">Дата доставки</InputLabel>
@@ -229,14 +235,14 @@ const OrderPage: React.FC = () => {
                   <MenuItem value="">
                     <em>Нічого</em>
                   </MenuItem>
-                  <MenuItem value={'Взавтра'}>Завтра</MenuItem>
+                  <MenuItem value={'Завтра'}>Завтра</MenuItem>
                   <MenuItem value={'Післязавтра'}>Післязавтра</MenuItem>
                 </Select>
               </FormControl>
             </div>
           </Stack>
           <Stack minWidth="48%" gap={1}>
-            <Typography variant="body1">Виберіть зручний для вас час доставки</Typography>
+            <Typography variant="body1" sx={{ marginBottom: '8px' }}>Виберіть зручний для вас час доставки</Typography>
             <div>
               <FormControl sx={{ m: 1, minWidth: '100%' }}>
                 <InputLabel id="demo-simple-select-autowidth-label">Дата доставки</InputLabel>
@@ -321,7 +327,7 @@ const OrderPage: React.FC = () => {
             </Stack>
           </Paper>
 
-          <Paper sx={{ borderRadius: '12px' }}>
+          <Paper sx={{ borderRadius: '12px', marginBottom: '40px' }}>
             <Stack gap={3} sx={{ padding: '32px' }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography variant="body1">Всього:</Typography>

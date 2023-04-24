@@ -60,20 +60,21 @@ const Cart: React.FC = () => {
                   {item.name}
                 </Typography>
               </Box>
-              <Box sx={{ marginRight: '32px' }}>
+              <Box sx={{ marginRight: '32px', display: 'flex', justifyContent: 'space-between', alighItems: 'center' }}>
                 <CartButton
                   itemId={item.productId}
                   totalPrice={item.productSum}
                   elementQty={item.quantityInPackages}
                 />
+                <IconButton
+                  aria-label="Delete item from cart"
+                  onClick={() => handleClickDeleteItem(item.productId)}
+                  edge="end"
+                  sx={{ marginLeft: '20px' }}
+                >
+                  <img src={DeleteIcon} alt='delete icon' />
+                </IconButton>
               </Box>
-              <IconButton
-                aria-label="Delete item from cart"
-                onClick={() => handleClickDeleteItem(item.productId)}
-                edge="end"
-              >
-                <img src={DeleteIcon} alt='delete icon' />
-              </IconButton>
             </Box>
           ))}
           <Divider />

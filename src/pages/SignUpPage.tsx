@@ -47,7 +47,7 @@ const SignUpPage = () => {
     if (!formValues.firstName) {
       errors.firstName = 'First name is required';
       hasError = true;
-    } else if (!/^[A-Z][a-z]{1,39}$/.test(formValues.firstName)) {
+    } else if (!/^([A-Za-z\u0400-\u04FF])([A-Za-z\u0400-\u04FF '-]{0,38})$/.test(formValues.firstName)) {
       errors.firstName =
         'First name should start with a capital letter and contain only letters (2-40 characters)';
       hasError = true;
@@ -56,21 +56,29 @@ const SignUpPage = () => {
     if (!formValues.lastName) {
       errors.lastName = 'Last name is required';
       hasError = true;
-    } else if (!/^[A-Z][a-z]{1,39}$/.test(formValues.lastName)) {
+    } else if (!/^([A-Za-z\u0400-\u04FF])([A-Za-z\u0400-\u04FF '-]{0,38})$/.test(formValues.lastName)) {
       errors.lastName =
         'Last name should start with a capital letter and contain only letters (2-40 characters)';
       hasError = true;
     }
-
+    
     if (!formValues.email) {
       errors.email = 'Email is required';
       hasError = true;
     } else if (
-      !/^[\w\.\+\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]{2,}$/.test(
-        formValues.email
-      )
+      !/^[\w.\+\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]{2,}$/.test(formValues.email)
     ) {
       errors.email = 'Invalid email address';
+      hasError = true;
+    } else if (
+      !/^[\w.\+\-]{1,64}@(?:(?!-)[A-Za-z0-9\-]{1,63}\.?)+[A-Za-z]{2,63}$/.test(formValues.email)
+    ) {
+      errors.email = 'Invalid email format';
+      hasError = true;
+    } else if (
+      formValues.email.length < 5 || formValues.email.length > 72
+    ) {
+      errors.email = 'Email length should be between 5 and 72 characters';
       hasError = true;
     }
 
@@ -149,7 +157,7 @@ const SignUpPage = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Реєстрація
         </Typography>
         <Box component="form" noValidate onSubmit={handleFormSubmit} sx={{ mt: 3 }}>
           <Grid container>

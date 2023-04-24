@@ -17,7 +17,7 @@ const CustomCardList: React.FC<Props> = ({ items }) => {
       {items.map((item) => (
         <Card key={item.id} sx={{ width: 320, flex: '0 0 auto', margin: '0 8px', position: 'relative' }}>
           <CardMedia
-             sx={{
+            sx={{
               height: 305,
               position: 'relative',
               transition: 'transform 0.2s',
@@ -41,17 +41,18 @@ const CustomCardList: React.FC<Props> = ({ items }) => {
           </CardMedia>
           <CardContent>
             <Link to={`/products/${item.id}`} style={{ textDecoration: 'none', color: 'black' }}>
-              <Typography
-                variant="subtitle1"
-                sx={{
-                  marginBottom: '16px',
-                  '&:hover': {
-                    color: '#CB3C2E',
-                  },
-                }}
-              >
-                {item.title}
-              </Typography>
+              <Box sx={{ marginBottom: '16px', boxSizing: 'border-box', }}>
+                <Typography
+                  variant="subtitle1"
+                  sx={{            
+                    '&:hover': {
+                      color: '#CB3C2E',
+                    },
+                  }}
+                >
+                  {item.title}
+                </Typography>
+              </Box>
               <Box sx={{ position: 'absolute', bottom: '12px', width: 270 }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <Typography
