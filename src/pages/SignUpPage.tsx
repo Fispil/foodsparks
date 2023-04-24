@@ -111,7 +111,7 @@ const SignUpPage = () => {
           return;
         }
 
-        dispatch(snackActions.setMessage('Ви успішно зареєстровали користувача'));
+        dispatch(snackActions.setMessage('Ви успішно зареєстровали користувача, пітвердіть ваш Email'));
         dispatch(snackActions.setIsActive(true));
 
         setTimeout(() => {
@@ -155,8 +155,7 @@ const SignUpPage = () => {
           <Grid container>
             <Grid item md={12}>
               <Typography variant='body2'>
-                To subscribe to this website, please enter your email address here. We
-                will send updates occasionally.
+                Для регістрації нового користувача, заповніть будь-ласка поля.
               </Typography>
             </Grid>
             <Grid item sm={5}>

@@ -52,12 +52,14 @@ const Cart: React.FC = () => {
         : (<Stack>
           {userShoppingCart.productAmount.map(item => (
             <Box key={item.productId} sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '24px 32px', borderRadius: '12px' }}>
-              <Box>
+              <Box sx={{ marginRight: '20px', }}>
                 <img src={item.imageUrl} alt='Product picture' style={{ width: '120px', height: '120px' }} />
               </Box>
-              <Typography variant="body1">
-                {item.name}
-              </Typography>
+              <Box>
+                <Typography variant="body1" sx={{ padding: '20px' }}>
+                  {item.name}
+                </Typography>
+              </Box>
               <Box sx={{ marginRight: '32px' }}>
                 <CartButton
                   itemId={item.productId}

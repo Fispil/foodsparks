@@ -47,7 +47,7 @@ const OrderPage: React.FC = () => {
 
     await makeUserOrder(userOrder);
 
-   navigate('/successfulorder');
+    navigate('/successfulorder');
   };
 
   const setDefaultValues = () => {
@@ -129,17 +129,25 @@ const OrderPage: React.FC = () => {
             <Typography>Імя</Typography>
             <TextField
               placeholder="Введіть ваше ім'я"
-              fullWidth
-              value={userInformation.firstName}
+              value={userOrder.firstName}
+              onChange={(e) => handleUserOrderChange('firstName')(e.target.value)}
             />
           </Stack>
           <Stack spacing={2}>
             <Typography>Фамілія</Typography>
-            <TextField placeholder="Введіть вашу прізвище" value={userInformation.lastName}/>
+            <TextField
+              placeholder="Введіть прізвище"
+              value={userOrder.lastName}
+              onChange={(e) => handleUserOrderChange('lastName')(e.target.value)}
+            />
           </Stack>
           <Stack spacing={2}>
             <Typography>Мобільний номер</Typography>
-            <TextField placeholder="Введіть мобільний телефон" value={userOrder.phone} onChange={(e) => handleUserOrderChange('phone')(e.target.value)} />
+            <TextField
+              placeholder="Введіть мобільний телефон"
+              value={userOrder.phone}
+              onChange={(e) => handleUserOrderChange('phone')(e.target.value)}
+            />
           </Stack>
         </Box>
 
@@ -152,7 +160,7 @@ const OrderPage: React.FC = () => {
             <Stack gap={1}>
               <Typography variant="body1">Місто</Typography>
               <div>
-                <FormControl sx={{ m: 1, minWidth: '100%' }}>
+                <FormControl sx={{ minWidth: '100%' }}>
                   <InputLabel id="demo-simple-select-autowidth-label">Місто</InputLabel>
                   <Select
                     labelId="demo-simple-select-autowidth-label"

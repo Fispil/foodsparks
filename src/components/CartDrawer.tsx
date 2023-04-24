@@ -121,16 +121,16 @@ const CartElement: React.FC = () => {
               (<Typography variant="body1" sx={{ marginBottom: '72px' }}>Ваш кошик пустий</Typography>)
               : (<Stack>
                 {userShoppingCart.productAmount.map(item => (
-                  <Box key={item.productId} sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Box key={item.productId} sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                     <Grid container>
                       <Grid item sm={2}>
                         <Box sx={{ marginRight: '16px' }}>
-                        <img src={item.imageUrl} alt='Product picture' style={{ width: '120px', height: '120px', objectFit: 'contain' }} />
+                          <img src={item.imageUrl} alt='Product picture' style={{ width: '120px', height: '120px', objectFit: 'contain' }} />
                         </Box>
                       </Grid>
                       <Grid item sm={10}>
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                          <Typography variant="body1" sx={{ marginBottom: '24px' }}>
+                          <Typography variant="body1" sx={{ padding: '20px' }}>
                             {item.name}
                           </Typography>
                           <Box sx={{ display: 'flex' }} >
