@@ -18,6 +18,7 @@ const AppBarSearch = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isLoggined = useAppSelector(state => state.user.isLoggined);
   const userAddressInformation = useAppSelector(state => state.user.userAddress);
+  const userAddress = [userAddressInformation.town, userAddressInformation.street, userAddressInformation.build, userAddressInformation.apartment];
 
   const isMenuOpen = Boolean(anchorEl);
 
@@ -72,7 +73,10 @@ const AppBarSearch = () => {
               <Tooltip
                 title={
                   <Typography variant='body1' sx={{ padding: '20px' }}>
-                   {isLoggined ? `${userAddressInformation.town}` : 'Адреса не вказана'}
+                    {isLoggined ?
+                      `${userAddress.length > 0 ? userAddress.join(', ') : 'Адреса не вказана'}`
+                      : 'Адреса не вказана'
+                    }
                   </Typography>
                 }
               >

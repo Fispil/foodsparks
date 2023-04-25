@@ -223,7 +223,7 @@ const OrderPage: React.FC = () => {
           <Stack minWidth="48%" gap={1}>
             <Typography variant="body1" sx={{ marginBottom: '8px' }}>Виберіть зручну для вас дату доставки</Typography>
             <div>
-              <FormControl sx={{ m: 1, minWidth: '100%' }}>
+              <FormControl sx={{ minWidth: '100%' }} className="MuiFormControl-root css-3cjm13-MuiFormControl-root" style={{ margin: 0 }}>
                 <InputLabel id="demo-simple-select-autowidth-label">Дата доставки</InputLabel>
                 <Select
                   labelId="Дата доставки"
@@ -244,7 +244,7 @@ const OrderPage: React.FC = () => {
           <Stack minWidth="48%" gap={1}>
             <Typography variant="body1" sx={{ marginBottom: '8px' }}>Виберіть зручний для вас час доставки</Typography>
             <div>
-              <FormControl sx={{ m: 1, minWidth: '100%' }}>
+              <FormControl sx={{minWidth: '100%' }} className="MuiFormControl-root css-3cjm13-MuiFormControl-root" style={{ margin: 0 }}>
                 <InputLabel id="demo-simple-select-autowidth-label">Дата доставки</InputLabel>
                 <Select
                   labelId="Дата доставки"

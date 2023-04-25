@@ -177,7 +177,7 @@ const SignUpPage = () => {
                 margin="dense"
                 id="firstName"
                 name='firstName'
-                label="Name"
+                label="Ім'я"
                 type="input"
                 required
                 fullWidth
@@ -194,7 +194,7 @@ const SignUpPage = () => {
                 margin="dense"
                 id="lastName"
                 name='lastName'
-                label="Last Name"
+                label="Прізвище"
                 type="input"
                 variant="outlined"
                 required
@@ -210,7 +210,7 @@ const SignUpPage = () => {
                 autoFocus
                 margin="dense"
                 id="email"
-                label="Email Address"
+                label="Почтова скринька"
                 name='email'
                 type="email"
                 variant="outlined"
@@ -228,7 +228,7 @@ const SignUpPage = () => {
                 autoFocus
                 margin="dense"
                 id="password"
-                label="Password"
+                label="Пароль"
                 name='password'
                 type="password"
                 variant="outlined"
@@ -247,7 +247,7 @@ const SignUpPage = () => {
                 autoFocus
                 margin="dense"
                 id="confirmPassword"
-                label="Confirm password"
+                label="Пітвердіть пароль"
                 name='confirmPassword'
                 type="password"
                 variant="outlined"
@@ -259,12 +259,12 @@ const SignUpPage = () => {
             </Grid>
           </Grid>
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2, textTransform: 'none', padding: '16px 24px' }}>
-            <Typography variant='body1'>Sign Up</Typography>
+            <Typography variant='body1'>Зареєструватися</Typography>
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link to="/" style={{ textDecoration: 'none' }}>
-                <Typography variant='body2' sx={{ color: '#CB3C2E', textDecoration: 'none' }}>Already have an account? Sign in</Typography>
+              <Link to="/?opensignin=true" style={{ textDecoration: 'none' }}>
+                <Typography variant='body2' sx={{ color: '#CB3C2E', textDecoration: 'none' }}>Маєте акаунт? Ввійдіть в аккаунт</Typography>
               </Link>
             </Grid>
           </Grid>

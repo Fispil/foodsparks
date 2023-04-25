@@ -1,8 +1,23 @@
 import { Button, Container, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Breadcrumb from '../components/BreadCrums';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../util/hooks';
+import { actions as userActions } from '../features/userReduser';
+import { getitemsCart } from '../api/fetchCart';
 
 const SuccessfulOrderPage: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  const loadUserCart = async () => {
+    const userCartFromServer = await getitemsCart();
+
+    dispatch(userActions.setShoppingCart(userCartFromServer));
+  }
+
+  useEffect(() => {
+    loadUserCart();
+  }, [])
   return (
     <Container>
       <Breadcrumb />

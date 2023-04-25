@@ -89,7 +89,7 @@ const AccountMenu = () => {
         <MenuItem onClick={handleClose}>
           <Avatar />
           <Link to="/profile" style={{ textDecoration: 'none' }}>
-            <Typography variant='body1'>Profile</Typography>
+            <Typography variant='body1'>Профіль</Typography>
           </Link>
         </MenuItem>
         <Divider />
@@ -97,13 +97,13 @@ const AccountMenu = () => {
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
-          <Typography variant='body1'>Settings</Typography>
+          <Typography variant='body1'>Настройки</Typography>
         </MenuItem>
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          <Typography variant='body1'>Logout</Typography>
+          <Typography variant='body1'>Вийти</Typography>
         </MenuItem>
       </Menu>
     </>

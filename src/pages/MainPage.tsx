@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Box, Button, Container, Divider, Grid, TextField, Theme } from '@mui/material';
+import { Box, Button, Container, Divider } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import { getRecipes } from '../api/fetchRecepies';
@@ -16,7 +16,6 @@ import CategoryIcon from '../assets/catergoriesicon.svg';
 import { informationByUser, adressByUser } from '../api/fetchUser';
 import { useAppDispatch, useAppSelector } from '../util/hooks';
 import { actions as userActions } from '../features/userReduser';
-import ScrollToTop from '../components/ScrollToTop';
 
 const useStyles = makeStyles(({
   flexContainer: {
@@ -49,8 +48,6 @@ const MainPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useAppDispatch();
-  const userInformation = useAppSelector((state) => state.user.userInformation);
-  const userAddress = useAppSelector((state) => state.user.userAddress);
   const userIsLoggined = useAppSelector((state) => state.user.isLoggined);
 
   const loadUserFromServer = async () => {
@@ -174,8 +171,7 @@ const MainPage: React.FC = () => {
           <Divider sx={{ backgroundColor: 'black', marginBottom: '64px' }} />
           <Promo />
         </Container >
-      </Box >
-      <ScrollToTop />
+      </Box>
     </>
   );
 }
